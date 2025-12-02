@@ -1,5 +1,0 @@
-﻿{
-  "DataConnectionString": "Data Source=MANASH-PC\\MANASH;Initial Catalog=Econo_49;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=C1tytech",
-  "DataProvider": "sqlserver",
-  "RawDataSettings": {}
-}
