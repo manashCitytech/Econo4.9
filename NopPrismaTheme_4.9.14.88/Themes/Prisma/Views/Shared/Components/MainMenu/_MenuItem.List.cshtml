@@ -1,0 +1,45 @@
+@model MenuItemModel
+
+@using Nop.Web.Models.Menus
+
+@{
+    var level = ViewData["Level"] != null ? (int)ViewData["Level"] : 0;
+    var hidden = ViewData["Hidden"] != null && (bool)ViewData["Hidden"];
+    var hasSubCategories = Model.ChildrenItems != null && Model.ChildrenItems.Any() ? "with-subcategories" : String.Empty;
+    var hiddenClass = hidden ? "hidden-category-for-js" : "";
+}
+
+<li class="@hiddenClass">
+    @if (!string.IsNullOrEmpty(Model.Url))
+    {
+        <a class="@hasSubCategories" href="@Model.Url">@Model.Title</a>
+    }
+    else
+    {
+        <a class="@hasSubCategories">@Model.Title</a>
+    }
+    
+    @if (Model.ChildrenItems != null && Model.ChildrenItems.Any())
+    {
+        <div class="plus-button"></div>
+        <div class="sublist-wrap">
+            <div class="navigation-wrapper">
+                <div class="close-menu">
+                    <span>@T("SevenSpikes.Themes.Common.CloseMenu")</span>
+                </div>
+                <div class="back-button">
+                    <span>@T("SevenSpikes.Themes.Common.BackSublist")</span>
+                </div>
+            </div>
+            <ul class="sublist">
+                @foreach (var childItem in Model.ChildrenItems)
+                {
+                    ViewData["Level"] = level + 1;
+                    ViewData["Hidden"] = hidden;
+                    @await Html.PartialAsync("_MenuItem.List.cshtml", childItem)
+                }
+            </ul>
+        </div>
+    }
+</li>
+
