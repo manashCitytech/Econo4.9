@@ -1,5 +1,5 @@
 ﻿{
-  "DataConnectionString": "Data Source=NEWTFS-SERVER\\MSSQLSERVER2019;Initial Catalog=Econo_43;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=C1tytech",  
+  "DataConnectionString": "Data Source=MANASH-PC\\MANASH;Initial Catalog=Econo_49;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=C1tytech",
   "DataProvider": "sqlserver",
   "RawDataSettings": {}
 }
