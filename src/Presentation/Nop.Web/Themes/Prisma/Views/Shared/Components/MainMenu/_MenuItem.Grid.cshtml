@@ -1,0 +1,40 @@
+@model MenuItemModel
+
+@using Nop.Web.Models.Menus
+
+@{
+    var hasSubCategories = Model.ChildrenItems != null && Model.ChildrenItems.Any() ? "with-subcategories" : String.Empty;
+}
+
+<li>
+    @if (!string.IsNullOrEmpty(Model.Url))
+    {
+        <a class="@hasSubCategories" href="@Model.Url">@Model.Title</a>
+    }
+    else
+    {
+        <a class="@hasSubCategories">@Model.Title</a>
+    }
+    
+    @if (Model.ChildrenItems != null && Model.ChildrenItems.Any())
+    {
+        <div class="plus-button"></div>
+        <div class="sublist-wrap">
+            <div class="navigation-wrapper">
+                <div class="close-menu">
+                    <span>@T("SevenSpikes.Themes.Common.CloseMenu")</span>
+                </div>
+                <div class="back-button">
+                    <span>@T("SevenSpikes.Themes.Common.BackSublist")</span>
+                </div>
+            </div>
+            <ul class="sublist">
+                @foreach (var childItem in Model.ChildrenItems)
+                {
+                    @await Html.PartialAsync("_MenuItem.List.cshtml", childItem)
+                }
+            </ul>
+        </div>
+    }
+</li>
+
