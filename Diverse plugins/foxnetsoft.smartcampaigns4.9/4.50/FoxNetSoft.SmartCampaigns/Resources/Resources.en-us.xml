@@ -1,0 +1,618 @@
+﻿<Language Name="English" IsRightToLeft="false">
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.showDebugInfo">
+    <Value>Enable Debugging</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.showDebugInfo.Hint">
+    <Value>Write debugging information into file. In ~/App_Data/ folder.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.ProductPictureSize">
+    <Value>Product thumbnail image size (in e-mail messages)</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.ProductPictureSize.Hint">
+    <Value>The default size (pixels) for product thumbnail images (in e-mail messages).</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.LimitMessagas">
+    <Value>You can set limit for sending messages (XXX messages per YYY minutes) for one smart campaign, but we recommend you to use SMTP server without any limitation. It's better not to have any limits.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.LimitOfMessagas">
+    <Value>Limit XXX messages</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.LimitOfMessagas.Hint">
+    <Value>Set limit XXX messages per YY minutes.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.LimitPerMinutes">
+    <Value>Per YYY minutes</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.LimitPerMinutes.Hint">
+    <Value>Set limit XXX messages per YY minutes.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.SerialNumber">
+    <Value>Serial number</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.SerialNumber.Hint">
+    <Value>Provide the serial number.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.ClearMessageDays">
+    <Value>Clear sent messages</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.ClearMessageDays.Hint">
+    <Value>Clear old sent messages which were sent more than 'xxx' days.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.StoreUrl">
+    <Value>Website address (for registration)</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.StoreUrl.Hint">
+    <Value>Website address (for registration).</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.IsRegisted">
+    <Value>Registered version.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.IsNoRegisted">
+    <Value>Unregistered version is fully operational. There is only one limitation – only 10 messages are sent within one campaign.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.IsExpired">
+    <Value>Your license has expired, you should renew the license with a 50% discount.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.ClearLogFile">
+    <Value>Clear the log-file</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.GetLogFile">
+    <Value>Download the log-file</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.List.Manage">
+    <Value>Manage Smart Campaigns</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SearchSmartCampaignName">
+    <Value>Name</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SearchSmartCampaignName.Hint">
+    <Value>Name</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.AddNew">
+    <Value>Add a new Smart Campaign</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.BackToList">
+    <Value>back to Smart Campaign list</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Edit">
+    <Value>Edit Smart Campaign</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Deleted">
+    <Value>The smart campaign has been deleted successfully.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Added">
+    <Value>The new smart campaign has been added successfully.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Updated">
+    <Value>The smart campaign has been updated successfully.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.TestEmailSentToCustomers">
+    <Value>Email has been successfully sent.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.MassEmailSentToCustomers">
+    <Value>{0} emails have been successfully queued.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Warning">
+    <Value>Make sure you've tested the smart campaign before sending it out to multiple customers. Save your smart campaign first by clicking "Save" button.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.IsActive">
+    <Value>Is active</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.IsActive.Hint">
+    <Value>Indicating whether the campaign is active and nopcommerce will send e-mails in automatic mode using nopcommerce task.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.IsActive.Comment">
+    <Value>Don't forget to activate it for running in automatic mode (nopcommerce task)! This parameter will be ignored if run this campaign manually.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.Store">
+    <Value>Store</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.Store.Hint">
+    <Value>Select store for this campaign.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.SmartCampaignType">
+    <Value>Type</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.SmartCampaignType.Hint">
+    <Value>Select the type of advertising campaign.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.StartDateTime">
+    <Value>Start date</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.StartDateTime.Hint">
+    <Value>The start date of the order (view order page).</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.EndDateTime">
+    <Value>End date</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.EndDateTime.Hint">
+    <Value>The end date of the order (view order page).</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.DontSendBeforeDate">
+    <Value>Planned date of sending</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.DontSendBeforeDate.Hint">
+    <Value>Enter a specific date and time to send the campaign. Leave empty to send it immediately.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.TypeReport">
+    <Value>Type of report</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.TypeReport.Hint">
+    <Value>Select the type of report.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.OnlySubscriber">
+    <Value>Send only to subscribers</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.OnlySubscriber.Hint">
+    <Value>Send only to users who have subscribed to receive e-mailings from the site.</Value>
+  </LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.SendOneEmail">
+		<Value>One email per campaign</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.SendOneEmail.Hint">
+		<Value>If you enable it the plugin sends ONE email to the customer for this campaign. If the customer purchased several orders he will get ONE email for the first order.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.ForAllProduct">
+    <Value>For all products</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.ForAllProduct.Hint">
+    <Value>For all products. Ignore product filter. Example – To everyone who bought any product in the store.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.ForExistingOrders">
+    <Value>Disable/Enable for OLD orders</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.ForExistingOrders.Hint">
+    <Value>Enabled - the plugin will send the message in current time for old orders / if you disable it - the plugin will create message only for new orders and create messages with delayed send date in future.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.CustomerViewedTypeId">
+    <Value>Customer Viewed Type Id</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.CustomerViewedTypeId.Hint">
+    <Value>Set Customer Viewed Type Id if you want to filter customer interests from plugin 'General Tracking' using this value. 0 - don't filter.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.EmailAccount">
+    <Value>Email Account</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.EmailAccount.Hint">
+    <Value>Email Account for sending email</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.ClearMessageDays">
+    <Value>Clear sent messages</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.ClearMessageDays.Hint">
+    <Value>Clear old sent messages which were sent more than 'xxx' days.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.SubjectToAcl">
+    <Value>Subject to Customer's roles</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.SubjectToAcl.Hint">
+    <Value>Determines whether the Smart Campaign is subject to Customer's roles.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.AclCustomerRoles">
+    <Value>Customer roles</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.AclCustomerRoles.Hint">
+    <Value>Select customer roles for which this campaign will be sent.</Value>
+  </LocaleResource>  
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.bybuyersoftheproduct">
+    <Value>To all buyers</Value>
+  </LocaleResource>
+	<LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.ByNotBuyersOfTheProduct">
+		<Value>To non-buyers</Value>
+	</LocaleResource>
+	<LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.bycustomerhastheproductinthecart">
+    <Value>Using a shopping cart</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.bycustomerhastheproductinthewishlist">
+    <Value>Using wishlist</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.bycustomerrecentlyviewedproducts">
+    <Value>Potential customers (using General Tracking)</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.ByAllCustomers">
+    <Value>To all customers</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.ByAllNewsSubscribers">
+    <Value>To all news subscribers</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.AfterOrderPaid">
+    <Value>Automatic e-mails to buyers after the purchase (after the order has been paid)</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.AdminAfterOrderPaid">
+    <Value>Admin reports. Notify the admin about the purchase of the selected product (after the order has been paid)</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.AfterOrderPlaced">
+    <Value>Automatic e-mails after order was placed</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.NotPaidOrder">
+    <Value>Automatic e-mails for not paid orders</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.AfterShipmentDelivered">
+    <Value>Automatic e-mails after shipment was delivered</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.AfterOrderCompletion">
+    <Value>Automatic e-mails after order completion</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.AfterOrderDelivered">
+    <Value>Automatic e-mails after order was delivered</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.AbandonedCarts">
+    <Value>Automatic e-mails 'Abandoned Carts'</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.WishlistReminder">
+    <Value>Automatic e-mails 'Wishlist Reminder'</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.BirthdayCongratulation">
+    <Value>Birthday Congratulation</Value>
+  </LocaleResource>
+	<LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.AfterCustomerRegistration">
+		<Value>Automatic e-mails after customer registration</Value>
+	</LocaleResource>
+	<LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.smartcampaigntype.ExpiringRewardPoints">
+		<Value>Expiring reward points</Value>
+	</LocaleResource>
+	<LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.intervaltypeadjustment.minutes">
+    <Value>Minutes</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.intervaltypeadjustment.hours">
+    <Value>Hours</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.foxnetsoft.plugin.misc.smartcampaigns.domain.intervaltypeadjustment.days">
+    <Value>Days</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Products.SaveBeforeEdit">
+    <Value>You need to save the SmartCampaign.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.SaveBeforeEdit">
+    <Value>You need to save the SmartCampaign.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.SaveBeforeEdit">
+    <Value>You need to save the SmartCampaign.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.SaveBeforeEdit">
+    <Value>You need to save the SmartCampaign.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Products.AddNew">
+    <Value>Add a new product</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Info">
+    <Value>Main</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Template">
+    <Value>Template</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Products">
+    <Value>Products</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Requirements">
+    <Value>Requirements</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Messages">
+    <Value>Messages</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Reports">
+    <Value>Reports</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Tools">
+    <Value>Tools</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Acl">
+    <Value>Customer roles</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Unsubscriber.Fields.Email">
+    <Value>Email</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Unsubscriber.Fields.Email.Hint">
+    <Value>Email of the unsubscriber.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Unsubscriber.Fields.Required">
+    <Value>Email is required.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Unsubscriber.Fields.Store">
+    <Value>Store</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Unsubscriber.Fields.Store.Hint">
+    <Value>Store.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.Customer">
+    <Value>Customer</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.CreatedOn">
+    <Value>Created</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.DontSendBeforeDate">
+    <Value>Planned date of sending</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.Order">
+    <Value>Order</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.OrderCaption">
+    <Value>Order #</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.Message">
+    <Value>Message</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.MessageCaption">
+    <Value>Message #</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.BlackList">
+    <Value>BlackList for Smart Campaigns</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.BlackList.ResultDeactivated">
+    <Value>Your subscription has been deactivated.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Title">
+    <Value>Newsletter</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.SendViaInterval">
+    <Value>Send via</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.SendViaInterval.Hint">
+    <Value>Send via xxx minutes (hours, days) after buying (last opening product page, etc.).</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.SendViaInterval.Error">
+    <Value>You can't set the time period less than 15 minutes.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.DaysBeforeBirthday">
+    <Value>The number of days until</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.DaysBeforeBirthday.Hint">
+    <Value>Birthday and expiring reward points campaigns. Birthday - set the number of days until the client's birthday. Expiring reward points - set the number of days until the reward point expiring (+1 day).</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.GetEmails">
+    <Value>Export emails into CSV file</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.FiltersConditionBetweenProducts">
+    <Value>Filters condition between products</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.FiltersConditionBetweenProducts.Hint">
+    <Value>Filters condition between products (OR/AND).</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Products.AddNew.Title2">
+    <Value>Add product attributes for the product '{0}' for smartCampaign {1}</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Products.AddProductAttributes">
+    <Value>Add product attributes</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Products.EditProductAttributes">
+    <Value>Edit product attributes</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Products.BackToList">
+    <Value>Back to Smart Campaign page</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Button.Clear">
+    <Value>Clear</Value>
+  </LocaleResource>
+  <LocaleResource Name="FoxNetSoft.Plugin.Misc.SmartCampaigns.WriteReview.Caption">
+    <Value>Please write a review about product(s).</Value>
+  </LocaleResource>
+  <LocaleResource Name="FoxNetSoft.Plugin.Misc.SmartCampaigns.WriteReview.Link">
+    <Value>Write a review</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Menu.Brand">
+    <Value>FoxNetSoft</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Menu.Name">
+    <Value>Smart Campaigns</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Menu.List">
+    <Value>List</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Menu.Configure">
+    <Value>Configure</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.AddNew">
+    <Value>Add a new requirement</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.PaymentRequirementType">
+    <Value>Requirement type</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.PaymentRequirementType.Hint">
+    <Value>You can choose one of the following requirement types, or add a requirement group to use several requirement types simultaneously.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.PaymentRequirementType.Select">
+    <Value>Select requirement type</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.FailedToSave">
+    <Value>Failed to save requirement</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.GroupIsEmpty">
+    <Value>The group is empty</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.GroupName">
+    <Value>Group name</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.GroupName.Hint">
+    <Value>Specify name of the requirement group (e.g. "Permitted customer roles").</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.InteractionTypeInGroup">
+    <Value>Interaction type in this group is</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.RequirementGroup">
+    <Value>Add to group</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.RequirementGroup.Hint">
+    <Value>Choose the group you want the requirement group you’re creating to be assigned to</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.RequirementGroup.Title">
+    <Value>Group</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Requirement.Title">
+    <Value>Requirement</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.RemoveRequirement">
+    <Value>Remove requirement</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.RemoveGroup">
+    <Value>Remove group</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Saved">
+    <Value>The requirement saved</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Property">
+    <Value>Property</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Property.Hint">
+    <Value>Choose the property from the list.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.ForAllCart">
+    <Value>Check for all products from the cart (order, list)</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.ForAllCart.Hint">
+    <Value>You can configure this rule for 'Check for all products from the cart (order, list)' or plugin will try to find one validated product from the cart (order, list).</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Operator">
+    <Value>Operator</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Operator.Hint">
+    <Value>Choose the operator from the list.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Value">
+    <Value>Value</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Value.Hint">
+    <Value>Set the value.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Description">
+    <Value><![CDATA[Set up requirements to a created payment rule if you want to limit it to certain user categories depending on a shipment address or the amount spent, etc. You can use single requirement type, or group several types and apply them simultaneously.<br>Requirement group is a useful feature for creating payment rule requirement templates. You can create a requirement group just once and then use it every time you want this limitation to be applied. You can include one requirement group into another one if needed.]]></Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.RequirementCategory.DefaultRequirementGroup">
+    <Value>Default requirement group</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.RequirementCategory.AddGroup">
+    <Value>Add requirement group</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.RequirementCategory.BillingAddress">
+    <Value>Billing address</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.RequirementCategory.ShippingAddress">
+    <Value>Shipping address</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.RequirementCategory.CheckoutAttributes">
+    <Value>Checkout attributes</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.RequirementCategory.OrderAmounts">
+    <Value>Order amounts and Reward points</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.RequirementCategory.SpecificationAttributes">
+    <Value>Specification attributes</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.RequirementCategory.ShippingMethods">
+    <Value>Shipping methods</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.RequirementCategory.CustomerAttributes">
+    <Value>Customer attributes</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.RequirementCategory.Product">
+    <Value>Product</Value>
+  </LocaleResource>
+	<LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.RequirementCategory.PaymentMethods">
+		<Value>Payment methods</Value>
+	</LocaleResource>
+	<LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.ProductOperators.Category">
+    <Value>Category</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.ProductOperators.Manufacturer">
+    <Value>Manufacturer</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.ProductOperators.Vendor">
+    <Value>Vendor</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.ShippingAddressOperators.ZipCode">
+    <Value>Zip code</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.ShippingAddressOperators.CountryIsoCode">
+    <Value>Country ISO code</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.ShippingAddressOperators.CountryName">
+    <Value>Country name</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.ShippingAddressOperators.ProvinceName">
+    <Value>Province name</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.ShippingAddressOperators.ProvinceAbbreviation">
+    <Value>Province abbreviation</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.OrderTotalOperators.OrderTotal">
+    <Value>Order total</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.OrderTotalOperators.OrderSubTotal">
+    <Value>Order subtotal</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.OrderTotalOperators.AllOrderTotal">
+    <Value>All order total</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.OrderTotalOperators.NumberOfOrders">
+    <Value>Number of orders per customer</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.OrderTotalOperators.PointsBalance">
+    <Value>Points Balance</Value>
+  </LocaleResource>
+  <LocaleResource Name="Enums.FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain.OrderTotalOperators.CustomValues">
+    <Value>Custom Values</Value>
+  </LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Button.ExportEmails">
+    <Value>Export to CSV</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Menu.Report">
+    <Value>Report</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Menu.Unsubscriber">
+    <Value>Unsubscribers</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.List.Manage">
+    <Value>Reports</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.List.CreatedOnFrom">
+    <Value>Created from</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.List.CreatedOnFrom.Hint">
+    <Value>The creation from date for the search.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.List.CreatedOnTo">
+    <Value>Created to</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.List.CreatedOnTo.Hint">
+    <Value>The creation to date for the search.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.List.ReportLevel">
+    <Value>Error level</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.List.ReportLevel.Hint">
+    <Value>Select a error level.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.Fields.CreatedOn">
+    <Value>Created on</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.Fields.FullMessage">
+    <Value>Details</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.Fields.SmartCampaign">
+    <Value>Smart Campaign</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Report.Fields.ReportLevel">
+    <Value>Report level</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaign.Fields.Report">
+    <Value>Report</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaign.Fields.Report.Hint">
+    <Value>The report of running of this task.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaign.Report.WithoutReport">
+    <Value>Without report (trigger email sending)</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Unsubscriber.List">
+    <Value>The list of unsubscribers</Value>
+  </LocaleResource>
+  <LocaleResource Name="FoxNetSoft.Plugin.Misc.SmartCampaigns.Unsubscriber.ResultDeactivated">
+    <Value>Your email was added in our list of unsubscribers.</Value>
+  </LocaleResource>
+  <LocaleResource Name="FoxNetSoft.Plugin.Misc.SmartCampaigns.Unsubscriber.Title">
+    <Value>The list of unsubscribers.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Alert.FailedGetDiscountRequirements">
+	<Value>Failed to load requirements info. Please refresh the page.</Value>
+  </LocaleResource>
+</Language>

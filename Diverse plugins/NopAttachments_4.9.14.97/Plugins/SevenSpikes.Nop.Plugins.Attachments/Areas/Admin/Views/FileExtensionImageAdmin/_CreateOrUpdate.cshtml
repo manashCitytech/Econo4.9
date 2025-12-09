@@ -1,0 +1,18 @@
+@model FileExtensionImageModel
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+
+<section class="content">
+    <div class="form-horizontal">
+        @await Html.TrialMessageAsync(Model.IsTrialVersion, Plugin.Name, Plugin.UrlInStore)
+        <div class="cards-group">
+            <div class="card card-default">
+                <div class="card-body">
+                    @{ await Html.RenderPartialAsync(AdminViews.FileExtensionImageSettings, @Model); }
+                </div>
+            </div>
+            @{ await Html.RenderPartialAsync(AdminViews.StoreSettings, @Model); } 
+        </div>
+    </div>
+</section>

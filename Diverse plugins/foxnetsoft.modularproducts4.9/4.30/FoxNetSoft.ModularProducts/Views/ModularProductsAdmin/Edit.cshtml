@@ -1,0 +1,109 @@
+﻿@model FoxNetSoft.Plugin.Misc.ModularProducts.Models.Admin.ModularProductVariantSearchModel
+@using FoxNetSoft.Plugin.Misc.ModularProducts.Models.Admin
+@using Nop.Core.Domain.Catalog
+@using Nop.Web.Framework.UI
+@{
+    Layout = "_AdminLayout";
+
+    //page title
+    ViewBag.Title = T("Admin.FoxNetSoft.Plugin.Misc.ModularProducts.EditProductDetails").Text;
+
+    Html.SetActiveMenuItemSystemName("FoxNetSoft.ModularProducts.List");
+}
+<nop-antiforgery-token />
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        @T("Admin.FoxNetSoft.Plugin.Misc.ModularProducts.EditProductDetails") - @Model.Name
+        <small>
+            <i class="fa fa-arrow-circle-left"></i>
+            <a asp-action="List">@T("Admin.Catalog.Products.BackToList")</a>
+        </small>
+    </h1>
+</div>
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            @await Html.PartialAsync("Table", new DataTablesModel
+       {
+           Name = "modularproduct-grid",
+           UrlRead = new DataUrl("ModularProductList", "ModularProductsAdmin", new RouteValueDictionary { [nameof(Model.ProductId)] = Model.ProductId }),
+           UrlUpdate = new DataUrl("ModularProductUpdate", "ModularProductsAdmin", new RouteValueDictionary { [nameof(Model.ProductId)] = Model.ProductId }),
+           Length = Model.PageSize,
+           LengthMenu = Model.AvailablePageSizes,
+           ColumnCollection = new List<ColumnProperty>
+                {
+                    new ColumnProperty(nameof(ModularProductVariantModel.Published))
+                    {
+                        Title = T("Admin.Catalog.Products.Fields.Published").Text,
+                        Width = "70",
+                        ClassName = NopColumnClassDefaults.CenterAll,
+                        Render = new RenderBoolean()
+                    },
+                    new ColumnProperty(nameof(ModularProductVariantModel.Name))
+                    {
+                        Title = T("Admin.Catalog.Products.Fields.Name").Text,
+                        ClassName = NopColumnClassDefaults.Button,
+                        Render = new RenderCustom("renderColumnNameModularProductVariantName")
+                    },
+                    new ColumnProperty(nameof(ModularProductVariantModel.Sku))
+                    {
+                        Title = T("Admin.Catalog.Products.Fields.Sku").Text,
+                        Width = "80"
+                    },
+                    new ColumnProperty(nameof(ModularProductVariantModel.Price))
+                    {
+                        Title = T("Admin.Catalog.Products.Fields.Price").Text,
+                        Width = "70"
+                    },
+                    new ColumnProperty(nameof(ModularProductVariantModel.StockQuantity))
+                    {
+                        Title = T("Admin.Catalog.Products.Fields.StockQuantity").Text,
+                        Width = "70",
+                        Render = new RenderCustom("renderColumnNameModularProductVariantStockQuantity")
+                    },
+                    new ColumnProperty(nameof(ModularProductVariantModel.OrderDefaultQuantity))
+                    {
+                        Title = T("Admin.FoxNetSoft.Plugin.Misc.ModularProducts.OrderDefaultQuantity").Text,
+                        Width = "80",
+                        Editable = true,
+                        EditType = EditType.Number
+                    },
+                    new ColumnProperty(nameof(ModularProductVariantModel.MinQuantity))
+                    {
+                        Title = T("Admin.FoxNetSoft.Plugin.Misc.ModularProducts.MinQuantity").Text,
+                        Width = "80",
+                        Editable = true,
+                        EditType = EditType.Number
+                    },
+                    new ColumnProperty(nameof(ModularProductVariantModel.MaxQuantity))
+                    {
+                        Title = T("Admin.FoxNetSoft.Plugin.Misc.ModularProducts.MaxQuantity").Text,
+                        Width = "80",
+                        Editable = true,
+                        EditType = EditType.Number
+                    },
+                new ColumnProperty(nameof(ModularProductVariantModel.Id))
+                {
+                    Title = T("Admin.Common.Edit").Text,
+                    Width = "100",
+                    ClassName =  NopColumnClassDefaults.Button,
+                    Render = new RenderButtonsInlineEdit()
+                }
+                }
+       })
+
+            <script>
+                function renderColumnNameModularProductVariantName(data, type, row, meta) {
+                    return '<a href="@Url.Content("~/Admin/Product/Edit/")'+ row.ProductVariantId + '">' + row.Name +'</a>';
+                }
+                function renderColumnNameModularProductVariantStockQuantity(data, type, row, meta) {
+                    var htmlTag = '';
+                    if (row.ManageInventoryMethodId == @((int)ManageInventoryMethod.ManageStock)) {
+                        htmlTag = '<span>' + row.StockQuantity + '</span>';
+                    }
+                    return htmlTag;
+                }
+            </script>
+        </div>
+    </div>
+</div>

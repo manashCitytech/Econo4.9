@@ -1,0 +1,46 @@
+﻿@model IList<ProductTableModel>
+@using FoxNetSoft.Plugin.Misc.SmartCampaigns.Models
+@using Nop.Core.Domain.Messages
+@inject MessageTemplatesSettings messageTemplatesSettings
+<p>@T("FoxNetSoft.Plugin.Misc.SmartCampaigns.WriteReview.Caption")</p>
+<table border="0" style="width:100%;">
+@foreach (var item in Model)
+{
+    <tr style="background-color: @messageTemplatesSettings.Color2 ;text-align: center;">
+        <td style="padding: 0.6em 0.4em;text-align: left;">
+            <div class="picture">
+                <a href="@item.ProductSeName">
+                    <img src="@item.PictureUrl" />
+                </a>
+            </div>
+        </td>
+        <td style="padding: 0.6em 0.4em;text-align: left;">
+            <div class="name">
+                @item.ProductName <a href="@item.ReviewUrl">@T("FoxNetSoft.Plugin.Misc.SmartCampaigns.WriteReview.Link")</a>
+                @if (!string.IsNullOrWhiteSpace(item.AttributeInfo))
+                {
+                    @Html.Raw(item.AttributeInfo)
+                }
+            </div>
+            @if (item.ShowProductReviewsPerStore)
+            {
+                var ratingPercent = 0;
+                if (item.TotalReviews != 0)
+                {
+                    ratingPercent = ((item.RatingSum * 100) / item.TotalReviews) / 5;
+                }
+                <br />
+                <div class="product-rating-box" title="@string.Format(T("Reviews.TotalReviews").Text, item.TotalReviews)">
+                    <div class="rating">
+                        <div style="width: @(ratingPercent)%">
+                        </div>
+                    </div>
+                </div>
+            }
+        </td>
+        <td style="padding: 0.6em 0.4em;text-align: right;">
+            @item.Price
+        </td>
+    </tr>
+}
+</table>

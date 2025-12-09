@@ -1,0 +1,167 @@
+﻿@using Nop.Services.Common;
+
+@model int
+
+@inject IWorkContext workContext
+@inject IGenericAttributeService genericAttributeService
+@inject AdminAreaSettings adminAreaSettings
+
+@{
+    var defaultGridPageSize = adminAreaSettings.DefaultGridPageSize;
+    var gridPageSizes = adminAreaSettings.GridPageSizes;
+
+    var productId = Model;
+
+    const string attachmentsBlockAttributeName = "ProductPage.SS.Attachments";
+    var hideAttachmentsBlock = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), attachmentsBlockAttributeName, defaultValue: true);
+}
+
+<nop-card asp-name="product-attachments" asp-icon="fa fa-link" asp-title="@T("SevenSpikes.Plugins.NopAttachments.Admin.NopProductsTabTitle")" asp-hide-block-attribute-name="@attachmentsBlockAttributeName" asp-hide="@hideAttachmentsBlock" asp-advanced="false">
+    <div class="card-body">
+        @if (productId > 0)
+        {
+            <div class="content-header clearfix">
+                <div class="float-left">
+                    <input type="button" id="btnAddExistingProductAttachment" name="btnAddExistingProductAttachment"
+                            value="@T("SevenSpikes.Plugins.NopAttachments.Admin.NopProductsTabTitle.AddExistingAttachment")"
+                            onclick="javascript: OpenWindow('@Url.Action("Popup_AddExistingAttachments_Popup", "NopProductAdmin", new { productId = productId, btnId = "btnRefreshGrid" })', 800, 700, true); return false;"
+                            class="btn bg-primary" />
+
+                    <input type="button" id="btnAddNewProductAttachment" name="btnAddNewProductAttachment"
+                            value="@T("SevenSpikes.Plugins.NopAttachments.Admin.NopProductsTabTitle.AddNewAttachment")"
+                            onclick="javascript:OpenWindow('@Url.Action("Create", "AttachmentAdmin", new { productId = productId, isPopup = true })', 800, 700, true); return false;"
+                            class="btn bg-primary" />
+                </div>
+            </div>
+
+            <section class="content">
+                <div class="form-horizontal">
+                    <div class="cards-group">
+                        <div class="card card-default">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    @T("SevenSpikes.Plugins.NopAttachments.Admin.NopProductsTabTitle.ProductSpecificAttachments")
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                @{ 
+                                    await Html.RenderPartialAsync("Table", new DataTablesModel
+                                    {
+                                        Name = "product-fileattachments-grid",
+                                        UrlRead = new DataUrl("List", "NopProductAdmin", new RouteValueDictionary { ["productId"] = productId }),
+                                        UrlUpdate = new DataUrl("Update", "NopProductAdmin", new RouteValueDictionary { ["productId"] = productId }),
+                                        UrlDelete = new DataUrl("Delete", "NopProductAdmin", new RouteValueDictionary{ ["productId"] = productId }),
+                                        Length = defaultGridPageSize,
+                                        LengthMenu = gridPageSizes,
+                                        ColumnCollection = new List<ColumnProperty>
+                                        {
+                                            new ColumnProperty(nameof(ProductAttachmentModel.AttachmentName))
+                                            {
+                                                Title = T("SevenSpikes.Plugins.NopAttachments.Admin.Entities.AttachmentCategory.Name").Text,
+                                                Render = new RenderCustom("printAttachmentName")
+                                            },
+                                            new ColumnProperty(nameof(ProductAttachmentModel.DisplayOrder))
+                                            {
+                                                Title = T("SevenSpikes.Plugins.NopAttachments.Admin.Entities.AttachmentCategory.DisplayOrder").Text,
+											    Editable = true,
+											    EditType = EditType.Number
+                                            },
+                                            new ColumnProperty(nameof(ProductAttachmentModel.AttachmentId))
+                                            {
+                                                Render = new RenderButtonsInlineEdit(),
+                                                Width = "100"
+                                            },
+                                            new ColumnProperty(nameof(ProductAttachmentModel.Id))
+                                            {
+                                                Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+                                                Width = "100"
+                                            }
+                                        }
+                                    });
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cards-group">
+                        <div class="card card-default">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    @T("SevenSpikes.Plugins.NopAttachments.Admin.NopProductsTabTitle.SharedAttachments")
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                @{
+                                    await Html.RenderPartialAsync("Table", new DataTablesModel
+                                    {
+                                        Name = "product-shared-fileattachments-grid",
+                                        UrlRead = new DataUrl("SharedAttachmentsList", "NopProductAdmin", new RouteValueDictionary{ ["productId"] = productId }),
+                                        UrlUpdate = new DataUrl("SharedAttachmentsUpdate", "NopProductAdmin", new RouteValueDictionary { ["productId"] = productId }),
+                                        Length = defaultGridPageSize,
+                                        LengthMenu = gridPageSizes,
+                                        ColumnCollection = new List<ColumnProperty>
+                                        {
+                                            new ColumnProperty(nameof(ProductAttachmentModel.AttachmentName))
+                                            {
+                                                Title = T("SevenSpikes.Plugins.NopAttachments.Admin.Entities.AttachmentCategory.Name").Text,
+                                                Render = new RenderCustom("printSharedAttachmentName")
+                                            },
+                                            new ColumnProperty(nameof(ProductAttachmentModel.DisplayOrder))
+                                            {
+                                                Title = T("SevenSpikes.Plugins.NopAttachments.Admin.Entities.AttachmentCategory.DisplayOrder").Text,
+											    Editable = true,
+											    EditType = EditType.Number
+                                            },
+                                            new ColumnProperty(nameof(ProductAttachmentModel.Id))
+                                            {
+                                                Render = new RenderButtonsInlineEdit(),
+                                                Width = "100"
+                                            },
+                                            new ColumnProperty(nameof(ProductAttachmentModel.Id))
+                                            {
+                                                Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+                                                Width = "100"
+                                            }
+                                        }
+                                    });
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <input type="submit" id="btnRefreshGrid" name="btnRefreshGrid" style="display: none" />
+
+            <script type="text/javascript">
+                $('#btnRefreshGrid').on('click', function (e) {                            
+                            
+                    var grid = $("#product-fileattachments-grid").DataTable();
+                    grid.ajax.reload();
+                    var gridShared = $("#product-shared-fileattachments-grid").DataTable();
+                    gridShared.ajax.reload();
+                    e.preventDefault(); //don't reload the page
+
+                    return false;
+                });
+
+                function printAttachmentName(data, type, row, meta) {
+
+                    return '<a class="" href="/Admin/AttachmentAdmin/Edit/' + row.AttachmentId + '">' +
+                        row.AttachmentName +
+                        '</a>';
+                }
+
+                function printSharedAttachmentName(data, type, row, meta) {
+
+                    return '<a class="" href="/Admin/AttachmentAdmin/Edit/' + row.AttachmentId + '">' +
+                        row.AttachmentName +
+                        '</a>';
+                }
+            </script>
+        }
+        else
+        {
+            @T("SevenSpikes.Plugins.NopAttachments.Admin.NopProductsTabTitle.SaveBeforeEdit")
+        }
+    </div>
+</nop-card>

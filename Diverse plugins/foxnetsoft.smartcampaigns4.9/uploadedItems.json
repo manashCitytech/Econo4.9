@@ -1,0 +1,48 @@
+﻿[
+ {
+    "Type": "Plugin",
+    "SupportedVersion": "4.10",
+    "DirectoryPath": "4.10/FoxNetSoft.SmartCampaigns/",
+    "SystemName": "FoxNetSoft.Plugin.Misc.SmartCampaigns"
+  }, {
+    "Type": "Plugin",
+    "SupportedVersion": "4.20",
+    "DirectoryPath": "4.20/FoxNetSoft.SmartCampaigns/",
+    "SystemName": "FoxNetSoft.Plugin.Misc.SmartCampaigns"
+  }, {
+    "Type": "Plugin",
+    "SupportedVersion": "4.30",
+    "DirectoryPath": "4.30/FoxNetSoft.SmartCampaigns/",
+    "SystemName": "FoxNetSoft.Plugin.Misc.SmartCampaigns"
+  }, {
+    "Type": "Plugin",
+    "SupportedVersion": "4.40",
+    "DirectoryPath": "4.40/FoxNetSoft.SmartCampaigns/",
+    "SystemName": "FoxNetSoft.Plugin.Misc.SmartCampaigns"
+  }, {
+    "Type": "Plugin",
+    "SupportedVersion": "4.50",
+    "DirectoryPath": "4.50/FoxNetSoft.SmartCampaigns/",
+    "SystemName": "FoxNetSoft.Plugin.Misc.SmartCampaigns"
+  }, {
+    "Type": "Plugin",
+    "SupportedVersion": "4.60",
+    "DirectoryPath": "4.60/FoxNetSoft.SmartCampaigns/",
+    "SystemName": "FoxNetSoft.Plugin.Misc.SmartCampaigns"
+  }, {
+    "Type": "Plugin",
+    "SupportedVersion": "4.70",
+    "DirectoryPath": "4.70/FoxNetSoft.SmartCampaigns/",
+    "SystemName": "FoxNetSoft.Plugin.Misc.SmartCampaigns"
+  }, {
+    "Type": "Plugin",
+    "SupportedVersion": "4.80",
+    "DirectoryPath": "4.80/FoxNetSoft.SmartCampaigns/",
+    "SystemName": "FoxNetSoft.Plugin.Misc.SmartCampaigns"
+  }, {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "DirectoryPath": "4.90/FoxNetSoft.SmartCampaigns/",
+    "SystemName": "FoxNetSoft.Plugin.Misc.SmartCampaigns"
+  }
+]

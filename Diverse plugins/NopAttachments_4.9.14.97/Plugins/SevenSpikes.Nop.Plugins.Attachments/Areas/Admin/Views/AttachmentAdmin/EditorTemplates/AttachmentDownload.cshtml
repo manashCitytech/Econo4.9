@@ -1,0 +1,184 @@
+﻿@model int
+@{
+    //other variables
+    var randomNumber = CommonHelper.GenerateRandomInteger();
+    var clientId = "download" + randomNumber;
+    var attachmentDownloadService = EngineContext.Current.Resolve<IAttachmentDownloadService>();
+    var download = await attachmentDownloadService.GetAttachmentDownloadByIdAsync(Model);
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#cbUseDownloadURL@(randomNumber)').click(toggleDownloadRecordType@(randomNumber));
+
+        $('#saveDownloadUrl@(randomNumber)').click(function (e) {
+            e.preventDefault();
+
+            var downloadUrl = $("#downloadurl@(randomNumber)").val();
+            $('#saveDownloadUrl@(randomNumber)').attr('disabled', true);
+
+            var headers = {};
+
+            headers['__RequestVerificationToken'] = addAntiForgeryToken();
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("SaveDownloadUrl", "AttachmentDownloadAdmin")",
+                data: { "downloadUrl": downloadUrl },
+                headers: headers,
+                success: function (data) {
+                    $('#pnlDownloadURLResult@(randomNumber)').fadeIn("slow").delay(1000).fadeOut("slow");
+                    $("#@(clientId + "value") input").val(data.downloadId);
+                    $('#saveDownloadUrl@(randomNumber)').attr('disabled', false);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to save download object.');
+                    $('#saveDownloadUrl@(randomNumber)').attr('disabled', false);
+                }
+            });
+        });
+
+        toggleDownloadRecordType@(randomNumber)();
+    });
+
+    function toggleDownloadRecordType@(randomNumber)() {
+        if ($('#cbUseDownloadURL@(randomNumber)').is(':checked')) {
+            $('#pnlDownloadURL@(randomNumber)').show();
+            $('#pnlDownloadFile@(randomNumber)').hide();
+        }
+        else {
+            $('#pnlDownloadURL@(randomNumber)').hide();
+            $('#pnlDownloadFile@(randomNumber)').show();
+        }
+    }
+
+</script>
+
+
+<div id="@(clientId + "value")">
+    @Html.HiddenFor(x => x)
+</div>
+<div>
+    <div class="form-group row">
+        <div class="col-xs-3 col-sm-3 col-md-2">
+            <div class="label-wrapper">
+                <label class="control-label">
+                    @T("Admin.Download.UseDownloadURL")
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-10 ">
+            <input type="checkbox" name="cbUseDownloadURL@(randomNumber)" id="cbUseDownloadURL@(randomNumber)"
+                   @if (download != null && download.UseDownloadUrl) { <text> checked="checked" </text>   } />
+        </div>
+
+    </div>
+    <div class="form-group row" id="pnlDownloadURL@(randomNumber)">
+        <div class="col-xs-3 col-sm-3 col-md-2">
+            <div class="label-wrapper">
+                <label class="control-label">
+                    @T("Admin.Download.DownloadURL")
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-10">
+            <input type="text" name="downloadurl@(randomNumber)" id="downloadurl@(randomNumber)" class="form-control text-box single-line"
+                   @if (download != null && !String.IsNullOrEmpty(download.DownloadUrl)) { <text> value="@(download.DownloadUrl)" </text>    } />
+            <br />
+            <button id="saveDownloadUrl@(randomNumber)" class="btn bg-blue"><i class="fa fa-floppy-o"></i>@T("Admin.Download.SaveDownloadURL")</button>
+            <div id="pnlDownloadURLResult@(randomNumber)" style="display:none;">@T("Admin.Download.DownloadURLSaved")</div>
+        </div>
+
+    </div>
+    <div class="form-group row" id="pnlDownloadFile@(randomNumber)">
+        <div class="col-xs-3 col-sm-3 col-md-2">
+            <div class="label-wrapper">
+                <label class="control-label">
+                    @T("Admin.Download.UploadFile")
+                </label>
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-10">
+            <div class="attachment-upload-box-item">
+                @* register CSS and JS *@
+                <link rel="stylesheet" href="~/lib_npm/filepond/filepond.min.css" />
+                <link rel="stylesheet" href="~/lib_npm/filepond-plugin-get-file/filepond-plugin-get-file.min.css" />
+                <script asp-exclude-from-bundle="true" src="~/lib_npm/filepond/filepond.min.js" asp-location="Footer"></script>
+                <script asp-exclude-from-bundle="true" src="~/lib_npm/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js" asp-location="Footer"></script>
+                <script asp-exclude-from-bundle="true" src="~/lib_npm/filepond-plugin-get-file/filepond-plugin-get-file.min.js" asp-location="Footer"></script>
+
+                <div id="@(clientId)element" class="filepond"></div>
+                <input id="@(clientId)" name="@(clientId)" type="hidden" value="@(download?.DownloadGuid.ToString() ?? "")" />
+                
+                <script  asp-location="Footer">
+                    $(function () {
+                        // Register the plugins
+                        FilePond.registerPlugin(FilePondPluginFileValidateType);
+                        FilePond.registerPlugin(FilePondPluginGetFile);
+
+                        // Create a FilePond instance
+                        FilePond.create(document.querySelector('#@(clientId)element'), {
+                            credits: false,
+                            allowMultiple: false,
+                            maxFiles: 1,
+                            allowDownloadByUrl: true,
+                            @if (download != null)
+                            {
+                                <text>
+                                    files: [
+                                        {
+                                            source: '@Html.Raw($"{download.Filename ?? download.DownloadGuid.ToString()}{download.Extension}")',
+                                            options: {
+                                                type: 'local',
+                                                metadata: {
+                                                    url: '@(Url.RouteUrl("DownloadGetFileUpload", new { downloadId = download.DownloadGuid }))'
+                                                }
+                                            },
+                                        }
+                                    ],
+                                </text>
+                            }
+                            server: {
+                                process: {
+                                    url: '@(Url.Content("~/Admin/AttachmentDownloadAdmin/AsyncUpload"))',
+                                    onload: (response) => {
+                                        $("#@(clientId)").val(JSON.parse(response).downloadGuid);
+                                        $("#@(clientId + "downloadurl")").html("<a class='btn bg-blue' href='" + JSON.parse(response).downloadUrl + "'><i class='fa fa-download'></i>@T("Admin.Download.DownloadUploadedFile")</a>");
+                                        $("#@(clientId + "value") input").val(JSON.parse(response).downloadId);
+                                    }
+                                },
+                                remove: (source, load, error) => {
+                                    $("#@(clientId)").val('');
+                                    $("#@(clientId + "downloadurl")").empty();
+                                    load();
+                                },
+                                revert: (uniqueFileId, load, error) => {
+                                    $("#@(clientId)").val('');
+                                    load();
+                                },
+                            },
+                            onprocessfiles: (error) => {
+                                if (error) {
+                                    alert(error);
+                                    return;
+                                }
+                            },
+                            labelIdle: '@T("Common.FileUploader.DropFiles") / <span class="filepond--label-action">@T("Common.FileUploader.Browse")</span>',
+                            labelFileProcessing: '@T("Common.FileUploader.Processing")',
+                        });
+                    });
+                </script>
+
+            </div>
+            <div id="@(clientId + "downloadurl")" class="upload-box-item">
+                @if (download != null)
+                {
+                    <a class="btn bg-blue" href="@Url.Content(String.Format("~/Attachment/DownloadFile?downloadId={0}", Model))"><i class="fa fa-download"></i>@T("Admin.Download.DownloadUploadedFile")</a>
+                }
+            </div>
+            
+
+        </div>
+    </div>
+</div>

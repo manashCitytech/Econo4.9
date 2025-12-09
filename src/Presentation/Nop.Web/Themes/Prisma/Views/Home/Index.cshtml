@@ -30,7 +30,7 @@
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HomepageTop })
         @await Component.InvokeAsync(typeof(TopicBlockViewComponent), new { systemName = "HomepageText" })
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HomepageBeforeCategories })
-        @await Component.InvokeAsync(typeof(HomepageCategoriesViewComponent))
+        @* @await Component.InvokeAsync(typeof(HomepageCategoriesViewComponent)) *@
         @await Component.InvokeAsync(typeof(FilterLevelValueSearchViewComponent))
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HomepageBeforeProducts })
         <div class="prisma-banners-3-widget-zone">
@@ -39,7 +39,7 @@
         <div class="prisma-banners-2-widget-zone">
             @await Component.InvokeAsync("Widget", new { widgetZone = "prisma_banners_2_widget_zone" })
         </div>
-        @await Component.InvokeAsync(typeof(HomepageProductsViewComponent))
+        @* @await Component.InvokeAsync(typeof(HomepageProductsViewComponent)) *@
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HomepageBeforeBestSellers })
         @await Component.InvokeAsync(typeof(HomepageBestSellersViewComponent))
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HomepageBeforeNews })

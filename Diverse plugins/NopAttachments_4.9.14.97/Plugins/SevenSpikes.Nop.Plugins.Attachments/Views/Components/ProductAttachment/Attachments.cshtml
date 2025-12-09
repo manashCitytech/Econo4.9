@@ -1,0 +1,111 @@
+@model AttachmentPublicFullModel
+@inject AttachmentsSettings attachmentsSettings
+
+@{
+    var themeName = await ThemeHelper.GetPluginThemeAsync(Plugin.FolderName);
+
+    var attachmentsCssFilePath = "~/Plugins/SevenSpikes.Nop.Plugins.Attachments/Themes/" + themeName + "/Content/Attachments.css";
+
+    var supportRtl = await Html.ShouldUseRtlThemeAsync();
+}
+
+<link rel="stylesheet" href="~/Plugins/SevenSpikes.Nop.Plugins.Attachments/Styles/common.css" />
+<link rel="stylesheet" href="@attachmentsCssFilePath" />
+
+@if (supportRtl)
+{
+    var rtlCssFilePath = "~/Plugins/SevenSpikes.Nop.Plugins.Attachments/Themes/" + themeName + "/Content/Attachments.rtl.css";
+
+    <link rel="stylesheet" href="@rtlCssFilePath" />
+}
+
+<script src="~/lib_npm/magnific-popup/jquery.magnific-popup.min.js" asp-location="Footer"></script>
+
+@if (Model.Attachments.Any(x => !String.IsNullOrEmpty(x.VideoEmbedCode)))
+{
+    if (Model.IsAjax)
+    {
+        <script>
+
+            $(document).ready(function () {
+
+                openEmbeddedVideoPopup();
+            });
+        </script>
+    }
+    else
+    {
+        <script asp-location="Footer" type="text/javascript" language="javascript">
+
+            $(document).ready(function () {
+
+                openEmbeddedVideoPopup();
+            });
+        </script>
+    }
+
+    <script>
+
+        function openEmbeddedVideoPopup() {
+            $("a.attachmentLink[data-videoEmbedCode!='']").click(function (event) {
+
+                event.preventDefault();
+
+                var videoEmbedCode = $(this).attr("data-videoEmbedCode");
+
+                $.magnificPopup.open({
+
+                    items: {
+                        src: videoEmbedCode,
+                        type: 'inline'
+                    },
+                    closeBtnInside: false
+                });
+            });
+        }
+    </script>
+}
+
+@if (Model.Attachments.Any())
+{
+    <div class="file-attachments">
+        <div class="title">
+            <strong>@T("SevenSpikes.Plugins.NopAttachments.Public.Attachments.Title")</strong>
+        </div>
+        <div class="attachments-content">
+            @if (attachmentsSettings.GroupAttachmentsByCategory)
+            {
+                foreach (CategoryPublicModel category in Model.Categories)
+                {
+                    var categoryAttachments = Model.Attachments.Where(x => x.CategoryId == category.Id);
+
+                    if (categoryAttachments.Any())
+                    {
+                        <div class="attachment-category">
+                            <div class="name">
+                                <strong>@category.Name</strong>
+                            </div>
+                            @{ await Html.RenderPartialAsync(Views.RenderAttachment, categoryAttachments); }
+                        </div>
+                    }
+                }
+
+                var nonCategorizedAttachments = Model.Attachments.Where(x => x.CategoryId == null);
+
+                if (nonCategorizedAttachments.Any())
+                {
+                    @*Non categorized file attachments*@
+                    <div class="attachment-category">
+                        @{ await Html.RenderPartialAsync(Views.RenderAttachment, nonCategorizedAttachments); }
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="attachment-category">
+                    @{ await Html.RenderPartialAsync(Views.RenderAttachment, Model.Attachments); }
+                </div>
+            }
+        </div>
+    </div>
+}

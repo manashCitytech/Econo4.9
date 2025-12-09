@@ -1,0 +1,24 @@
+To upgrade the plugin without changing nop release (ex. upgrading the plugin 1.12 for nop 4.20 to 1.13 for the same nop 4.20) you have to:
+1. Upgrade the nopcommerce.
+2. Backup old plugin folder and database.
+3. Overwrite the plugin folder internals with new ones from ZIP file.
+4. Restart nopcommerce instance.
+The plugin will be upgraded automatically.
+
+ 
+
+To upgrade the plugin with nop upgrade from 3.xx-4.20 to 4.30-4.40 you have to:
+1. Upgrade the nopcommerce.
+2. Backup old plugin folder and database.
+3. Overwrite the plugin folder internals with new ones from ZIP file.
+4. Execute SQL script Update430.RedirectManager.sql from UpgradeSQL folder.
+5. Restart nopcommerce instance.
+
+ 
+
+To upgrade the plugin with nop upgrade from 4.30 to 4.40 you have to:
+1. Upgrade the nopcommerce.
+2. Backup old plugin folder and database.
+3. Overwrite the plugin folder internals with new ones from ZIP file.
+4. Restart nopcommerce instance.
+The plugin will be upgraded automatically.
