@@ -1,0 +1,12 @@
+{
+  "Group": "7Spikes",
+  "FriendlyName": "Nop Attachments",
+  "SystemName": "SevenSpikes.Nop.Plugins.Attachments",
+  "Version": "4.9",
+  "SupportedVersions": [ "4.90" ],
+  "DependsOnSystemNames": [ "SevenSpikes.Core" ],
+  "Author": "Seven Spikes Ltd",
+  "DisplayOrder": 5,
+  "FileName": "SevenSpikes.Nop.Plugins.Attachments.dll",
+  "Description": "The Nop Attachments plugin for nopCommerce allows you to upload and instantly attach files or videos to one or many products in your online store."
+}

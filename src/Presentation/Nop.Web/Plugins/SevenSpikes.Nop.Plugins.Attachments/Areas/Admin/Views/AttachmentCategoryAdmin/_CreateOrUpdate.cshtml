@@ -1,0 +1,5 @@
+@model AttachmentCategoryModel
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+@{ await Html.RenderPartialAsync(AdminViews.AttachmentCategorySettings, Model); }
