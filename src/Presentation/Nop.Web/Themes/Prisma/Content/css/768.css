@@ -251,10 +251,7 @@
 
     /* PRODUCT PAGE */
 
-    .product-review-links + div {
-        display: inline-block;
-        margin-left: 2%;
-    }
+    /*ATTR*/
     .overview .qty-label,
     .variant-overview .qty-label {
 	    position: static;
@@ -594,7 +591,7 @@
     .cart-options {
 	    text-align: right;
     }
-    .cart-options .common-buttons button {
+    .cart-options .common-buttons input {
 	    margin: 0 0 0 10px;
     }
     .cart-options .checkout-attributes li {
@@ -663,7 +660,7 @@
     .order-details-page .actions {
 	    text-align: right;
     }
-    .order-details-page .actions button {
+    .order-details-page .actions input {
 	    min-width: 0;
     }
     .order-details-page label,
@@ -866,7 +863,7 @@
     .private-message-send-page .inputs:nth-child(2) {
         margin-bottom: 10px;
     }
-    .private-message-view-page .buttons button:last-child {
+    .private-message-view-page .buttons input:last-child {
         position: absolute;
         right: 0;
         margin: 0;
@@ -882,7 +879,5 @@
 	    float: left;
 	    margin: 0 20px 0 0;
     }
-    .home-page-search-input .advanced-search .inputs {
-        width: calc((100% - 162px) / 3);
-    }
+
 }

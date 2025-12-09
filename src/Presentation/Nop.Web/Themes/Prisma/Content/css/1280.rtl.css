@@ -149,6 +149,9 @@ BIG SCREENS
 	.product-content-wrappper {
 		padding-left: 50px;
 	}
+	.ui-tabs .inputs label {
+		width: 290px;
+	}
 	.variant-overview .attributes dt {
 		padding: 10px 15px;
 	}
@@ -217,7 +220,4 @@ BIG SCREENS
     /* SEARCH & SITEMAP */
     /* BLOG & NEWS */
     /* FORUM & PROFILE */
-	.change-password-page .form-input-wrapper {
-		width: 397px;
-	}
 }

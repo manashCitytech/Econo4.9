@@ -137,7 +137,7 @@
                             {
                                 <p>
                                     <strong>@T("Admin.Orders.Products.SKU")</strong><text>:</text>
-                                    @item.Sku
+                                        @item.Sku - <a style="color:red;text-decoration:underline;" href="https://www.oeg.net/nl/search?query=@item.ManufacturerPartNumber" target="_blank">@item.ManufacturerPartNumber</a>
                                 </p>
                             }
                             @if (!string.IsNullOrEmpty(item.VendorName))

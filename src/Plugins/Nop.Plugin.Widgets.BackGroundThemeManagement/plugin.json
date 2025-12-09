@@ -1,0 +1,16 @@
+﻿{
+  "Group": "Widgets",
+  "FriendlyName": "Background Management",
+  "SupportedVersions": [
+    "4.90"
+  ],
+  "Author": "Cityech team",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Widgets.BackGroundThemeManagement.dll",
+  "Description": "This plugin allows you to change the contents of main page Top header Background Image",
+  "LimitedToStores": [],
+  "LimitedToCustomerRoles": [],
+  "DependsOnSystemNames": [],
+  "SystemName": "Widgets.BackgroundTheme",
+  "Version": "4.9"
+}
