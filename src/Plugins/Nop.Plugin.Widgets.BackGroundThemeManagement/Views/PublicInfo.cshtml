@@ -1,0 +1,17 @@
+﻿@model string
+@{
+    Layout = "";
+
+
+}
+
+@if (!string.IsNullOrEmpty(Model))
+{
+    <script asp-location="Footer">
+        $(document).ready(function () {
+            $('.master-header-wrapper').css('background', 'url(@(Model))');
+        })
+    </script>
+
+}
+

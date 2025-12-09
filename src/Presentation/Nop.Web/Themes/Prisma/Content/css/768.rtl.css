@@ -243,14 +243,11 @@
 		padding: 20px;
 	}
 
-	/* PRODUCT PAGE */
+	    /* PRODUCT PAGE */
 
-	.product-review-links + div {
-        display: inline-block;
-        margin-right: 2%;
-    }
-	.overview .qty-label,
-	.variant-overview .qty-label {
+	    /*ATTR*/
+	    .overview .qty-label,
+	    .variant-overview .qty-label {
 		position: static;
 		right: 0;
 		margin: 0 0 0 10px;
@@ -575,7 +572,7 @@
 	.cart-options {
 		text-align: left;
 	}
-	.cart-options .common-buttons button {
+	.cart-options .common-buttons input {
 		margin: 0 10px 0 0;
 	}
 	.cart-options .checkout-attributes li {
@@ -644,7 +641,7 @@
 	.order-details-page .actions {
 		text-align: left;
 	}
-	.order-details-page .actions button {
+	.order-details-page .actions input {
 		min-width: 0;
 	}
 	.order-details-page label,
@@ -832,7 +829,7 @@
 	.private-message-send-page .inputs:nth-child(2) {
 		margin-bottom: 10px;
 	}
-	.private-message-view-page .buttons button:last-child {
+	.private-message-view-page .buttons input:last-child {
 		position: absolute;
 		left: 0;
 		right: auto;
@@ -848,8 +845,5 @@
 	.profile-info-box .avatar {
 		float: right;
 		margin: 0 0 0 20px;
-	}
-	.home-page-search-input .advanced-search .inputs {
-		width: calc((100% - 162px) / 3);
 	}
 }

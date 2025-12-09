@@ -298,7 +298,8 @@ public partial class OrderModelFactory : IOrderModelFactory
                 DiscountExclTaxValue = orderItem.DiscountAmountExclTax,
                 SubTotalInclTaxValue = orderItem.PriceInclTax,
                 SubTotalExclTaxValue = orderItem.PriceExclTax,
-                AttributeInfo = orderItem.AttributeDescription
+                AttributeInfo = orderItem.AttributeDescription,
+                ManufacturerPartNumber = product.ManufacturerPartNumber
             };
 
             //fill in additional values (not existing in the entity)

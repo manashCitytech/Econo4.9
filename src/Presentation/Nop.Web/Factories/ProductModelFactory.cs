@@ -661,7 +661,13 @@ public partial class ProductModelFactory : IProductModelFactory
                 //this section of code requires detailed analysis in the future
                 (var fullSizeImageUrl, picture) = await _pictureService.GetPictureUrlAsync(picture);
                 (var imageUrl, picture) = await _pictureService.GetPictureUrlAsync(picture, pictureSize);
-
+               // var ImageUrl = _pictureService.GetPictureUrl(ref picture, pictureSize, false);
+                if (string.IsNullOrEmpty(imageUrl) && product.ParentGroupedProductId > 0)
+                {
+                    picture =(await _pictureService.GetPicturesByProductIdAsync(product.ParentGroupedProductId, 1)).FirstOrDefault();
+                    imageUrl= await _pictureService.GetPictureUrlAsync( picture.Id, pictureSize);
+                    fullSizeImageUrl = await _pictureService.GetPictureUrlAsync( picture.Id);
+                }
                 return new PictureModel
                 {
                     ImageUrl = imageUrl,
