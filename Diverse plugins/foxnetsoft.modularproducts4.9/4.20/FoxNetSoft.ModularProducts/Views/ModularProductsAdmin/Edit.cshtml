@@ -1,0 +1,155 @@
+﻿@model FoxNetSoft.Plugin.Misc.ModularProducts.Models.Admin.ModularProductModel
+@inject AdminAreaSettings adminAreaSettings
+@using Nop.Core.Domain.Common
+@using Nop.Core.Domain.Catalog
+@using Nop.Web.Framework.UI
+@using Microsoft.AspNetCore.Routing
+@{
+    Layout = "_AdminLayout";
+    var defaultGridPageSize = adminAreaSettings.DefaultGridPageSize;
+    var gridPageSizes = adminAreaSettings.GridPageSizes;
+
+    //page title
+    ViewBag.Title = T("Admin.FoxNetSoft.Plugin.Misc.ModularProducts.EditProductDetails").Text;
+
+    Html.SetActiveMenuItemSystemName("FoxNetSoft.ModularProducts.List");
+}
+<form method="post" id="modularproduct-form">
+        <nop-antiforgery-token />
+        <div class="content-header clearfix">
+            <h1 class="pull-left">
+                @T("Admin.FoxNetSoft.Plugin.Misc.ModularProducts.EditProductDetails") - @Model.Name
+                <small>
+                    <i class="fa fa-arrow-circle-left"></i>
+                    <a asp-action="List">@T("Admin.Catalog.Products.BackToList")</a>
+                </small>
+            </h1>
+        </div>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div id="modularproduct-grid"></div>
+                    <script>
+                    $(document).ready(function() {
+                        $("#modularproduct-grid").kendoGrid({
+                            dataSource: {
+                                type: "json",
+                                transport: {
+                                    read: {
+                                        url: "@Html.Raw(Url.Action("ModularProductList", "ModularProductsAdmin", new RouteValueDictionary {  { "productId", Model.Id }}))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    },
+                                    update: {
+                                        url:"@Html.Raw(Url.Action("ModularProductUpdate", "ModularProductsAdmin"))",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: addAntiForgeryToken
+                                    }
+                                },
+                                schema: {
+                                    data: "Data",
+                                    total: "Total",
+                                    errors: "Errors",
+                                    model: {
+                                            id: "Id",
+                                            fields: {
+                                                ProductId: { editable: false, type: "number" },
+                                                ProductVariantId: { editable: false, type: "number" },
+                                                Sku: { editable: false, type: "number" },
+                                                Price: { editable: false, type: "number" },
+                                                StockQuantity: { editable: false, type: "number" },
+                                                OrderDefaultQuantity: { editable: true, type: "number" },
+                                                MinQuantity: { editable: true, type: "number" },
+                                                MaxQuantity: { editable: true, type: "number" },
+                                                Published: { editable: false, type: "boolean" },
+                                                Id: { editable: false, type: "number" }
+                                                }
+                                            }
+                                },
+                                requestEnd: function (e) {
+                                    if (e.type == "update") {
+                                        this.read();
+                                    }
+                                },
+                                error: function(e) {
+                                    display_kendoui_grid_error(e);
+                                    // Cancel the changes
+                                    this.cancelChanges();
+                                },
+                                pageSize: @(defaultGridPageSize),
+                                serverPaging: true,
+                                serverFiltering: true,
+                                serverSorting: true
+                            },
+                            pageable: {
+                                refresh: true,
+                                pageSizes: [@(gridPageSizes)]
+                            },
+                            editable: {
+                                confirmation: false,
+                                mode: "inline"
+                            },
+                            scrollable: false,
+                            columns: [
+                                {
+                                    field: "ProductVariantId",
+                                    title: "@T("Admin.Catalog.Products.Fields.Name")",
+                                    width: 300,
+                                    template: '<a href="@Url.Content("~/Admin/Product/Edit/")#=ProductVariantId#">#=Name#</a>'
+                                }, {
+                                    field: "Sku",
+                                    title: "@T("Admin.Catalog.Products.Fields.Sku")",
+                                    width: 100
+                                }, {
+                                    field: "Price",
+                                    title: "@T("Admin.Catalog.Products.Fields.Price")",
+                                    width: 150
+                                },  {
+                                    field: "StockQuantity",
+                                    title: "@T("Admin.Catalog.Products.Fields.StockQuantity")",
+                                    width: 100,
+                                    //if not a grouped product
+                                    //AND "manage inventory" is "Track inventory"
+                                    //then display
+                                    template: "# if(ManageInventoryMethodId == @((int)ManageInventoryMethod.ManageStock)) {# #:StockQuantity# #}  #"
+                                }, {
+                                    field: "OrderDefaultQuantity",
+                                    title: "@T("Admin.FoxNetSoft.Plugin.Misc.ModularProducts.OrderDefaultQuantity")",
+                                    width: 100,
+                                    //integer format
+                                    format: "{0:0}"
+                                }, {
+                                    field: "MinQuantity",
+                                    title: "@T("Admin.FoxNetSoft.Plugin.Misc.ModularProducts.MinQuantity")",
+                                    width: 100,
+                                    //integer format
+                                    format: "{0:0}"
+                                }, {
+                                    field: "MaxQuantity",
+                                    title: "@T("Admin.FoxNetSoft.Plugin.Misc.ModularProducts.MaxQuantity")",
+                                    width: 100,
+                                    //integer format
+                                    format: "{0:0}"
+                                }, {
+                                    field: "Published",
+                                    title: "@T("Admin.Catalog.Products.Fields.Published")",
+                                    width: 100,
+                                    headerAttributes: { style: "text-align:center" },
+                                    attributes: { style: "text-align:center" },
+                                            template: '# if(Published) {# <i class="fa fa-check true-icon"></i> #} else {# <i class="fa fa-close false-icon"></i> #} #'
+                                }, {
+                                    command: [{
+                                        name: "edit",
+                                        text: "@T("Admin.Common.Edit")"
+                                        }],
+                                    width: 200
+                                    }]
+                        });
+                    });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </form>

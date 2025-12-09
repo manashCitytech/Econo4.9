@@ -1,0 +1,142 @@
+﻿@model FoxNetSoft.Plugin.Misc.SmartCampaigns.Models.SmartCampaignModel
+@using Microsoft.AspNetCore.Routing
+@using FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain
+@using FoxNetSoft.Plugin.Misc.SmartCampaigns.Models
+<div class="cards-group">
+    <script>
+            $(document).ready(function () {
+                $("#@Html.IdFor(model => model.ForAllProduct)").click(toggleForAllProduct);
+
+                toggleForAllProduct();
+            });
+            function toggleForAllProduct() {
+                $('#pnlFiltersConditionBetweenProducts').hideElement();
+                var selectedSmartCampaignTypeId = $("#@Html.IdFor(model => model.SmartCampaignTypeId)").val();
+                switch (selectedSmartCampaignTypeId) {
+                    case '@(((int)SmartCampaignType.ByBuyersOfTheProduct).ToString())':
+                    case '@(((int)SmartCampaignType.ByNotBuyersOfTheProduct).ToString())':
+                    case  '@(((int)SmartCampaignType.ByCustomerHasTheProductInTheCart).ToString())':
+                    case  '@(((int)SmartCampaignType.ByCustomerHasTheProductInTheWishlist).ToString())':
+                    case '@(((int)SmartCampaignType.AfterOrderPaid).ToString())':
+                    case '@(((int)SmartCampaignType.AdminAfterOrderPaid).ToString())':
+                    case  '@(((int)SmartCampaignType.AfterOrderPlaced).ToString())':
+                    case  '@(((int)SmartCampaignType.NotPaidOrder).ToString())':
+                    case  '@(((int)SmartCampaignType.AfterShipmentDelivered).ToString())':
+                    case  '@(((int)SmartCampaignType.AfterOrderCompletion).ToString())':
+                    case  '@(((int)SmartCampaignType.AfterOrderDelivered).ToString())':
+                        $('#pnlFiltersConditionBetweenProducts').showElement();
+                        break
+                }
+                if ($('#@Html.IdFor(model => model.ForAllProduct)').is(':checked')) {
+                    $('#pnlProductGridPanel').hideElement();
+                    $('#pnlFiltersConditionBetweenProducts').hideElement();
+                }
+                else {
+                    $('#pnlProductGridPanel').showElement();
+                }
+
+            }
+    </script>
+    @if (Model.Id > 0)
+    {
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="form-group row" id="pnlForAllProduct">
+                    <div class="col-md-3">
+                        <nop-label asp-for="ForAllProduct" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="ForAllProduct" />
+                        <span asp-validation-for="ForAllProduct"></span>
+                    </div>
+                </div>
+                <div class="form-group row" id="pnlFiltersConditionBetweenProducts">
+                    <div class="col-md-3">
+                        <nop-label asp-for="FiltersConditionBetweenProducts" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-select asp-for="FiltersConditionBetweenProducts" asp-items="Model.AvailableFiltersConditionBetweenProducts" />
+                        <span asp-validation-for="FiltersConditionBetweenProducts"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card card-default" id="pnlProductGridPanel">
+            <div class="card-body">
+                @await Html.PartialAsync("Table", new DataTablesModel
+           {
+               Name = "products-grid",
+               UrlRead = new DataUrl("ProductList", "SmartCampaignAdmin", new RouteValueDictionary { [nameof(Model.SmartCampaignSearchModel.SmartCampaignId)] = Model.SmartCampaignSearchModel.SmartCampaignId }),
+               UrlDelete = new DataUrl("ProductDelete", "SmartCampaignAdmin", null),
+               Length = Model.SmartCampaignSearchModel.PageSize,
+               LengthMenu = Model.SmartCampaignSearchModel.AvailablePageSizes,
+               ColumnCollection = new List<ColumnProperty>
+    {
+        new ColumnProperty(nameof(SmartCampaignProductModel.ProductName))
+        {
+            Title = T("Admin.Catalog.Categories.Products.Fields.Product").Text
+        },
+        new ColumnProperty(nameof(SmartCampaignProductModel.ProductId))
+        {
+            Title = T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Products.EditProductAttributes").Text,
+            Width = "150",
+            ClassName = NopColumnClassDefaults.Button,
+            Render = new RenderCustom("renderColumnEdit")
+        },
+        new ColumnProperty(nameof(SmartCampaignProductModel.ProductId))
+        {
+            Title = T("Admin.Common.View").Text,
+            Width = "100",
+            ClassName = NopColumnClassDefaults.Button,
+            Render = new RenderButtonView(new DataUrl("~/Admin/Product/Edit/", nameof(SmartCampaignProductModel.ProductId)))
+        },
+        new ColumnProperty(nameof(SmartCampaignProductModel.Id))
+        {
+            Title = T("Admin.Common.Delete").Text,
+            Width = "100",
+            Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+            ClassName = NopColumnClassDefaults.Button
+        }
+    }
+           })
+
+
+            </div>
+
+            <div class="card-footer">
+                <button type="submit" id="btnAddNewProduct"
+                        onclick="javascript:OpenWindow('@(Url.Action("ProductAddPopup", "SmartCampaignAdmin" , new {smartCampaignId=Model.Id, btnId="btnRefreshProducts" , formId="smartcampaign-form" }))', 800, 800, true); return false;"
+                        class="btn btn-primary">
+                    @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Products.AddNew")
+                </button>
+                <input type="submit" id="btnRefreshProducts" style="display: none" />
+                <script>
+                    function renderColumnEdit(data, type, row, meta) {
+                        if (row.HasProductAttributes) {
+                            return row.AttributeInfo + '<button onclick=\"javascript:OpenWindow(\'@Url.Content("~/Admin/SmartCampaignAdmin/ProductAttributePopup")?id=' + row.Id + '&btnId=btnRefreshProducts&formId=smartcampaign-form\', 800, 800, true); return false;\" class="btn btn-default"><i class="fa fa-pencil"></i>@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Products.EditProductAttributes")</button>';
+                        }
+                        return '';
+                    }
+
+                    $(document).ready(function () {
+                        $('#btnRefreshProducts').click(function () {
+                            //refresh grid
+                            updateTable('#products-grid');
+
+                            //return false to don't reload a page
+                            return false;
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+                                }
+                                else
+                                {
+        <div class="card card-default">
+            <div class="card-body">
+                @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Products.SaveBeforeEdit")
+            </div>
+        </div>
+                                }
+</div>

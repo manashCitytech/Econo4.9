@@ -1,0 +1,32 @@
+﻿@model Nop.Web.Models.ShoppingCart.ShoppingCartModel
+@using Nop.Core.Domain.Messages
+@inject MessageTemplatesSettings messageTemplatesSettings
+<table style="width:100%;" border="0">
+    <tr style="background-color: @messageTemplatesSettings.Color2 ;text-align: center;">
+        <th></th>
+        <th>Product</th>
+        <th>Price</th>
+    </tr>
+    @foreach (var item in Model.Items)
+    {
+        <tr style="background-color: @messageTemplatesSettings.Color2 ;text-align: center;">
+            <td style="padding: 0.6em 0.4em;text-align: left;">
+                <div class="picture">
+                    <a href="@item.ProductSeName" title="@item.Picture.Title">
+                        <img alt="@item.Picture.AlternateText" src="@item.Picture.ImageUrl" title="@item.Picture.Title" />
+                    </a>
+                </div>
+            </td>
+            <td style="padding: 0.6em 0.4em;text-align: left;">
+                <a href="@item.ProductSeName" class="product-name">@item.ProductName</a>
+                @if (!string.IsNullOrWhiteSpace(item.AttributeInfo))
+                {
+                    @Html.Raw(item.AttributeInfo)
+                }
+            </td>
+            <td style="padding: 0.6em 0.4em;text-align: right;">
+                @item.UnitPrice
+            </td>
+        </tr>
+    }
+</table>

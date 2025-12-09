@@ -126,6 +126,12 @@
     <div class="master-wrapper-content" id="main" role="main">
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ContentBefore })
         @await Component.InvokeAsync("Widget", new { widgetZone = "prisma_color_squares" })
+        @T("Trustpilot")
+
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb")
+        }
         <div class="master-column-wrapper">
             @RenderBody()
         </div>

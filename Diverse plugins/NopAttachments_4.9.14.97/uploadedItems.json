@@ -1,0 +1,603 @@
+// This file is used to allow you to upload 7Spikes(Nop-Templates) plugins/themes from the nopCommerce administaration
+// You just need to upload the zip package containing this file and all plugins and themes in the zip will be uploaded
+[
+  // PLUGINS
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Core",
+    "DirectoryPath": "Plugins/SevenSpikes.Core/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.CategoriesHeaderMenu",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.CategoriesHeaderMenu/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.MegaMenu",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.MegaMenu/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.AjaxFilters",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.AjaxFilters/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.AjaxFilters.Pro",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.AjaxFilters.Pro/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.AjaxCart",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.AjaxCart/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.AnywhereSliders",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.AnywhereSliders/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.CloudZoom",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.CloudZoom/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.InstantSearch",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.InstantSearch/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.JCarousel",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.JCarousel/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.NopQuickTabs",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.NopQuickTabs/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.QuickView",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.QuickView/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.ProductRibbons",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.ProductRibbons/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.PrevNextProduct",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.PrevNextProduct/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.FacebookShop",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.FacebookShop/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.Attachments",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.Attachments/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.HtmlWidgets",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.HtmlWidgets/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.SalesCampaigns",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.SalesCampaigns/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.StoreLocator",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.StoreLocator/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.CustomerReminders",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.CustomerReminders/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.SmartSEO",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.SmartSEO/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.RichBlog",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.RichBlog/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.SaleOfTheDay",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.SaleOfTheDay/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.Knowledgebase",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.Knowledgebase/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.HelpDesk",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.HelpDesk/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.RealOnePageCheckout",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.RealOnePageCheckout/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.NopSalesForce",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.NopSalesForce/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.SmartProductCollections",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.SmartProductCollections/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.SocialFeed",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.SocialFeed/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.NewsletterPopup",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.NewsletterPopup/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Nop.Plugins.PriceMatch",
+    "DirectoryPath": "Plugins/SevenSpikes.Nop.Plugins.PriceMatch/"
+  }, 
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "Nop.Plugin.Api",
+    "DirectoryPath": "Plugins/Nop.Plugin.Api/"
+  },
+
+  // THEME PLUGINS
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Electronics",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Electronics/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Fashion",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Fashion/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.ShopAll",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.ShopAll/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Jewelry",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Jewelry/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Beauty",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Beauty/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.NeoFashion",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.NeoFashion/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Alfresco",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Alfresco/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Lighthouse",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Lighthouse/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Alicante",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Alicante/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Playground",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Playground/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Motion",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Motion/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Smart",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Smart/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Allure",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Allure/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.ArtFactory",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.ArtFactory/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Lavella",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Lavella/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Nitro",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Nitro/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Traction",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Traction/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Tiffany",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Tiffany/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Urban",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Urban/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Native",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Native/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Brooklyn",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Brooklyn/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Pavilion",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Pavilion/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Uptown",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Uptown/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Minimal",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Minimal/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Poppy",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Poppy/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Element",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Element/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Prisma",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Prisma/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Venture",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Venture/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Emporium",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Emporium/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Pacific",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Pacific/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Avenue",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Avenue/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Voyage",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Voyage/"
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "SystemName": "SevenSpikes.Theme.Pioneer",
+    "DirectoryPath": "Plugins/SevenSpikes.Theme.Pioneer/"
+  },
+
+  // THEMES
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Electronics",
+    "DirectoryPath": "Themes/Electronics/"
+  },
+   {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Universe",
+    "DirectoryPath": "Themes/Universe/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Fashion",
+    "DirectoryPath": "Themes/Fashion/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "ShopAll",
+    "DirectoryPath": "Themes/ShopAll/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Jewelry",
+    "DirectoryPath": "Themes/Jewelry/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Motion",
+    "DirectoryPath": "Themes/Motion/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Beauty",
+    "DirectoryPath": "Themes/Beauty/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Lighthouse",
+    "DirectoryPath": "Themes/Lighthouse/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Alicante",
+    "DirectoryPath": "Themes/Alicante/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "NeoFashion",
+    "DirectoryPath": "Themes/NeoFashion/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Alfresco",
+    "DirectoryPath": "Themes/Alfresco/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Playground",
+    "DirectoryPath": "Themes/Playground/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Smart",
+    "DirectoryPath": "Themes/Smart/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Allure",
+    "DirectoryPath": "Themes/Allure/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "ArtFactory",
+    "DirectoryPath": "Themes/ArtFactory/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Lavella",
+    "DirectoryPath": "Themes/Lavella/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Nitro",
+    "DirectoryPath": "Themes/Nitro/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Traction",
+    "DirectoryPath": "Themes/Traction/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Tiffany",
+    "DirectoryPath": "Themes/Tiffany/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Urban",
+    "DirectoryPath": "Themes/Urban/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Native",
+    "DirectoryPath": "Themes/Native/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Brooklyn",
+    "DirectoryPath": "Themes/Brooklyn/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Pavilion",
+    "DirectoryPath": "Themes/Pavilion/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Uptown",
+    "DirectoryPath": "Themes/Uptown/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Minimal",
+    "DirectoryPath": "Themes/Minimal/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Poppy",
+    "DirectoryPath": "Themes/Poppy/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Element",
+    "DirectoryPath": "Themes/Element/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Prisma",
+    "DirectoryPath": "Themes/Prisma/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Venture",
+    "DirectoryPath": "Themes/Venture/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Emporium",
+    "DirectoryPath": "Themes/Emporium/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Pacific",
+    "DirectoryPath": "Themes/Pacific/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Avenue",
+    "DirectoryPath": "Themes/Avenue/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Voyage",
+    "DirectoryPath": "Themes/Voyage/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.90",
+    "SystemName": "Pioneer",
+    "DirectoryPath": "Themes/Pioneer/"
+  }
+]

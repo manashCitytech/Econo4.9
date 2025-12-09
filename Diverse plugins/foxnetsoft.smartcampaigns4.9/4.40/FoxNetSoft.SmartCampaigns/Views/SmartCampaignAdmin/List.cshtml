@@ -1,0 +1,127 @@
+﻿@model FoxNetSoft.Plugin.Misc.SmartCampaigns.Models.SmartCampaignSearchModel
+@using Nop.Core.Domain.Common
+@using FoxNetSoft.Plugin.Misc.SmartCampaigns.Models
+@{
+    Layout = "_AdminLayout";
+
+    //page title
+    ViewBag.PageTitle = @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.List.Manage").Text;
+
+    Html.SetActiveMenuItemSystemName("FoxNetSoft.SmartCampaigns.List");
+}
+<nop-antiforgery-token />
+<div class="content-header clearfix">
+    <h1 class="float-left">
+        @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.List.Manage")
+    </h1>
+    <div class="float-right">
+        <a asp-action="Create" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            @T("Admin.Common.AddNew")
+        </a>
+        @await Component.InvokeAsync("AdminWidget", new { widgetZone = "admin_smartcampaign_list_buttons" })
+    </div>
+</div>
+<div class="content">
+    <div class="form-horizontal">
+        <div class="cards-group">
+            <div class="card card-default card-search">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <nop-label asp-for="SearchSmartCampaignName" />
+                                </div>
+                                <div class="col-md-8">
+                                    <nop-editor asp-for="SearchSmartCampaignName" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <nop-label asp-for="SearchSmartCampaignTypeId" />
+                                </div>
+                                <div class="col-md-8">
+                                    <nop-select asp-for="SearchSmartCampaignTypeId" asp-items="Model.AvailableSmartCampaignTypes" />
+                                </div>
+                            </div>
+                            <div class="form-group row" @(Model.HideStoresList ? Html.Raw("style=\"display:none\"") : null)>
+                                <div class="col-md-4">
+                                    <nop-label asp-for="SearchStoreId" />
+                                </div>
+                                <div class="col-md-8">
+                                    <nop-select asp-for="SearchStoreId" asp-items="Model.AvailableStores" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center col-12">
+                            <button type="button" id="btnSearch" class="btn btn-primary btn-search">
+                                <i class="fas fa-search"></i>
+                                @T("Admin.Common.Search")
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-default">
+                <div class="card-body">
+                    @await Html.PartialAsync("Table", new DataTablesModel
+               {
+                   Name = "campaigns-grid",
+                   UrlRead = new DataUrl("List", "SmartCampaignAdmin", null),
+                   SearchButtonId = "btnSearch",
+                   Length = Model.PageSize,
+                   LengthMenu = Model.AvailablePageSizes,
+                   Filters = new List<FilterParameter>
+                        {
+                            new FilterParameter(nameof(Model.SearchStoreId)),
+                            new FilterParameter(nameof(Model.SearchSmartCampaignTypeId)),
+                            new FilterParameter(nameof(Model.SearchSmartCampaignName))
+                        },
+                   ColumnCollection = new List<ColumnProperty>
+                        {
+                            new ColumnProperty(nameof(SmartCampaignModel.IsActive))
+                            {
+                                Title = T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.IsActive").Text,
+                                Width = "70",
+                                ClassName = NopColumnClassDefaults.CenterAll,
+                                Render = new RenderBoolean()
+                            },
+                            new ColumnProperty(nameof(SmartCampaignModel.StoreName))
+                            {
+                                Visible = !Model.HideStoresList,
+                                Title = T("Admin.Promotions.NewsLetterSubscriptions.Fields.Store").Text,
+                                Width = "150",
+                                ClassName = NopColumnClassDefaults.CenterAll
+                            },
+                            new ColumnProperty(nameof(SmartCampaignModel.SmartCampaignTypeName))
+                                {
+                                    Title = T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.SmartCampaignType").Text,
+                                    Width = "150",
+                                    ClassName = NopColumnClassDefaults.CenterAll
+                                },
+                           new ColumnProperty(nameof(SmartCampaignModel.Name))
+                            {
+                                Title = T("Admin.Promotions.Campaigns.Fields.Name").Text
+                            },
+                            @*new ColumnProperty(nameof(SmartCampaignModel.FullMessage))
+                            {
+                                Title = T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaign.Fields.Report").Text,
+                                Encode=false
+                            },*@
+                            new ColumnProperty(nameof(SmartCampaignModel.Id))
+                            {
+                                Title = T("Admin.Common.Edit").Text,
+                                Width = "80",
+                                ClassName =  NopColumnClassDefaults.Button,
+                                Render = new RenderButtonEdit(new DataUrl("Edit"))
+                            }
+                        }
+               })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

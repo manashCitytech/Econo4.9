@@ -1,0 +1,532 @@
+﻿@model FoxNetSoft.Plugin.Misc.SmartCampaigns.Models.SmartCampaignModel
+@using FoxNetSoft.Plugin.Misc.SmartCampaigns.Domain
+@using Nop.Web.Areas.Admin.Components
+<div class="cards-group">
+    <script>
+            $(document).ready(function () {
+                $("#@Html.IdFor(model => model.SmartCampaignTypeId)").change(toggleSmartCampaignType);
+                $("#@Html.IdFor(model => model.HasAttachedDownload)").change(toggleHasAttachedDownload);
+
+                toggleHasAttachedDownload();
+                toggleSmartCampaignType();
+            });
+
+            function toggleHasAttachedDownload() {
+                if ($('#@Html.IdFor(model => model.HasAttachedDownload)').is(':checked')) {
+                    $('#pnlAttachedDownload').showElement();
+                } else {
+                    $('#pnlAttachedDownload').hideElement();
+                }
+            }
+
+            function toggleSmartCampaignType() {
+                var selectedSmartCampaignTypeId = $("#@Html.IdFor(model => model.SmartCampaignTypeId)").val();
+
+                $('.smartcampaigncomment').hideElement();
+                $('#pnlStartDateTime, #pnlEndDateTime, #pnSendViaInterval, #pnDaysBeforeBirthday, #pnlForAllProduct, #pnlFiltersConditionBetweenProducts, #pnlOrderAllowedTokens, #pnlDontSendBeforeDate, #pnIsActive, #pnForExistingOrders, #pnlSendOneEmail').hideElement();
+                $('#pnCustomerViewedTypeId').hideElement();
+                $('#pnlOnlySubscriber, #pnlSelectedCustomerRoleIds').showElement();
+
+                //var $tab = $('[data-toggle="tab"][href="#tab-messages"]');
+                //$tab.hideElement();
+                var $tabproducts = $('[data-toggle="pill"][href="#tab-products"]');
+                $tabproducts.showElement();
+
+                switch (selectedSmartCampaignTypeId) {
+                    case '@(((int)SmartCampaignType.ByBuyersOfTheProduct).ToString())':
+                        $('#pnlStartDateTime').showElement();
+                        $('#pnlEndDateTime').showElement();
+                        $('#commentbybuyersoftheproduct').showElement();
+                        $('#pnlForAllProduct').showElement();
+                        $('#pnlFiltersConditionBetweenProducts').showElement();
+                        $('#pnlDontSendBeforeDate').showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.ByNotBuyersOfTheProduct).ToString())':
+                        $('#pnlStartDateTime').showElement();
+                        $('#pnlEndDateTime').showElement();
+                        $('#commentbynotbuyersoftheproduct').showElement();
+                        $('#pnlForAllProduct').showElement();
+                        $('#pnlFiltersConditionBetweenProducts').showElement();
+                        $('#pnlDontSendBeforeDate').showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.ByCustomerHasTheProductInTheCart).ToString())':
+                        $('#commentbycustomerhastheproductinthecart').showElement();
+                        $('#pnlForAllProduct').showElement();
+                        $('#pnlFiltersConditionBetweenProducts').showElement();
+                        $('#pnlDontSendBeforeDate').showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.ByCustomerHasTheProductInTheWishlist).ToString())':
+                        $('#commentbycustomerhastheproductinthewishlist').showElement();
+                        $('#pnlForAllProduct').showElement();
+                        $('#pnlFiltersConditionBetweenProducts').showElement();
+                        $('#pnlDontSendBeforeDate').showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.ByCustomerRecentlyViewedProducts).ToString())':
+                        $('#commentbycustomerrecentlyviewedproducts').showElement();
+                        $('#pnlForAllProduct').showElement();
+                        $('#pnlStartDateTime').showElement();
+                        $('#pnlEndDateTime').showElement();
+                        $('#pnlDontSendBeforeDate').showElement();
+                        $('#pnCustomerViewedTypeId').showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.ByAllCustomers).ToString())':
+                        $('#commentbyallcustomers').showElement();
+                        $tabproducts.hideElement();
+                        $('#pnlDontSendBeforeDate').showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.ByAllNewsSubscribers).ToString())':
+                        $('#commentbyallnewssubscribers').showElement();
+                        $tabproducts.hideElement();
+                        $('#pnlDontSendBeforeDate').showElement();
+                        $('#pnlOnlySubscriber, #pnlSelectedCustomerRoleIds').hideElement();
+                        break;
+                    case '@(((int)SmartCampaignType.AfterOrderPaid).ToString())':
+                        $('#commentafterorderpaid').showElement();
+                        $('#pnSendViaInterval, #pnlForAllProduct, #pnlOrderAllowedTokens, #pnlFiltersConditionBetweenProducts, #pnIsActive, #pnlSendOneEmail').showElement();
+                        //$tab.showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.AdminAfterOrderPaid).ToString())':
+                        $('#commentadminafterorderpaid').showElement();
+                        $('#pnlForAllProduct, #pnlOrderAllowedTokens, #pnlFiltersConditionBetweenProducts, #pnIsActive, #pnlSendOneEmail').showElement();
+                        //$tab.showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.AfterOrderPlaced).ToString())':
+                        $('#commentAfterOrderPlaced').showElement();
+                        $('#pnSendViaInterval, #pnForExistingOrders, #pnlForAllProduct, #pnlOrderAllowedTokens, #pnlFiltersConditionBetweenProducts, #pnIsActive, #pnlSendOneEmail').showElement();
+                        //$tab.showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.NotPaidOrder).ToString())':
+                        $('#commentNotPaidOrder').showElement();
+                        $('#pnSendViaInterval, #pnForExistingOrders, #pnlForAllProduct, #pnlOrderAllowedTokens, #pnlFiltersConditionBetweenProducts, #pnIsActive, #pnlSendOneEmail').showElement();
+                        //$tab.showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.AfterOrderCompletion).ToString())':
+                        $('#commentAfterOrderCompletion').showElement();
+                        $('#pnSendViaInterval, #pnForExistingOrders, #pnlForAllProduct, #pnlOrderAllowedTokens, #pnlFiltersConditionBetweenProducts, #pnIsActive, #pnlSendOneEmail').showElement();
+                        //$tab.showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.AfterOrderDelivered).ToString())':
+                        $('#commentAfterOrderDelivered').showElement();
+                        $('#pnSendViaInterval, #pnForExistingOrders, #pnlForAllProduct, #pnlOrderAllowedTokens, #pnlFiltersConditionBetweenProducts, #pnIsActive, #pnlSendOneEmail').showElement();
+                        //$tab.showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.AfterShipmentDelivered).ToString())':
+                        $('#commentAfterShipmentDelivered').showElement();
+                        $('#pnSendViaInterval, #pnlForAllProduct, #pnlOrderAllowedTokens, #pnlFiltersConditionBetweenProducts, #pnIsActive, #pnlSendOneEmail').showElement();
+                        //$tab.showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.AbandonedCarts).ToString())':
+                        $('#commentabandonedcarts').showElement();
+                        $('#pnSendViaInterval').showElement();
+                        $('#pnlForAllProduct').showElement();
+                        $('#pnIsActive').showElement();
+                        //$tab.showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.WishlistReminder).ToString())':
+                        $('#commentwishlistreminder').showElement();
+                        $('#pnSendViaInterval').showElement();
+                        $('#pnlForAllProduct').showElement();
+                        $('#pnIsActive').showElement();
+                        //$tab.showElement();
+                        break;
+                    case '@(((int)SmartCampaignType.BirthdayCongratulation).ToString())':
+                        $('#commentbirthdaycongratulation').showElement();
+                        $('#pnDaysBeforeBirthday').showElement();
+                        $('#pnIsActive').showElement();
+                        $tabproducts.hideElement();
+                        break;
+                    case '@(((int)SmartCampaignType.AfterCustomerRegistration).ToString())':
+                        $('#commentaftercustomerregistration').showElement();
+                        $('#pnSendViaInterval').showElement();
+                        $('#pnIsActive').showElement();
+                        $tabproducts.hideElement();
+                        break;
+                    case '@(((int)SmartCampaignType.ExpiringRewardPoints).ToString())':
+                        $('#commentexpiringrewardpoints').showElement();
+                        $('#pnDaysBeforeBirthday').showElement();
+                        $('#pnIsActive').showElement();
+                        $tabproducts.hideElement();
+                        break;
+                }
+            }
+    </script>
+    <div class="card card-default">
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <nop-label asp-for="Name" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <nop-label asp-for="SmartCampaignTypeId" />
+                </div>
+                <div class="col-md-9">
+                    <nop-select asp-for="SmartCampaignTypeId" asp-items="Model.AvailableSmartCampaignTypes" />
+                    <span asp-validation-for="SmartCampaignTypeId"></span>
+                </div>
+            </div>
+            <p>
+                <div class="smartcampaigncomment" id="commentbybuyersoftheproduct">
+                    You can send e-mails (manually) to all buyers or upload their e-mail addreses into external program.<br />
+                    You can select only those customers who purchased a particular product for a certain period of time.<br />
+                    You should press the button 'Send mass email' for sending emails.<br />
+                    <i>
+                        Example.<br />
+                        1. You want to send e-mails about availability of new iPad cases for all customers who have bought iPad, iPad2, iPad3 from 01.01.2014 to 01.03.2014.<br />
+                        2. You can inform buyers about new model of products.<br />
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentbynotbuyersoftheproduct">
+                    You can send e-mails (manually) to not buyers or upload their e-mail addreses into external program.<br />
+                    You can select only those customers who didn't purchase a particular product for a certain period of time.<br />
+                    You should press the button 'Send mass email' for sending emails.<br />
+                    <i>
+                        Example.<br />
+                        1. You want to send e-mails about the promon if the customer didn't purchase this product.<br />
+                        2. You can inform buyers about new model of products if the customer didn't purchas the product.<br />
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentbycustomerhastheproductinthecart">
+                    You can send e-mails (manually) to all registered customers or upload their e-mail addreses into external program using information from their shopping cart.<br />
+                    You should press the button 'Send mass email' for sending emails.<br />
+                    <i>
+                        Example.<br />
+                        You want to send e-mails to all users who have put iPad, iPad2, iPad3 in their shopping cart. In the message you will write that you have a special offer on these models.
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentbycustomerhastheproductinthewishlist">
+                    You can send e-mails (manually) to all registered customers or upload their e-mail addreses into external program using information from their wishlist.<br />
+                    You should press the button 'Send mass email' for sending emails.<br />
+                    <i>
+                        Example.<br />
+                        You want to send e-mails to all users who have put iPad, iPad2, iPad3 to their wishlist. In the message you will write that you have a special offer on these models in store.
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentbycustomerrecentlyviewedproducts">
+                    You can send e-mails (manually) to potential customers. It works in case you have another our plugin – <a href="http://www.foxnetsoft.com/nopcustomerinterests" target="blank">General Tracking (Customer's Interests)</a>.<br />
+                    How does this work?<br />
+                    General Tracking (Customer's Interests) plugin audits the interests of users, and what products they are interested in.<br />
+                    This promotion campaign selects all users who were interested in a certain product, but have not bought it. You can also specify the period when the user was interested in the product.<br />
+                    You should press the button 'Send mass email' for sending emails.<br />
+                    <i>
+                        Example.<br />
+                        You can send an e-mail to all registered users who were interested in iPad2 from 01.01.2014 to 02.01.2014, but have not bought it.
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentbyallcustomers">
+                    You can send e-mails (manually) to all registered users. Be careful. Do not use it to send spam.<br />
+                    You should press the button 'Send mass email' for sending emails.<br />
+                    <i>
+                        Example.<br />
+                        Send an e-mail to all users, informing that all users should change their passwords.
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentbyallnewssubscribers">
+                    You can send e-mails (manually) to all news subscribers. Be careful. Do not use it to send spam.<br />
+                    You should press the button 'Send mass email' for sending emails.<br />
+                    <i>
+                        Example.<br />
+                        Send an e-mail to all news subscribers, informing that they have a discount.
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentafterorderpaid">
+                    You can automatically send e-mails to customers after a certain time after purchase of the product (after order paid).<br />
+                    You specify the time interval yourself (minutes, hours, days).<br />
+                    Plugin sends emails automatically.<br />
+                    <i>
+                        Example.<br />
+                        1. All digital camera buyers will receive an email with a proposal to buy a case for it after 20 minutes of purchase.<br />
+                        2. All Bosch drills buyers will receive an email with a proposal to buy an extended warranty for this drill after 10 days of purchase.<br />
+                        3. A year after the purchase of the product you wish to remind the customer to prolong his license.<br />
+                        4. You can ask customers to write a review and get promotion code for the next purchase.
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentadminafterorderpaid">
+                    Send email to admin that the specific product was purchased (after the order was paid).<br />
+                    Plugin sends emails automatically.<br />
+                    <i>
+                        Example.<br />
+                        1. The store admin wants to know if the customer purchases IPhone X Red.<br />
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentAfterOrderPlaced">
+                    You can automatically send e-mails to customers after a certain time after order placed.<br />
+                    You specify the time interval yourself (minutes, hours, days).<br />
+                    Plugin sends emails automatically.<br />
+                    <i>
+                        Example.<br />
+                        1. All digital camera buyers will receive an email with a proposal to buy a case for it after 20 minutes of order placed.<br />
+                        2. All Bosch drills buyers will receive an email with a proposal to buy an extended warranty for this drill after 10 days of order placed.<br />
+                        3. A year after the order completed you wish to remind the customer to prolong his license.<br />
+                        4. You can ask customers to write a review and get promotion code for the next purchase.
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentNotPaidOrder">
+                    You can automatically send e-mails to customers which didn't paid orders after a certain time after order placed (not paid orders).<br />
+                    You specify the time interval yourself (minutes, hours, days).<br />
+                    Plugin sends emails automatically.<br />
+                    <i>
+                        Example.<br />
+                        1. All digital camera buyers will receive an email with a proposal to paid his order after 20 minutes of order placed.<br />
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentAfterOrderCompletion">
+                    You can automatically send e-mails to customers after order completion after a certain time.<br />
+                    You specify the time interval yourself (minutes, hours, days).<br />
+                    Plugin sends emails automatically.<br />
+                    <i>
+                        Example.<br />
+                        1. All digital camera buyers will receive an email with a proposal to write a review after 30 minutes of shipment was delivered.<br />
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentAfterOrderDelivered">
+                    You can automatically send e-mails to customers after order ws delivered after a certain time.<br />
+                    You specify the time interval yourself (minutes, hours, days).<br />
+                    Plugin sends emails automatically.<br />
+                    <i>
+                        Example.<br />
+                        1. All digital camera buyers will receive an email with a proposal to write a review after 30 minutes of shipment was delivered.<br />
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentAfterShipmentDelivered">
+                    You can automatically send e-mails to customers which shipment was delivered after a certain time.<br />
+                    You specify the time interval yourself (minutes, hours, days).<br />
+                    Plugin sends emails automatically.<br />
+                    <i>
+                        Example.<br />
+                        1. All digital camera buyers will receive an email with a proposal to write a review after 30 minutes of shipment was delivered.<br />
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentabandonedcarts">
+                    You can automatically send e-mails to customers about their Abandoned Carts.<br />
+                    You specify the time interval yourself (minutes, hours, days).<br />
+                    Plugin sends emails automatically.<br />
+                    You can't create new task with time interval less than 15 minutes.<br />
+                    You can use token <b>'%SmartCampaign.ShoppingCart%'</b> for this template.<br />
+                    This token uses template 'AbandonedCartsTemplate.cshtml'. If you need you can custom it and do very friendly e-mails, ex. with pictures, price with discount, etc.<br />
+                    If you decide to press the button 'Send mass email' plugin will send e-mail using current date and time.<br />
+                    <i>
+                        Example.<br />
+                        1. Plugin will remind customers about their abandoned carts after one day after their last adding products in their carts.<br />
+                        2. The store's owner can send e-mail with discount code for specificated products in their carts.
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentwishlistreminder">
+                    You can automatically send e-mails to customers about their Wishlists.<br />
+                    You specify the time interval yourself (minutes, hours, days).<br />
+                    Plugin sends emails automatically.<br />
+                    You can't create new task with time interval less than 15 minutes.<br />
+                    You can use token '%SmartCampaign.Wishlist%' for this template.<br />
+                    This token uses template 'WishlistReminderTemplate.cshtml'. If you need you can custom it and do very friendly e-mails, ex. with pictures, price with discount, etc.<br />
+                    If you decide to press the button 'Send mass email' plugin will send e-mail using current date and time.<br />
+                    <i>
+                        Example.<br />
+                        1. Plugin will remind customers about their Wishlists after one day after their last adding products in their Wishlists.<br />
+                        2. The store's owner can send e-mail with discount code for specificated products in their wishlists.
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentbirthdaycongratulation">
+                    You can automatically send e-mails to customers with birthday congratulations.<br />
+                    You specify the time interval yourself (days) before it.<br />
+                    Plugin sends emails automatically.<br />
+                    You can't create new task with time interval less than 15 minutes.<br />
+                    You can send discount code, etc. in this e-mail.
+                    If you decided to press the button 'Send mass email' plugin will send e-mail using current date and time.<br />
+                    <i>
+                        Example.<br />
+                        1. Plugin will send e-mails with birthday congratulations
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentaftercustomerregistration">
+                    You can automatically send e-mails to customers after registration.<br />
+                    You specify the time interval. Plugin sends emails automatically.
+                    <i>
+                        Example.<br />
+                        1. Plugin will send e-mails with discount code to all new customers.
+                    </i>
+                </div>
+                <div class="smartcampaigncomment" id="commentexpiringrewardpoints">
+                    Send e-mails about expiring reward points.<br />
+                    You specify the time interval. Plugin sends emails automatically.
+                    <i>
+                        Example.<br />
+                        1. The plugin will send reward points expiration emails 2 days before the end.
+                    </i>
+                </div>
+            </p>
+            <div class="form-group row" id="pnlStartDateTime">
+                <div class="col-md-3">
+                    <nop-label asp-for="StartDateTime" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="StartDateTime" />
+                    <span asp-validation-for="StartDateTime"></span>
+                </div>
+            </div>
+            <div class="form-group row" id="pnlEndDateTime">
+                <div class="col-md-3">
+                    <nop-label asp-for="EndDateTime" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="EndDateTime" />
+                    <span asp-validation-for="EndDateTime"></span>
+                </div>
+            </div>
+            <div class="form-group row" id="pnSendViaInterval">
+                <div class="col-md-3">
+                    <nop-label asp-for="SendViaInterval" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="SendViaInterval" />
+                    <span asp-validation-for="SendViaInterval"></span>
+                    <nop-select asp-for="SendViaIntervalTypeId" asp-items="Model.AvailableSendViaIntervalTypes" />
+                </div>
+            </div>
+            <div class="form-group row" id="pnDaysBeforeBirthday">
+                <div class="col-md-3">
+                    <nop-label asp-for="DaysBeforeBirthday" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="DaysBeforeBirthday" />
+                    <span asp-validation-for="DaysBeforeBirthday"></span>
+                </div>
+            </div>
+            <div class="form-group row" id="pnForExistingOrders">
+                <div class="col-md-3">
+                    <nop-label asp-for="ForExistingOrders" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="ForExistingOrders" />
+                    <span asp-validation-for="ForExistingOrders"></span>
+                </div>
+            </div>
+            <div class="form-group row" id="pnCustomerViewedTypeId">
+                <div class="col-md-3">
+                    <nop-label asp-for="CustomerViewedTypeId" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="CustomerViewedTypeId" />
+                    <span asp-validation-for="CustomerViewedTypeId"></span>
+                </div>
+            </div>
+            <div class="form-group row" id="pnIsActive">
+                <div class="col-md-3">
+                    <nop-label asp-for="IsActive" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="IsActive" />
+                    <span asp-validation-for="IsActive"></span>
+                    <p style="color:red;">
+                        @Html.Raw(T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Fields.IsActive.Comment"))
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card card-default">
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <nop-label asp-for="EmailAccountId" />
+                </div>
+                <div class="col-md-9">
+                    <nop-select asp-for="EmailAccountId" asp-items="Model.AvailableEmailAccounts" />
+                    <span asp-validation-for="EmailAccountId"></span>
+                </div>
+            </div>
+            <div class="form-group row" id="pnlDontSendBeforeDate">
+                <div class="col-md-3">
+                    <nop-label asp-for="DontSendBeforeDate" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="DontSendBeforeDate" />
+                    <span asp-validation-for="DontSendBeforeDate"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <nop-label asp-for="AttachedDownloadId" />
+                </div>
+                <div class="col-md-9">
+                    @{
+                        //Static file attachments do not support URLs yet
+                        //A store owner have to upload a file
+                        //we store a value into "ViewData" and then use it in the Download.cshtml file
+                        ViewData["nop.DownloadEditor.DisableUrl"] = true;
+                    }
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" asp-for="HasAttachedDownload" />
+                            @T("Admin.ContentManagement.MessageTemplates.Fields.AttachedDownload.Exists")
+                        </label>
+                    </div>
+                    <div id="pnlAttachedDownload">
+                        <nop-editor asp-for="AttachedDownloadId" />
+                        <span asp-validation-for="AttachedDownloadId"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row" @(Model.AvailableStores.SelectionIsNotPossible() ? Html.Raw("style=\"display:none\"") : null)>
+                <div class="col-md-3">
+                    <nop-label asp-for="StoreId" />
+                </div>
+                <div class="col-md-9">
+                    <nop-select asp-for="StoreId" asp-items="Model.AvailableStores" />
+                    <span asp-validation-for="StoreId"></span>
+                </div>
+            </div>
+            <div class="form-group row" id="pnlSelectedCustomerRoleIds">
+                <div class="col-md-3">
+                    <nop-label asp-for="SelectedCustomerRoleIds" />
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <nop-select asp-for="SelectedCustomerRoleIds" asp-items="Model.AvailableCustomerRoles" asp-multiple="true" />
+                            <script>
+                                $(function() {
+                                    var rolesIdsInput = $('#@Html.IdFor(model => model.SelectedCustomerRoleIds)').select2({
+                                        closeOnSelect: false,
+                                @if (!Model.AvailableCustomerRoles.Any())
+                                {
+                                    <text>
+                                                disabled: true,
+                                                placeholder: 'No customer roles available',
+                                    </text>
+                                }
+                                    });
+                                });
+                            </script>
+                        </div>
+                        <div class="col-md-8">
+                            @await Component.InvokeAsync(typeof(AclDisabledWarningViewComponent))
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row" id="pnlOnlySubscriber">
+                <div class="col-md-3">
+                    <nop-label asp-for="OnlySubscriber" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="OnlySubscriber" />
+                    <span asp-validation-for="OnlySubscriber"></span>
+                </div>
+            </div>
+            <div class="form-group row" id="pnlSendOneEmail">
+                <div class="col-md-3">
+                    <nop-label asp-for="SendOneEmail" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="SendOneEmail" />
+                    <span asp-validation-for="SendOneEmail"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

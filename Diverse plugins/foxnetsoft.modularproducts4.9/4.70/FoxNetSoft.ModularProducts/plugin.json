@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Misc",
+  "FriendlyName": "Modular Products (ProductTemplate)",
+  "SystemName": "FoxNetSoft.Plugin.Misc.ModularProducts",
+  "Version": "1.13",
+  "SupportedVersions": [ "4.70" ],
+  "Author": "FoxNetSoft",
+  "DisplayOrder": 1,
+  "FileName": "FoxNetSoft.Plugin.Misc.ModularProducts.dll",
+  "Description": ""
+}

@@ -1,0 +1,129 @@
+﻿@model FoxNetSoft.Plugin.Misc.SmartCampaigns.Models.SmartCampaignModel
+@using Microsoft.AspNetCore.Routing
+@using FoxNetSoft.Plugin.Misc.SmartCampaigns.Models
+<div class="cards-group">
+    @if (Model.Id > 0)
+    {
+        <div class="card card-default">
+            <div class="card-body">
+                <script>
+                        $(document).ready(function () {
+                            $('#pnlclearmessagebutton').click(function () {
+                                var clearMessageDays = $("#@Html.IdFor(model => model.ClearMessageDays)").val();
+                                var postData = {
+            //                        smartCampaignId: @Model.Id,
+                                    clearMessageDays: clearMessageDays
+                                };
+                                addAntiForgeryToken(postData);
+                                $.ajax({
+                                    cache: false,
+                                    type: 'POST',
+                                    url: "@Html.Raw(Url.Action("ClearMessages", "SmartCampaignAdmin", new RouteValueDictionary {{ "smartCampaignId", Model.Id }}))",
+                                    data: postData,
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (data && data.message > 0) {
+                                            alert(data.message);
+                                        }
+                                        else
+                                        {
+                                            //refresh grid
+                                            var optionsGrid = $("#messages-grid").data('kendoGrid');
+                                            optionsGrid.dataSource.read();
+                                        }
+                                    },
+                                    error: function (xhr, ajaxOptions, thrownError) {
+                                        alert('Failed to clear messages.');
+                                    }
+                                });
+                            });
+                        });
+                </script>
+
+                @await Html.PartialAsync("Table", new DataTablesModel
+{
+Name = "messages-grid",
+UrlRead = new DataUrl("MessageList", "SmartCampaignAdmin", new RouteValueDictionary { [nameof(Model.SmartCampaignSearchModel.SmartCampaignId)] = Model.SmartCampaignSearchModel.SmartCampaignId }),
+UrlDelete = new DataUrl("MessageDelete", "SmartCampaignAdmin", null),
+Length = Model.SmartCampaignSearchModel.PageSize,
+LengthMenu = Model.SmartCampaignSearchModel.AvailablePageSizes,
+ColumnCollection = new List<ColumnProperty>
+{
+            new ColumnProperty(nameof(MessageQueueModel.CustomerEmail))
+        {
+            Title = T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.Customer").Text,
+                                Width = "100",
+                                Render = new RenderLink(new DataUrl("~/Admin/Customer/Edit", nameof(MessageQueueModel.Id)))
+        },
+new ColumnProperty(nameof(MessageQueueModel.CreatedOn))
+{
+Title = T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.CreatedOn").Text,
+Width = "160",
+Render = new RenderDate()
+},
+new ColumnProperty(nameof(MessageQueueModel.DontSendBeforeDate))
+{
+Title = T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.DontSendBeforeDate").Text,
+Width = "160",
+Render = new RenderDate()
+},
+
+new ColumnProperty(nameof(MessageQueueModel.OrderHTML))
+{
+Title = T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.Order").Text,
+Encode = false
+},
+new ColumnProperty(nameof(MessageQueueModel.MessageHTML))
+{
+Title = T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.Fields.Message").Text,
+Encode = false
+},
+new ColumnProperty(nameof(MessageQueueModel.Id))
+{
+Title = T("Admin.Common.Delete").Text,
+Width = "100",
+Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+ClassName = NopColumnClassDefaults.Button
+}
+}
+})
+
+            </div>
+
+            <div class="card-footer">
+                <input type="submit" id="btnRefreshMessages" style="display: none" />
+                <script>
+                    $(document).ready(function () {
+                        $('#btnRefreshMessages').click(function () {
+                            //refresh grid
+                            updateTable('#messages-grid');
+
+                            //return false to don't reload a page
+                            return false;
+                        });
+                    });
+                </script>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <nop-label asp-for="ClearMessageDays" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="ClearMessageDays" />
+                        <div>
+                            <a href="#" id="pnlclearmessagebutton" class="k-button">@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Button.Clear")</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card card-default">
+            <div class="card-body">
+                @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Messages.SaveBeforeEdit")
+            </div>
+        </div>
+    }
+</div>
+

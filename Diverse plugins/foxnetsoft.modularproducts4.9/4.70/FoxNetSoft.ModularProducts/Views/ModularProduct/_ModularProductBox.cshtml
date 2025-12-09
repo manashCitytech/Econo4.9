@@ -1,0 +1,4 @@
+﻿@model FoxNetSoft.Plugin.Misc.ModularProducts.Models.ModularProductTotalPriceModel
+<script asp-location="Footer">
+$('.product-item[data-productid="@Model.ProductId"]').find('span.actual-price').text("@Html.Raw(Model.Price)");
+</script>

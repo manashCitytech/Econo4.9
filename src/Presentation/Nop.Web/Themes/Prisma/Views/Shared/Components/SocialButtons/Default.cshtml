@@ -39,7 +39,8 @@
         <li><a target="_blank" class="instagram" href="@instagramUrl" rel="noopener noreferrer" aria-label="@T("SevenSpikes.Themes.Common.Footer.FollowUs.Instagram")"></a></li>
     }
     @if (Model.NewsEnabled)
-    {
-        <li><a class="rss" href="@Url.RouteUrl(NopRouteNames.Standard.NEWS_RSS, new {languageId = Model.WorkingLanguageId})" aria-label="@T("Footer.FollowUs.RSS")"></a></li>
+    {@* 
+        <li><a class="rss" href="@Url.RouteUrl(NopRouteNames.Standard.NEWS_RSS, new {languageId = Model.WorkingLanguageId})" aria-label="@T("Footer.FollowUs.RSS")"></a></li> *@
+        <li><a class="rss" href="Javascript:void(0)" aria-label="@T("Footer.FollowUs.RSS")"></a></li>
     }
 </ul>

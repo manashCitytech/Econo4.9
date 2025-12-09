@@ -1,0 +1,24 @@
+﻿@model FoxNetSoft.Plugin.Misc.SmartCampaigns.Models.SmartCampaignModel
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12 clearfix">
+                <div class="float-left">
+                </div>
+            </div>
+        </div>
+        <nop-tabs id="smartcampaign-edit" asp-tab-name-to-select="tab-info" asp-render-selected-tab-input="false">
+            <nop-tab asp-name="tab-info" asp-title="@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Info")" asp-default="true">@await Html.PartialAsync("~/Plugins/FoxNetSoft.SmartCampaigns/Views/SmartCampaignAdmin/_CreateOrUpdate.Info.cshtml", Model)</nop-tab>
+            <nop-tab asp-name="tab-template" asp-title="@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Template")"> @await Html.PartialAsync("~/Plugins/FoxNetSoft.SmartCampaigns/Views/SmartCampaignAdmin/_CreateOrUpdate.Template.cshtml", Model)</nop-tab>
+            <nop-tab asp-name="tab-products" asp-title="@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Products")">@await Html.PartialAsync("~/Plugins/FoxNetSoft.SmartCampaigns/Views/SmartCampaignAdmin/_CreateOrUpdate.Products.cshtml", Model)</nop-tab>
+            <nop-tab asp-name="tab-conditions" asp-title="@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Requirements")">@await Html.PartialAsync("~/Plugins/FoxNetSoft.SmartCampaigns/Views/SmartCampaignAdmin/_CreateOrUpdate.Requirements.cshtml", Model)</nop-tab>
+            <nop-tab asp-name="tab-messages" asp-title="@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Messages")">@await Html.PartialAsync("~/Plugins/FoxNetSoft.SmartCampaigns/Views/SmartCampaignAdmin/_CreateOrUpdate.Messages.cshtml", Model)</nop-tab>
+            <nop-tab asp-name="tab-report" asp-title="@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Reports")">@await Html.PartialAsync("~/Plugins/FoxNetSoft.SmartCampaigns/Views/SmartCampaignAdmin/_CreateOrUpdate.Reports.cshtml", Model)</nop-tab>
+            <nop-tab asp-name="tab-tools" asp-title="@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Tab.Tools")">@await Html.PartialAsync("~/Plugins/FoxNetSoft.SmartCampaigns/Views/SmartCampaignAdmin/_CreateOrUpdate.Tools.cshtml", Model)</nop-tab>
+        </nop-tabs>
+    </div>
+</div>

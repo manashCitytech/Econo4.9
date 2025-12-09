@@ -1,0 +1,204 @@
+﻿@model FoxNetSoft.Plugin.Misc.SmartCampaigns.Models.SmartCampaignSettingsModel
+@using FoxNetSoft.Plugin.Misc.SmartCampaigns.Logger
+@using Microsoft.AspNetCore.Mvc.Controllers
+@using Nop.Core
+@using Nop.Services.Plugins
+@inject IWebHelper webHelper
+@inject IPluginService pluginService
+@{
+    var plugin = pluginService.FindPluginByTypeInAssembly((this.ViewContext.ActionDescriptor as ControllerActionDescriptor).ControllerTypeInfo);
+
+    //friendly name
+    var friendlyName = plugin?.PluginDescriptor.FriendlyName;
+
+    //Misc plugins
+
+    var configureLocale = "Admin.Configuration.Plugins.Misc.Configure";
+    var backToLocale = "Admin.Configuration.Plugins.Misc.BackToList";
+    var listActionMethodName = "List";
+    var listControllerName = "Plugin";
+
+    //Layout = "_ConfigurePlugin";
+    Layout = "_AdminLayout";
+    NopHtml.SetActiveMenuItemSystemName("FoxNetSoft.SmartCampaigns.Configure");
+    ViewBag.PageTitle = T(configureLocale).Text + " - " + friendlyName;
+}
+<form asp-controller="SmartCampaignSettings" asp-action="Configure" method="post">
+    <div class="content-header clearfix">
+        <h1 class="float-left">
+            @T(configureLocale) - @friendlyName
+            <small>
+                <i class="fa fa-arrow-circle-left"></i>
+                <a asp-action="@listActionMethodName" asp-controller="@listControllerName">@T(backToLocale)</a>
+            </small>
+        </h1>
+        <div class="float-right">
+            <button type="submit" name="save" class="btn btn-primary">
+                <i class="far fa-save"></i>
+                @T("Admin.Common.Save")
+            </button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="form-horizontal">
+            <script>
+        $(document).ready(function () {
+            $("#showDebugInfo").click(toggleshowDebugInfo);
+            toggleshowDebugInfo();
+
+            $('#pnlclearmessagebutton').click(function () {
+                var clearMessageDays = $("#@Html.IdFor(model => model.ClearMessageDays)").val();
+                var postData = {
+                    clearMessageDays: clearMessageDays
+                };
+                addAntiForgeryToken(postData);
+                $.ajax({
+                    cache: false,
+                    type: 'POST',
+                    url: "@Html.Raw(Url.Action("ClearMessages", "SmartCampaignAdmin", new RouteValueDictionary {{ "smartCampaignId", 0 }}))",
+                    data: postData,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data && data.message > 0) {
+                        alert(data.message);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('Failed to clear messages.');
+                }
+            });
+        });
+        });
+        function toggleshowDebugInfo() {
+            if ($('#showDebugInfo').is(':checked')) {
+                $('#pnlclearlogfile, #pnlgetlogfile').showElement();
+            }
+            else {
+                $('#pnlclearlogfile, #pnlgetlogfile').hideElement();
+            }
+        }
+            </script>
+
+            <div class="cards-group">
+                <div class="card card-default">
+                    <div class="card-body">
+                        <p>
+                            @if (Model.LicenseStatus == LicenseStatus.Registered)
+                            {
+                                @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.IsRegisted")
+                            }
+                            else
+                            {
+                                @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.IsNoRegisted")
+                                <br />
+                                <a href="https://www.foxnetsoft.com/nopcommerce-smartcampaigns" target="blank">Buy It Now</a>
+                            }
+                        </p>
+                        <p>
+                            Plugin added a new token for all nopcommerce templates:<br />
+                            <b>%SmartCampaignOrder.WriteReview(s)%</b> - you can ask your customers to write a review about products from their orders<br />
+                            Plugin added new tokens for smartcampaign templates:<br />
+                            <b>%RewardPoints.Total%</b> - Reward points balance (in points)<br />
+                            <b>%RewardPoints.ExpiringPoints%</b> - Reward points expiring<br />
+                            <b>%RewardPoints.ExpiringDate%</b> - Reward points expiring date<br />
+                            <b>%RewardPoints.Difference%</b> - Minimum reward points to use minus reward points balance<br />
+                            <b>%RewardPoints.TotalAmount%</b> - Reward points balance (in currency)<br />
+                            <b>%CheckoutUrl%</b> - you can use this token for direct redirect to checkout page in your store<br />
+                            <b>%CartUrl%</b> - you can use this token for direct redirect to cart page in your store<br />
+                        </p>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ProductPictureSize" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ProductPictureSize" />
+                                <span asp-validation-for="ProductPictureSize"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-label asp-for="ClearMessageDays" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="ClearMessageDays" />
+                                <span asp-validation-for="ClearMessageDays"></span>
+                                <div>
+                                    <a href="#" id="pnlclearmessagebutton" class="btn btn-primary">@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Button.Clear")</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-default">
+                    <div class="card-body">
+                        <p>
+                            @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.SmartCampaignSettings.LimitMessagas")
+                        </p>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-label asp-for="LimitOfMessagas" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="LimitOfMessagas" />
+                                <span asp-validation-for="LimitOfMessagas"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-label asp-for="LimitPerMinutes" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="LimitPerMinutes" />
+                                <span asp-validation-for="LimitPerMinutes"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-default">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-label asp-for="showDebugInfo" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="showDebugInfo" />
+                                <span asp-validation-for="showDebugInfo"></span>
+                                <div id="pnlclearlogfile">
+                                    <a href="@Url.Action("ClearLogFile")" class="btn btn-primary">@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.ClearLogFile")</a>
+                                </div>
+                                <div id="pnlgetlogfile">
+                                    <a href="@Url.Action("GetLogFile")" class="btn btn-primary">@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.GetLogFile")</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-label asp-for="StoreUrl" />
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control text-box single-line" id="StoreUrl" name="StoreUrl" value="@Model.StoreUrl" type="text" readonly="readonly">
+                                <span asp-validation-for="StoreUrl"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-label asp-for="SerialNumber" />
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control text-box single-line" id="SerialNumber" name="SerialNumber" value="@Model.SerialNumber" autocomplete="off">
+                                <span asp-validation-for="SerialNumber"></span>
+                            </div>
+                        </div>
+                        <p>
+                            Installation and configuring plug-in at Youtube <a href="https://www.youtube.com/foxnetsoft" target="blank">www.youtube.com/foxnetsoft</a>
+                            <br />
+                            Installation and configuring plug-in at our site <a href="https://www.foxnetsoft.com/documentation-smartcampaigns" target="blank">https://www.foxnetsoft.com/documentation-smartcampaigns</a>
+                            <br />
+                            <a href="https://www.foxnetsoft.com" target="blank">www.foxnetsoft.com</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
