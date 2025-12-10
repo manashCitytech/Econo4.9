@@ -1,0 +1,206 @@
+﻿@model Nop.Web.Models.Catalog.ProductDetailsModel
+@using Microsoft.AspNetCore.Http.Extensions
+@using Nop.Core.Domain.Catalog;
+@using Nop.Core.Domain.Seo
+@using Nop.Web.Framework.UI
+@using Nop.Web.Framework.Infrastructure
+@using FoxNetSoft.Plugin.Misc.ModularProducts.Helpers
+@using Nop.Services.Html
+@using Nop.Core.Domain.Orders
+@inject Nop.Core.IWebHelper webHelper
+@inject SeoSettings seoSettings
+@inject INopHtmlHelper NopHtml
+@inject IHtmlFormatter htmlFormatter
+@inject IThemeContext themeContext
+
+
+@{
+    var controllerName = Url.ActionContext.RouteData.Values["controller"].ToString();
+    var actionName = Url.ActionContext.RouteData.Values["action"].ToString();
+    var isProductController = controllerName.Equals("product", StringComparison.InvariantCultureIgnoreCase);
+    var isProductPage = isProductController && actionName.Equals("productdetails", StringComparison.InvariantCultureIgnoreCase);
+
+    var themeName = await themeContext.GetWorkingThemeNameAsync();
+}
+
+@{
+    if (isProductPage)
+    {
+        Layout = $"~/Themes/{themeName}/Views/Shared/_ColumnsTwo.cshtml";
+    }
+
+    //title
+    NopHtml.AddTitleParts(!string.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    NopHtml.AddMetaDescriptionParts(Model.MetaDescription);
+    NopHtml.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    NopHtml.AppendPageCssClassParts("html-product-details-page modular-pro");
+
+    //canonical URL
+    if (seoSettings.CanonicalUrlsEnabled)
+    {
+        var productUrl = Url.RouteUrl<Product>(new { SeName = Model.SeName }, webHelper.GetCurrentRequestProtocol()).ToLowerInvariant();
+        NopHtml.AddCanonicalUrlParts(productUrl, seoSettings.QueryStringInCanonicalUrlsEnabled);
+    }
+
+    //open graph META tags
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        NopHtml.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(htmlFormatter.StripTags(Model.MetaDescription)) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:image:url\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + webHelper.GetThisPageUrl(false) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+    }
+
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(htmlFormatter.StripTags(Model.MetaDescription)) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + webHelper.GetThisPageUrl(false) + "\" />");
+    }
+    NopHtml.AddCssFileParts("~/Plugins/FoxNetSoft.ModularProducts/Styles/styles.css");
+
+    NopHtml.AddJsonLdParts(Model.JsonLd);
+}
+<!--product breadcrumb-->
+@section Breadcrumb
+{
+    @await Html.PartialAsync("_ProductBreadcrumb", Model.Breadcrumb)
+}
+@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsAfterBreadcrumb, additionalData = Model })
+<div class="page product-details-page product-modular-page">
+    <div class="page-body">
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsTop, additionalData = Model })
+        <form asp-route="Product" asp-route-sename="@Model.SeName" method="post" id="product-details-form">
+            <div data-productid="@Model.Id">
+                <div class="product-essential">
+                    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsEssentialTop, additionalData = Model })
+                    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsBeforePictures, additionalData = Model })
+                    <!--product pictures-->
+                    @{
+                        var cloudZoom = await Component.InvokeAsync("Widget", new { widgetZone = "sevenspikes_cloud_zoom", additionalData = Model });
+                    }
+                    @if (!String.IsNullOrEmpty(await cloudZoom.RenderHtmlContentAsync()))
+                    {
+                        @cloudZoom
+                    }
+                    else
+                    {
+                        @await Html.PartialAsync("_ProductDetailsPictures", Model)
+                    }
+                    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsAfterPictures, additionalData = Model })
+                    <div class="overview">
+                        @await Html.PartialAsync("_Discontinued", Model)
+                        <div class="product-name">
+                            <h1>
+                                @Model.Name
+                            </h1>
+                        </div>
+
+                        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsOverviewTop, additionalData = Model })
+                        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsInsideOverviewButtonsBefore, additionalData = Model })
+                        @await Html.PartialAsync("_ProductEmailAFriendButton", Model)
+                        <ul class="add-to-links">
+                            @if (!Model.AddToCart.DisableWishlistButton && Model.AddToCart.UpdatedShoppingCartItemId == 0)
+                            {
+                                <li>
+
+                                    <input type="button" id="add-to-wishlist-button-@Model.Id" class="button-2 add-to-wishlist-button" value="@T("ShoppingCart.AddToWishlist")" data-productid="@Model.Id" onclick="AjaxCart.addproducttocart_details('@Url.RouteUrl("AddProductToCart-Details", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Wishlist })    ', '#product-details-form');return false;" />
+                                </li>
+                            }
+                            <li>
+                                @await Html.PartialAsync("_CompareProductsButton", Model)
+                            </li>
+                        </ul>
+                        <!--product SKU, manufacturer part number, stock info-->
+                        @await Html.PartialAsync("_SKU_Man_GTIN_Ven", Model)
+                        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsInsideOverviewButtonsAfter, additionalData = Model })
+
+                        <!--product reviews-->
+                        @await Html.PartialAsync("_ProductReviewOverview", Model.ProductReviewOverview)
+                        @if (!string.IsNullOrEmpty(Model.ShortDescription))
+                        {
+                            <div class="short-description">
+                                <strong>@T("SevenSpikes.Themes.Electronics.ProductDetails.QuickOverview")</strong>
+                                @Html.Raw(Model.ShortDescription)
+                            </div>
+                        }
+
+                        <!--associated products-->
+                        @*@await Html.PartialAsync("_ProductModularScript", Model)*@
+                        @await Html.PartialAsync("~/Plugins/FoxNetSoft.ModularProducts/Views/ModularProduct/_ProductModularScript.cshtml", Model)
+                        @await Html.PartialAsync("_ShareButton", Model)
+                        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsOverviewBottom, additionalData = Model })
+                        <!--manufacturers-->
+                        @* @await Html.PartialAsync("_ProductManufacturers", Model.ProductManufacturers) *@
+                        <!--compare, email a friend-->
+                        @* <div class="overview-buttons">
+                            
+                            @await Html.PartialAsync("_CompareProductsButton", Model)
+                           
+                           
+                        </div> *@
+
+
+                    </div>
+
+                    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsEssentialBottom, additionalData = Model })
+                </div>
+                @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsBeforeCollateral, additionalData = Model })
+                <div class="product-collateral">
+                    @if (!string.IsNullOrEmpty(Model.FullDescription))
+                    {
+                        <div class="tabhead tabhead-full-description">
+                            <strong>@T("SevenSpikes.Themes.Prisma.ProductDetails.Description")</strong>
+                        </div>
+                        <div class="tabinfo">
+                            <div class="full-description">
+                                @Html.Raw(Model.FullDescription)
+                            </div>
+                        </div>
+                    }
+
+                    <!--modular products-->
+                    <div class="tabinfo">
+                        <div class="product-modular-list">
+                            @foreach (var variant in Model.AssociatedProducts)
+                            {
+                                @await Html.PartialAsync(await ResolveViewPathHelper.GetViewPathAsync("ModularProduct/_ProductModularLine"), variant)
+                            }
+                            @if (Model.AssociatedProducts.Count == 0)
+                            {
+                                <div class="no-associated-products">
+                                    @T("Products.NoAssociatedProducts")
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                    <div class="tabhead">
+                        <strong>@T("SevenSpikes.Themes.Electronics.ProductDetails.AdditionalInfo")</strong>
+                    </div>
+                    <div class="tabinfo">
+                        <!--manufacturers-->
+                         @await Html.PartialAsync("_ProductManufacturers", Model.ProductManufacturers) 
+                    </div>
+
+                    @await Html.PartialAsync("_ProductSpecifications", Model.ProductSpecificationModel)
+                    @await Component.InvokeAsync("RelatedProducts", new { productId = Model.Id })
+                    @await Html.PartialAsync("_ProductTags", Model.ProductTags)
+                </div>
+                @*we do not display "also purchased" for grouped products
+            @await Component.InvokeAsync("ProductsAlsoPurchased", new { productId = Model.Id })*@
+                
+            </div>
+        </form>
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsBottom, additionalData = Model })
+    </div>
+</div>

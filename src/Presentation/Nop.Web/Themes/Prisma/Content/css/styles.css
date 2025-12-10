@@ -387,7 +387,7 @@ label, label + * {
 
 .fieldset, .section {
     position: relative;
-    /*margin: 0 0 20px;*/
+    margin: 0 0 20px;
 }
 
     .fieldset .title,
@@ -7077,12 +7077,8 @@ textarea:disabled {
 .payment-details {
     display: inline-block;
     margin: 0 5px;
-    max-width: 40%;
+    max-width: 80%;
     vertical-align: top;
-}
-.payment-details{
-	
-	max-width:60% !important;
 }
 
 .shipping-method .method-list li label,

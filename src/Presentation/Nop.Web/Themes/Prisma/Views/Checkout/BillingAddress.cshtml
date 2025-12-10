@@ -145,7 +145,7 @@
                                         }
                                     </ul>
                                     <div class="select-button">
-                                        <button type="button" class="button-1 select-billing-address-button" onclick="selectBillingAddress@(item.Id)()">@T("Checkout.BillToThisAddress")</button>
+                                        <input type="button" class="button-1 select-billing-address-button" onclick="selectBillingAddress@(item.Id)()" value="@T("Checkout.BillToThisAddress")"/>
                                         <script asp-location="Footer">
                                             function selectBillingAddress@(item.Id)() {
                                                 if ($('#@Html.IdFor(model => model.ShipToSameAddress)')

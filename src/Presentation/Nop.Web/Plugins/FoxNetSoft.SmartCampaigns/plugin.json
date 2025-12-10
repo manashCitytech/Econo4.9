@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Misc",
+  "FriendlyName": "Smart Campaigns",
+  "SystemName": "FoxNetSoft.Plugin.Misc.SmartCampaigns",
+  "Version": "3.22",
+  "SupportedVersions": [ "4.90" ],
+  "Author": "FoxNetSoft",
+  "DisplayOrder": 1,
+  "FileName": "FoxNetSoft.Plugin.Misc.SmartCampaigns.dll",
+  "Description": "Sending e-mails."
+}

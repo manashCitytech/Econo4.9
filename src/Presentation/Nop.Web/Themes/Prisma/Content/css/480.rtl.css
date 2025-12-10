@@ -70,7 +70,6 @@
 
     /* CATEGORY PAGE & GRIDS */
 
-
     .category-grid .item-box,
     .item-box {
 		width: 49%;
@@ -89,10 +88,9 @@
 	.two-per-row .product-grid .item-box:nth-of-type(2n) {
 		margin-right: 2%;
 	}
-	.product-review-links span + a {
-		display: inline-block;
-		margin-right: 2%;
-	}
+
+	/* PRODUCT PAGE */
+
 	.attribute-item:after {
 		content: '';
 		display: block;
@@ -143,7 +141,7 @@
     /* REVIEW PAGE */
     /* WISHLIST & COMPARE LIST */
     /* TOPICS */
-	.enter-password-form input[type="password"] {
+	.enter-password-form input {
 		width: 300px !important;
 	}
     /* CONTACT PAGE & EMAILaFRIEND */
