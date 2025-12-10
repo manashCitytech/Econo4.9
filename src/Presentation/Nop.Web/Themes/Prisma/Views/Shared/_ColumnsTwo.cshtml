@@ -67,6 +67,14 @@
         actionName.Equals("customerreturnrequests", StringComparison.InvariantCultureIgnoreCase));
 }
 
+@section Breadcrumb
+{
+    @if (IsSectionDefined("Breadcrumb"))
+    {
+        @RenderSection("Breadcrumb")
+    }
+}
+
 @if (!isAccountPage)
 {
     <div class="center-2 @gridNuberOfItemsClass">
@@ -77,22 +85,23 @@
     <div class="side-2">
         @if (IsSectionDefined("left"))
         {
-        	@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnBefore })
+            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnBefore })
             @await RenderSectionAsync("left")
-        	@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnAfter })
+            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnAfter })
         }
         else
         {
-        	@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnBefore })
-        	@await RenderSectionAsync("CatalogFilters", false);
-        	@await Component.InvokeAsync(typeof(CategoryNavigationViewComponent), new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })
-        	@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnAfterCategoryNavigation })
-        	@await Component.InvokeAsync(typeof(ManufacturerNavigationViewComponent), new { currentManufacturerId = currentManufacturerId })
-        	@await Component.InvokeAsync(typeof(VendorNavigationViewComponent))
-        	@await Component.InvokeAsync(typeof(RecentlyViewedProductsBlockViewComponent), new { productThumbPictureSize = 64 })
-        	@await Component.InvokeAsync(typeof(PopularProductTagsViewComponent))
-        	@await Component.InvokeAsync(typeof(PollBlockViewComponent), new { systemKeyword = "LeftColumnPoll" })
-        	@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnAfter })
+            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnBefore })
+            @await RenderSectionAsync("CatalogFilters", false)
+            ;
+            @await Component.InvokeAsync(typeof(CategoryNavigationViewComponent), new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })
+            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnAfterCategoryNavigation })
+            @await Component.InvokeAsync(typeof(ManufacturerNavigationViewComponent), new { currentManufacturerId = currentManufacturerId })
+            @await Component.InvokeAsync(typeof(VendorNavigationViewComponent))
+            @await Component.InvokeAsync(typeof(RecentlyViewedProductsBlockViewComponent), new { productThumbPictureSize = 64 })
+            @await Component.InvokeAsync(typeof(PopularProductTagsViewComponent))
+            @await Component.InvokeAsync(typeof(PollBlockViewComponent), new { systemKeyword = "LeftColumnPoll" })
+            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnAfter })
         }
     </div>
 }
@@ -109,8 +118,8 @@ else
         }
     </div>
     <div class="center-2 equal">
-    	@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnBefore })
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnBefore })
         @RenderBody()
-    	@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnAfter })
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnAfter })
     </div>
 }

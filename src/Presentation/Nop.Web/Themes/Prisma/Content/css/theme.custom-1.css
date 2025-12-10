@@ -8,7 +8,13 @@
   /* Gecko Browsers */
 
 }
-.master-header-wrapper,
+.master-header-wrapper {
+    background: url(../../../../images/thumbs/background_image.jpg);
+    background-position: center top;
+    background-size: auto;
+    background-repeat: repeat;
+}
+
 .navigation-wrapper,
 .ui-dialog-titlebar,
 .scroll-back-button,
@@ -88,8 +94,6 @@ input.apply-shipping-button {
 .cart .product-name:hover,
 .cart .subtotal span,
 .header-links a:hover,
-.footer-middle li.address:before,
-.footer-middle li.phone:before,
 .social-sharing a:hover:after,
 .block .list > li > a:hover,
 .block .sublist > li > a:hover,
@@ -230,8 +234,13 @@ a.k-button.k-grid-update:after,
 .social-feed .post-description a {
   color: #222;
 }
-/* border color */
 
+
+.footer-middle li.phone:before,
+.footer-middle li.address:before{
+    color: #fff;
+}
+/* border color */
 .ajax-loading-block-window,
 .product-list .item-box .buttons-wrapper .buttons button,
 .product-grid .item-box .buttons-wrapper,
@@ -241,7 +250,7 @@ a.k-button.k-grid-update:after,
 .k-loading-image:after,
 .social-feed .post-item,
 .feeds-page .feeds-post-item {
-  border-bottom-color: #222;
+    border-bottom-color: #222;
 }
 .poll-options li label:hover,
 .poll-options li input:checked + label {
@@ -289,15 +298,18 @@ a.k-button.k-grid-update:after,
   .flyout-cart .buttons button:hover span:before,
   .flyout-cart .buttons button:hover,
   .flyout-cart .buttons button + button,
-  .footer-block .list > li:hover,
   .downloadable-products-page .download a:hover {
     color: #222;
   }
-  .header-menu > ul > li:hover > a,
-  .header-menu > ul > li:hover > span,
-  .header-menu .sublist-wrap {
-    background-color: #080808;
-  }
+
+    .footer-block .list > li:hover {
+        color: #F7944A;
+    }
+    .header-menu > ul > li:hover > a,
+    .header-menu > ul > li:hover > span,
+    .header-menu .sublist-wrap {
+        background-color: #080808;
+    }
 }
 /*ajaxCart*/
 

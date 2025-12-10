@@ -583,4 +583,23 @@ public partial class ProductController : BasePublicController
     }
 
     #endregion
+
+    #region Custom
+    public async Task<IActionResult> Bereken(int productId, string Param1, string Param2, string Param3, string Param4, string Param5, string Param6, string Param7, string Param8, string Param9, string Param10)
+    {
+        Product productById =await _productService.GetProductByIdAsync(productId);
+        ProductDetailsModel productDetailsModel =await _productModelFactory.PrepareProductDetailsModelAsync(productById);
+        productDetailsModel.Param1 = Param1;
+        productDetailsModel.Param2 = Param2;
+        productDetailsModel.Param3 = Param3;
+        productDetailsModel.Param4 = Param4;
+        productDetailsModel.Param5 = Param5;
+        productDetailsModel.Param6 = Param6;
+        productDetailsModel.Param7 = Param7;
+        productDetailsModel.Param8 = Param8;
+        productDetailsModel.Param9 = Param9;
+        productDetailsModel.Param10 = Param10;
+        return View("ProductTemplate.Calculate", productDetailsModel);
+    }
+    #endregion
 }

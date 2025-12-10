@@ -148,7 +148,7 @@
                                             }
                                         </ul>
                                         <div class="select-button">
-                                            <button type="button" onclick="setLocation('@Url.RouteUrl(NopRouteNames.Standard.CHECKOUT_SELECT_SHIPPING_ADDRESS, new { addressid = item.Id })')" class="button-1 select-shipping-address-button">@T("Checkout.ShipToThisAddress")</button>
+                                            <input type="button" onclick="setLocation('@Url.RouteUrl(NopRouteNames.Standard.CHECKOUT_SELECT_SHIPPING_ADDRESS, new { addressid = item.Id })')" class="button-1 select-shipping-address-button"value="@T("Checkout.ShipToThisAddress")"/>
                                         </div>
                                     </div>
                                 }

@@ -21,7 +21,7 @@
 		margin-right: auto;
 	}
 	.center-1 {
-		margin-bottom: 200px;
+		margin-bottom: 100px;
 	}
 	.home-page-body .center-1 {
 		margin-bottom: 100px;
@@ -265,8 +265,6 @@
 		-webkit-transform: scaleY(1)/* CHECK_HERE */;
 		-ms-transform: scaleY(1)/* CHECK_HERE */;
 		transform: scaleY(1)/* CHECK_HERE */;
-		-webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
-		transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
 	}
 	.flyout-cart .buttons button:hover {
 		color: #57b568;
@@ -526,9 +524,6 @@
 	.block .title {
 		border-bottom: 1px solid #eee;
 	}
-	.block .title:after {
-		content: none;
-	}
 	.block .product-picture {
 		display: inline-block;
 		vertical-align: middle;
@@ -580,6 +575,7 @@
 	}
 	.product-grid .item-box .buttons-wrapper {
 		display: block;
+		white-space: nowrap;
 	}
 	.home-page .topic-block {
 		padding: 50px 0;
@@ -600,6 +596,7 @@
 	}
 	.bestsellers .item-box .product-item {
 		display: table;
+		table-layout: fixed;
 		width: 100%;
 	}
 	.bestsellers .item-box:nth-child(2n) {
@@ -799,8 +796,8 @@
 		margin-left: 20px;
 		width: auto;
 	}
-	.overview .compare-products input,
-    .overview .email-a-friend input {
+	.overview .compare-products button,
+    .overview .email-a-friend button {
 		position: static;
 		padding: 0 45px 0 15px;
 		border: 0;
@@ -891,13 +888,6 @@
 
 
     /* REVIEW PAGE */
-	.product-reviews-page .page-body:after {
-		content: '';
-		display: block;
-		clear: both;
-	}
-
-
     /* WISHLIST & COMPARE LIST */
 	.order-summary-content .table-wrapper,
     .wishlist-content .table-wrapper {
@@ -970,7 +960,7 @@
 		width: 87%;
 		text-align: center;
 	}
-	.login-page .customer-blocks .buttons input {
+	.login-page .customer-blocks .buttons button {
 		margin: 0;
 		min-width: 0;
 	}
@@ -1075,11 +1065,11 @@
 		margin: 0;
 		height: 100%;
 	}
-	.cart-collaterals .coupon-code input[type="submit"],
+	.cart-collaterals .coupon-code button,
     .cart-collaterals .buttons .estimate-shipping-button {
 		transition: all .3s;
 	}
-	.cart-collaterals .coupon-code input[type="submit"]:hover,
+	.cart-collaterals .coupon-code button:hover,
     .cart-collaterals .buttons .estimate-shipping-button:hover {
 		color: #57b568;
 	}
@@ -1153,5 +1143,9 @@
 	}
 	.downloadable-products-page .download a:hover {
 		color: #57b568;
+	}
+	.change-password-page .form-input-wrapper {
+		width: 277px;
+		float: left;
 	}
 }

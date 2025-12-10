@@ -1,9 +1,9 @@
 ﻿@model PollModel
-<section class="block block-poll">
-    <h2 class="title">
-        @T("Polls.Title")
-    </h2>
+<div class="block block-poll">
+    <div class="title">
+        <strong>@T("Polls.Title")</strong>
+    </div>
     <div class="listbox">
         @await Html.PartialAsync("_Poll", Model)
     </div>
-</section>
+</div>
