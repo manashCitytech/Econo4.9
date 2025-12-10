@@ -1,0 +1,286 @@
+﻿@model FoxNetSoft.Plugin.Misc.SmartCampaigns.Models.SmartCampaignModel
+@using System.Text.Encodings.Web
+<script src="~/lib_npm/jsrender/jsrender.min.js" asp-location="Head"></script>
+    <div class="cards-group">
+        @if (Model.Id > 0)
+        {
+            <p>
+                @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Description")
+            </p>
+
+            <script>
+            $(document).ready(function() {
+                $("#@Html.IdFor(model => model.AddRequirement)").change(loadNewRequirementBox);
+
+                //load add requirement box
+                loadNewRequirementBox();
+
+                //load existing requirements
+                loadRequirements();
+
+                //adding requirement event
+                $("#foxnetsoftRequirementContainer").bind('foxnetsoftnewrequirementadded', function(event, newRequirementId) {
+                    var parentId = $("#@Html.IdFor(model => model.RequirementGroupId)").val();
+                    loadRequirements(newRequirementId, parentId);
+                });
+            });
+
+            //load HTML for adding requirement
+            function loadNewRequirementBox() {
+                //load URL
+                var ruleSystemName = $("#@Html.IdFor(model => model.AddRequirement)").val();
+                if (ruleSystemName) {
+                    var groupsElement = $("#@Html.IdFor(model => model.RequirementGroupId)");
+                    if (groupsElement.find('option').length > 1) {
+                        $("#pnlGroup").showElement();
+                    }
+                    else {
+                        $("#pnlGroup").hideElement();
+                    }
+                    if (ruleSystemName == 'AddGroup') {
+                        $("#pnlAddNewGroup").showElement();
+                        $("#pnlGroupName").showElement();
+                        $('#addrequirementplaceholder').html('');
+                    }
+                    else {
+                        $("#pnlAddNewGroup").hideElement();
+                        $("#pnlGroupName").hideElement();
+                        $.ajax({
+                            cache: false,
+                            url: "@(Url.Action("GetRequirementConfigurationUrl", "SmartCampaignAdmin", new { area = "Admin" }))",
+                            data: {
+                                "systemName": ruleSystemName,
+								"externalId": @Model.Id 
+                            },
+                            success: function (data, textStatus, jqXHR) {
+                                loadRequirementIntoBox(data.url, '#addrequirementplaceholder');
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                $('#addrequirementplaceholder').html('Failed to load requirement URL');
+                            }
+                        });
+                    }
+                } else {
+                    $("#pnlGroupName").hideElement();
+                    $("#pnlGroup").hideElement();
+                    $("#pnlAddNewGroup").hideElement();
+                    $('#addrequirementplaceholder').html('');
+                }
+            };
+
+            //load requirement HTML
+            function loadRequirementIntoBox(configureRuleUrl, placeholderName) {
+                $.ajax({
+                    cache: false,
+                    url: configureRuleUrl,
+                    dataType: "html",
+                    success: function (data, textStatus, jqXHR) {
+                        $(placeholderName).html(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $(placeholderName).html('Failed to load requirement content.');
+                    }
+                });
+            };
+
+            function loadRequirements(requirementId, parentId, interactionTypeId, deleteRequirement) {
+                var postData = {
+                    externalId: @Model.Id,
+                    requirementId: (typeof requirementId === 'undefined' ? 0 : requirementId),
+                    parentId: (typeof parentId === 'undefined' ? null : parentId),
+                    interactionTypeId: (typeof interactionTypeId === 'undefined' ? null : interactionTypeId),
+                    deleteRequirement: (typeof deleteRequirement === 'undefined' ? false : deleteRequirement)
+                };                              
+
+                addAntiForgeryToken(postData);
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "@(Url.Action("GetRequirements", "SmartCampaignAdmin", new { area = "Admin" }))",
+                    data: postData,
+                    success: function (data, textStatus, jqXHR) {
+                        //set requirements
+                        loadRequirementBoxes(data.Requirements, "#foxnetsoftRequirementContainer", true);
+
+                        //set available groups
+                        var groupsElement = $("#@Html.IdFor(model => model.RequirementGroupId)");
+                        groupsElement.html('');
+                        $.each(data.AvailableGroups, function (id, option) {
+                            groupsElement.append($('<option></option>').val(option.Value).html(option.Text));
+                        });
+                        var ruleSystemName = $("#@Html.IdFor(model => model.AddRequirement)").val();
+                        if (ruleSystemName && groupsElement.find('option').length > 1) {
+                            $("#pnlGroup").showElement();
+                        }
+                        else {
+                            $("#pnlGroup").hideElement();
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#getRequirementsAlert").click();
+                    }
+                });
+            };
+
+            //load HTML for exisiting requirements
+            function loadRequirementBoxes(requirements, placeholder, hideEmptyString) {
+                if (requirements.length > 0 || hideEmptyString)
+                    $(placeholder).html('');
+                else
+                    $(placeholder).html('@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.GroupIsEmpty")');
+
+                $(placeholder).append(
+                    $("#shippingRequirementTemplate").render(requirements)
+                );
+
+                for (var i = 0; i < requirements.length; i++) {
+                    var placeholderName = '#editrequirementplaceholder' + requirements[i].RequirementId;
+                    $(placeholderName).html('loading...');
+                    if (requirements[i].IsGroup) {
+                        loadRequirementBoxes(requirements[i].ChildRequirements, placeholderName, false);
+                    }
+                    else {
+                        loadRequirementIntoBox(requirements[i].ConfigurationUrl, placeholderName);
+                    }
+                }
+            };
+
+            //add new group
+            function addNewGroup() {
+                var postData = {
+                    externalId: @Model.Id,
+                    name: $("#@Html.IdFor(model => model.GroupName)").val(),
+                };
+
+                addAntiForgeryToken(postData);
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    data: postData,
+                    url: "@(Url.Action("AddNewGroup", "SmartCampaignAdmin"))",
+                    success: function (data, textStatus, jqXHR) {
+                        $("#foxnetsoftRequirementContainer").trigger('foxnetsoftnewrequirementadded', [data.NewRequirementId]);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $("#failedToSave").click();
+                    }
+                });
+            };
+
+            //delete requirement rule
+            function deleteRequirement(requirementId) {
+                loadRequirements(requirementId, null, null, true);
+            };
+
+            //change interaction type
+            function changeInteraction(requirementId, parentId, typeId) {
+                loadRequirements(requirementId, parentId, typeId);
+            };
+            </script>
+
+            <!-- Template container -->
+            <div id="foxnetsoftRequirementContainer"></div>
+
+            <!-- Shipping rule requirement template -->
+            <script id="shippingRequirementTemplate" type="text/x-jsrender">
+                <div class="requirement-container {{if IsGroup}}requirement-group{{/if}}" id="editrequirement{{>RequirementId }}">
+                    <div class="requirement-heading clearfix">
+                        {{if IsGroup}}
+                        <span class="float-left margin-r-5">
+                            @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.RequirementGroup.Title")
+                            <i>{{:RequirementName }}</i>
+                        </span>
+                        <div class="interaction-type float-left clearfix">
+                            <span class="float-left margin-r-10">@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.InteractionTypeInGroup")</span>
+                            <select class="form-control input-sm float-left" id="interactiontype{{>RequirementId}}"
+                                    name="interactiontype{{>RequirementId }}"
+                                    onchange="changeInteraction({{> RequirementId}}, {{if ParentId}} {{>ParentId}} {{else}} null {{/if}}, this.value)">
+                                {{for AvailableInteractionTypes}}
+                                    {{if Selected}}
+                                        <option value="{{>Value}}" selected>{{>Text}}</option>
+                                    {{else}}
+                                        <option value="{{>Value}}">{{>Text}}</option>
+                                    {{/if}}
+                                {{/for}}
+                            </select>
+                        </div>
+                        {{else}}
+                        <div class="float-left">
+                            @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Requirement.Title")
+                            <i>{{:RequirementName }}</i>
+                        </div>
+                        {{/if}}
+                        {{if ParentId}}
+                        <button type="button" class="btn btn-link" id="deleterequirement{{>RequirementId }}" onclick="deleteRequirement({{>RequirementId }})">
+                            <i class="far fa-trash-alt"></i>
+                            {{if IsGroup}}
+                            @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.RemoveGroup")
+                            {{else}}
+                            @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.RemoveRequirement")
+                            {{/if}}
+                        </button>
+                        {{/if}}
+                    </div>
+                    <div class="requirement-body">
+                        <div id="editrequirementplaceholder{{> RequirementId }}"></div>
+                    </div>
+                </div>
+                {{if !IsLastInGroup}}                
+                <div class="interaction-type-label">
+                    {{>InteractionType}}                    
+                </div>
+                {{/if}}
+            </script>
+
+            <div class="card card-default card-add-requirement">
+                <div class="card-header">
+                    @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.AddNew")
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-label asp-for="AddRequirement" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-select asp-for="AddRequirement" asp-items="Model.AvailableRequirements" />
+                            <span asp-validation-for="AddRequirement"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row d-none" id="pnlGroup">
+                        <div class="col-md-3">
+                            <nop-label asp-for="RequirementGroupId" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-select asp-for="RequirementGroupId" asp-items="Model.AvailableRequirementGroups" />
+                            <span asp-validation-for="RequirementGroupId"></span>
+                        </div>
+                    </div>
+                    <div id="addrequirementplaceholder"></div>
+                    <div class="form-group row d-none" id="pnlGroupName">
+                        <div class="col-md-3">
+                            <nop-label asp-for="GroupName" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="GroupName" />
+                            <span asp-validation-for="GroupName"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row d-none" id="pnlAddNewGroup">
+                        <div class="col-md-9 offset-md-3">
+                            <button type="button" id="saverequirement" class="btn btn-primary" onclick="addNewGroup()">@T("Admin.Common.Save")</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card card-default">
+                <div class="card-body">
+                    @T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.SaveBeforeEdit")
+                </div>
+            </div>
+        }
+    </div>
+    <nop-alert asp-alert-id="failedToSave" asp-alert-message="@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.FailedToSave")" />
+    <nop-alert asp-alert-id="getRequirementsAlert" asp-alert-message="@T("Admin.FoxNetSoft.Plugin.Misc.SmartCampaigns.Requirements.Alert.FailedGetDiscountRequirements")" />

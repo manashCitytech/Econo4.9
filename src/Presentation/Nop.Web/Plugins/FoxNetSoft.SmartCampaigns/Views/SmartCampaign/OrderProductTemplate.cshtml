@@ -1,0 +1,56 @@
+﻿@model IList<ProductTableModel>
+@using Nop.Core.Domain.Messages
+@using FoxNetSoft.Plugin.Misc.SmartCampaigns.Models
+@inject MessageTemplatesSettings messageTemplatesSettings
+@inject Nop.Services.Localization.ILocalizationService localizationService
+@{
+    var languageId = Model.First().LanguageId;
+    var downloadmessage = await localizationService.GetResourceAsync("Messages.Order.Product(s).Download", languageId);
+}
+<table border="0" style="width:100%;">
+    @foreach (var item in Model)
+    {
+        <tr style="background-color: @messageTemplatesSettings.Color2 ;text-align: center;">
+            <td style="padding: 0.6em 0.4em;text-align: left;">
+                <div class="picture">
+                    <a href="@item.ProductSeName">
+                        <img src="@item.PictureUrl" />
+                    </a>
+                </div>
+            </td>
+            <td style="padding: 0.6em 0.4em;text-align: left;">
+                <div class="name">
+                    <a href="@item.ProductSeName">@item.ProductName</a>
+                    @if (!string.IsNullOrWhiteSpace(item.DownloadUrl))
+                    {
+                        <br />
+                        <a class="link" href="@item.DownloadUrl">@(downloadmessage)</a>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(item.AttributeInfo))
+                    {
+                        <br />
+                        @Html.Raw(item.AttributeInfo)
+                    }
+                </div>
+                @if (item.ShowProductReviewsPerStore)
+                {
+                    var ratingPercent = 0;
+                    if (item.TotalReviews != 0)
+                    {
+                        ratingPercent = ((item.RatingSum * 100) / item.TotalReviews) / 5;
+                    }
+                    <br />
+                    <div class="product-rating-box" title="@string.Format(T("Reviews.TotalReviews").Text, item.TotalReviews)">
+                        <div class="rating">
+                            <div style="width: @(ratingPercent)%">
+                            </div>
+                        </div>
+                    </div>
+                }
+            </td>
+            <td style="padding: 0.6em 0.4em;text-align: right;">
+                @item.Price
+            </td>
+        </tr>
+    }
+</table>
