@@ -11,7 +11,7 @@
         <div class="coupon-code">
             <input name="discountcouponcode" id="discountcouponcode" type="text" class="discount-coupon-code" aria-label="@T("ShoppingCart.DiscountCouponCode.Label")" />
 
-            <button type="submit" name="applydiscountcouponcode" id="applydiscountcouponcode" class="button-2 apply-discount-coupon-code-button">@T("ShoppingCart.DiscountCouponCode.Button")</button>
+            <input type="submit" name="applydiscountcouponcode" id="applydiscountcouponcode" class="button-2 apply-discount-coupon-code-button" value="@T("ShoppingCart.DiscountCouponCode.Button")"/>
         </div>
         @foreach (var message in Model.Messages)
         {

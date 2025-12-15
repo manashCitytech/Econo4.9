@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Misc",
+  "FriendlyName": "HandlingFeeProduct",
+  "SystemName": "Misc.HandlingFeeProduct",
+  "Version": "4.90",
+  "SupportedVersions": [ "4.90" ],
+  "Author": "Citytech team",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Misc.HandlingFeeProduct.dll",
+  "Description": "This plugin allows to integrate Handling Fee Product"
+}
