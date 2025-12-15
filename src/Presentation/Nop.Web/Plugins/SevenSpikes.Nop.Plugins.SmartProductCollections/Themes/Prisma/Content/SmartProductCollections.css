@@ -87,9 +87,10 @@
     border: 0;
     background: none;
 }
-.spc-body .product-grid.active {
+  .spc-body .product-grid.active {
     display: block;
-}
+    background: #fff;
+  }
 .spc-body .no-data {
     display: block;
     padding: 20px 25px;
@@ -157,9 +158,10 @@
 .spc-products .item-box .details {
     padding: 10px 10px 0 10px;
 }
-.spc-products .item-box .details {
+  .spc-products .item-box .details {
     text-align: center;
-}
+    background: transparent;
+  }
 .item-box .picture a {
     overflow: hidden;
 }
