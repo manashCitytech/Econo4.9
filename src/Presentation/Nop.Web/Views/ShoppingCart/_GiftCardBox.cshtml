@@ -9,7 +9,7 @@
         <div class="coupon-code">
             <input name="giftcardcouponcode" id="giftcardcouponcode" type="text" class="gift-card-coupon-code" aria-label="@T("ShoppingCart.GiftCardCouponCode.Label")" />
 
-            <button type="submit" name="applygiftcardcouponcode" id="applygiftcardcouponcode" class="button-2 apply-gift-card-coupon-code-button">@T("ShoppingCart.GiftCardCouponCode.Button")</button>
+            <input type="submit" name="applygiftcardcouponcode" id="applygiftcardcouponcode" class="button-2 apply-gift-card-coupon-code-button" value="@T("ShoppingCart.GiftCardCouponCode.Button")"/>
         </div>
         @if (!string.IsNullOrEmpty(Model.Message))
         {
