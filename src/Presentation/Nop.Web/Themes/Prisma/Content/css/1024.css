@@ -586,6 +586,7 @@ DESKTOP
     .product-grid .item-box .details {
         position: relative;
         padding-top: 62px;
+        min-height:156px;
     }
     .product-grid .item-box .buttons-wrapper {
         display: block;
