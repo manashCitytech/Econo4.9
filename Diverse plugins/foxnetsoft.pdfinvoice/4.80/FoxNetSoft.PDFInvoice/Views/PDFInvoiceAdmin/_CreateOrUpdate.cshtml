@@ -1,0 +1,880 @@
+@model FoxNetSoft.Plugin.Misc.PDFInvoice.Models.PDFTemplateModel
+@using FoxNetSoft.Plugin.Misc.PDFInvoice.Models
+@using Nop.Web.Areas.Admin.Components
+@inject FoxNetSoft.Plugin.Misc.PDFInvoice.Services.ICustomFontService customFontService
+@inject Nop.Core.IStoreContext storeContext
+@{
+    // Load custom fonts for TinyMCE
+    var storeId = await storeContext.GetActiveStoreScopeConfigurationAsync();
+    var customFonts = await customFontService.GetAllActiveFontsAsync(storeId);
+
+    // Build font formats string
+    var systemFonts = "Arial=arial,helvetica,sans-serif;" +
+                      "Times New Roman=times new roman,times,serif;" +
+                      "Courier New=courier new,courier,monospace;" +
+                      "Georgia=georgia,serif;" +
+                      "Verdana=verdana,sans-serif;" +
+                      "Tahoma=tahoma,sans-serif";
+
+    var customFontFormats = string.Join(";", customFonts.Select(f => $"{f.FontName}={f.FontFamily}"));
+    var allFontFormats = string.IsNullOrEmpty(customFontFormats)
+        ? systemFonts
+        : systemFonts + ";" + customFontFormats;
+}
+<script src="~/lib_npm/tinymce/tinymce.min.js" asp-location="Head"></script>
+<script>
+    // Set global font formats for PDF editors
+    window.pdfEditorFontFormats = '@Html.Raw(allFontFormats)';
+</script>
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden"/>
+<input asp-for="TemplateTypeId" type="hidden" />
+<style>
+    .fns_twocolumns{
+        display:inline-flex;
+    }
+    .fns_twocolumns>div:first-child
+    {
+        padding-right: 10px;
+    }
+</style>
+<div class="content">
+    <div class="form-horizontal">
+        <div class="cards-group">
+            <div class="card card-default">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-label asp-for="PreconfiguredTemplate" />
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <button type="button" id="btnShowLoadTemplateModal" class="btn btn-info">
+                                    @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.LoadTemplate")
+                                </button>
+                                @if (Model.Id > 0)
+                                {
+                                    <div class="input-group-btn" style="padding-left:2px;">
+                                        <button type="button" id="btnSaveAsTemplate" class="btn btn-success">
+                                            @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate")
+                                        </button>
+                                    </div>
+                                }
+                                <div class="input-group-btn" style="padding-left:2px;">
+                                    <button type="button" id="btnShowRemoveTemplateModal" class="btn btn-danger">
+                                        @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate")
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-default">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-label asp-for="TemplateTypeId" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-select asp-for="TemplateTypeId" asp-items="Model.AvailableTemplateTypes" />
+                            <span asp-validation-for="TemplateTypeId"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-label asp-for="Name"/>
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="Name" asp-required="true" />
+                            <span asp-validation-for="Name"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row" @(Model.HideLanguagesList ? Html.Raw("style=\"display:none\"") : null)>
+                        <div class="col-md-3">
+                            <nop-label asp-for="LanguageId" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-select asp-for="LanguageId" asp-items="Model.AvailableLanguages" />
+                            <span asp-validation-for="LanguageId"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-label asp-for="StoreId" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-select asp-for="StoreId" asp-items="Model.AvailableStores" />
+                            <span asp-validation-for="StoreId"></span>
+                        </div>
+                    </div>
+                    @await Component.InvokeAsync(typeof(AclCustomerRolesViewComponent), Model)
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-label asp-for="Published" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="Published" />
+                            <span asp-validation-for="Published"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-default">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <p>
+                                <strong>Adding Images to PDF Templates:</strong><br />
+                                <br />
+                                You can use either relative or absolute URLs for images:<br />
+                                <br />
+                                <strong>Relative URLs (automatically converted):</strong><br />
+                                &bull; "/Themes/DefaultClean/Content/images/logo.png" <br />
+                                &bull; "Content/images/logo.png" <br />
+                                <br />
+                                <strong>Absolute URLs (recommended for external images):</strong><br />
+                                &bull; "https://www.yourstore.com/Themes/DefaultClean/Content/images/logo.png" <br />
+                                <br />
+                                Relative URLs will be automatically converted to absolute URLs using your store URL.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-default">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-label asp-for="AllowedTokens" />
+                        </div>
+                        <div class="col-md-9">
+                            <a id="allowedTokensShowHide" href="javascript:toggleLoadedAllowedTokens();">@T("Admin.Common.Show")</a>
+                            <div id="pnlAllowedTokens" style="display: none; white-space: pre-line">
+                                <div class="form-text-row">@Model.AllowedTokens</div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                    function toggleLoadedAllowedTokens() {
+                        $('#pnlAllowedTokens').toggle();
+                        if ($('#pnlAllowedTokens').css('display') == 'none') {
+                            $('#allowedTokensShowHide').text('@T("Admin.Common.Show")');
+                        } else {
+                            $('#allowedTokensShowHide').text('@T("Admin.Common.Hide")');
+                        }
+                    }
+                    </script>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-label asp-for="AllowedOrderSummaryTokens" />
+                        </div>
+                        <div class="col-md-9">
+                            <a id="allowedOrderSummaryTokensShowHide" href="javascript:toggleLoadedAllowedOrderSummaryTokens();">@T("Admin.Common.Show")</a>
+                            <div id="pnlAllowedOrderSummaryTokens" style="display: none; white-space: pre-line">
+                                <div class="form-text-row">@Model.AllowedOrderSummaryTokens</div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        function toggleLoadedAllowedOrderSummaryTokens() {
+                            $('#pnlAllowedOrderSummaryTokens').toggle();
+                            if ($('#pnlAllowedOrderSummaryTokens').css('display') == 'none') {
+                                $('#allowedOrderSummaryTokensShowHide').text('@T("Admin.Common.Show")');
+                        } else {
+                                $('#allowedOrderSummaryTokensShowHide').text('@T("Admin.Common.Hide")');
+                        }
+                    }
+                    </script>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-label asp-for="AllowedOrderItemTokens" />
+                        </div>
+                        <div class="col-md-9">
+                            <a id="allowedOrderItemTokensShowHide" href="javascript:toggleLoadedAllowedOrderItemTokens();">@T("Admin.Common.Show")</a>
+                            <div id="pnlAllowedOrderItemTokens" style="display: none; white-space: pre-line">
+                                <div class="form-text-row">@Model.AllowedOrderItemTokens</div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        function toggleLoadedAllowedOrderItemTokens() {
+                            $('#pnlAllowedOrderItemTokens').toggle();
+                            if ($('#pnlAllowedOrderItemTokens').css('display') == 'none') {
+                                $('#allowedOrderItemTokensShowHide').text('@T("Admin.Common.Show")');
+                            } else {
+                                $('#allowedOrderItemTokensShowHide').text('@T("Admin.Common.Hide")');
+                            }
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="card card-default">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="alert alert-info">
+                                <strong>Automatic Product Row Detection:</strong> Your template will automatically detect and repeat product rows.<br />
+                                <br />
+                                Simply place OrderItem tokens (like <code>%OrderItem.ProductName%</code>, <code>%OrderItem.Quantity%</code>, <code>%OrderItem.Total%</code>) inside a table row (<code>&lt;tr&gt;</code>).<br />
+                                <br />
+                                The plugin will automatically find the row containing OrderItem tokens and repeat it for each product in the order.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            @await Html.PartialAsync("~/Plugins/FoxNetSoft.PDFInvoice/Views/PDFInvoiceAdmin/_PDFRichEditor.cshtml", Model.HtmlTemplate, new ViewDataDictionary(ViewData) { { "id", "HtmlTemplate" } })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-default">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-label asp-for="AdminComment" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-textarea asp-for="AdminComment"></nop-textarea>
+                            <span asp-validation-for="AdminComment"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Load Template Modal -->
+<div class="modal fade" id="loadTemplateModal" tabindex="-1" role="dialog" aria-labelledby="loadTemplateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loadTemplateModalLabel">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.LoadTemplate.Modal.Title")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.LoadTemplate.Modal.Message")</p>
+                <div class="form-group">
+                    <label for="modalTemplateSelect">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.PreconfiguredTemplate")</label>
+                    <select id="modalTemplateSelect" class="form-control">
+                        @foreach (var item in Model.AvailablePreconfiguredTemplates)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnConfirmLoadTemplate" class="btn bg-blue">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.LoadTemplate.Modal.ButtonLoad")</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.LoadTemplate.Modal.ButtonCancel")</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Save As Template Modal -->
+<div class="modal fade" id="saveAsTemplateModal" tabindex="-1" role="dialog" aria-labelledby="saveAsTemplateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="saveAsTemplateModalLabel">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Title")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Message")</p>
+
+                <!-- Radio buttons for action selection -->
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="saveAction" id="radioCreateNew" value="new" checked>
+                        <label class="form-check-label" for="radioCreateNew">
+                            @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.CreateNew")
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="saveAction" id="radioOverwrite" value="overwrite">
+                        <label class="form-check-label" for="radioOverwrite">
+                            @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.OverwriteExisting")
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Text input for new template name -->
+                <div class="form-group" id="newTemplateNameGroup">
+                    <label for="newTemplateName">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.TemplateName")</label>
+                    <input type="text" id="newTemplateName" class="form-control" placeholder="@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.TemplateNamePlaceholder")">
+                    <small class="form-text text-muted">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.TemplateNameHint")</small>
+                </div>
+
+                <!-- Dropdown for existing templates -->
+                <div class="form-group" id="existingTemplateGroup" style="display: none;">
+                    <label for="existingTemplateSelect">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.SelectTemplate")</label>
+                    <select id="existingTemplateSelect" class="form-control">
+                        @foreach (var item in Model.AvailablePreconfiguredTemplates)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                    <small class="form-text text-danger">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.OverwriteWarning")</small>
+                </div>
+
+                <!-- Validation message area -->
+                <div id="saveAsValidationMessage" class="alert alert-danger" style="display: none;" role="alert"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnConfirmSaveAsTemplate" class="btn btn-success">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.ButtonSave")</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.ButtonCancel")</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Remove Template Modal -->
+<div class="modal fade" id="removeTemplateModal" tabindex="-1" role="dialog" aria-labelledby="removeTemplateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeTemplateModalLabel">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.Title")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning" role="alert">
+                    <strong>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.Warning")</strong>
+                    <p>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.Message")</p>
+                </div>
+                <div class="form-group">
+                    <label for="removeTemplateSelect">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.SelectTemplate")</label>
+                    <select id="removeTemplateSelect" class="form-control">
+                        @foreach (var item in Model.AvailablePreconfiguredTemplates)
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    </select>
+                </div>
+
+                <!-- Validation message area -->
+                <div id="removeValidationMessage" class="alert alert-danger" style="display: none;" role="alert"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnConfirmRemoveTemplate" class="btn btn-danger">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.ButtonDelete")</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.ButtonCancel")</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Import Template Modal -->
+<div class="modal fade" id="importTemplateModal" tabindex="-1" role="dialog" aria-labelledby="importTemplateModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importTemplateModalLabel">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.Title")</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-warning" role="alert">
+                    <strong>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.Warning")</strong>
+                    <p>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.ConfirmReplace")</p>
+                </div>
+                <p>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.Message")</p>
+
+                <!-- File input with drag and drop zone -->
+                <div class="form-group">
+                    <div id="dropZone" style="border: 2px dashed #ccc; border-radius: 5px; padding: 30px; text-align: center; cursor: pointer; background-color: #f9f9f9;">
+                        <i class="fa fa-upload fa-3x" style="color: #999; margin-bottom: 10px;"></i>
+                        <p style="margin: 10px 0; font-size: 16px;">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.SelectFile")</p>
+                        <p style="margin: 0; color: #999;">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.DragDrop")</p>
+                        <small class="form-text text-muted" style="margin-top: 10px;">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.FileHint")</small>
+                    </div>
+                    <input type="file" id="importFileInput" accept=".html" style="display: none;">
+                    <div id="selectedFileName" style="margin-top: 10px; display: none;">
+                        <strong>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.SelectedFile"):</strong>
+                        <span id="fileNameDisplay"></span>
+                        <button type="button" id="btnClearFile" class="btn btn-sm btn-secondary" style="margin-left: 10px;">@T("Admin.Common.Clear")</button>
+                    </div>
+                </div>
+
+                <!-- Validation message area -->
+                <div id="importValidationMessage" class="alert alert-danger" style="display: none;" role="alert"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnConfirmImport" class="btn bg-olive" disabled>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.ButtonUpload")</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.ButtonCancel")</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    // Load Template Modal Handler
+    $('#btnShowLoadTemplateModal').click(function() {
+        $('#loadTemplateModal').appendTo('body').modal('show');
+    });
+
+    // Confirm Load Template Button Handler
+    $('#btnConfirmLoadTemplate').click(function() {
+        var selectedTemplate = $('#modalTemplateSelect').val();
+
+        // Create a hidden form to submit
+        var form = $('<form>', {
+            'method': 'POST',
+            'action': window.location.href
+        });
+
+        // Add anti-forgery token
+        var antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+        form.append($('<input>', {
+            'type': 'hidden',
+            'name': '__RequestVerificationToken',
+            'value': antiForgeryToken
+        }));
+
+        // Add the selected template
+        form.append($('<input>', {
+            'type': 'hidden',
+            'name': 'PreconfiguredTemplate',
+            'value': selectedTemplate
+        }));
+
+        // Add the load template button name
+        form.append($('<input>', {
+            'type': 'hidden',
+            'name': 'loadtemplate',
+            'value': 'loadtemplate'
+        }));
+
+        // Add model ID if exists (for edit mode)
+        var modelId = $('#Id').val();
+        if (modelId) {
+            form.append($('<input>', {
+                'type': 'hidden',
+                'name': 'Id',
+                'value': modelId
+            }));
+        }
+
+        // Append to body and submit
+        form.appendTo('body').submit();
+    });
+
+    @if (Model.Id > 0)
+    {
+        <text>
+        // Save As Template Modal Handler
+        $('#btnSaveAsTemplate').click(function() {
+            // Reset modal state
+            $('#radioCreateNew').prop('checked', true);
+            $('#newTemplateNameGroup').show();
+            $('#existingTemplateGroup').hide();
+            $('#newTemplateName').val('');
+            $('#saveAsValidationMessage').hide();
+
+            // Show modal
+            $('#saveAsTemplateModal').appendTo('body').modal('show');
+        });
+
+        // Toggle between new template and overwrite existing
+        $('input[name="saveAction"]').change(function() {
+            var selectedAction = $('input[name="saveAction"]:checked').val();
+
+            if (selectedAction === 'new') {
+                $('#newTemplateNameGroup').show();
+                $('#existingTemplateGroup').hide();
+            } else {
+                $('#newTemplateNameGroup').hide();
+                $('#existingTemplateGroup').show();
+            }
+
+            // Hide validation message when switching
+            $('#saveAsValidationMessage').hide();
+        });
+
+        // Confirm Save As Template Button Handler
+        $('#btnConfirmSaveAsTemplate').click(function() {
+            var selectedAction = $('input[name="saveAction"]:checked').val();
+            var templateName = '';
+            var overwrite = false;
+
+            // Validate based on selected action
+            if (selectedAction === 'new') {
+                templateName = $('#newTemplateName').val().trim();
+
+                if (templateName === '') {
+                    $('#saveAsValidationMessage')
+                        .text('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Validation.NameRequired")')
+                        .show();
+                    return;
+                }
+
+                // Sanitize template name - replace spaces with underscores and remove invalid characters
+                templateName = templateName.replace(/\s+/g, '_');
+                var invalidChars = /[<>:"/\\|?*]/g;
+                templateName = templateName.replace(invalidChars, '');
+
+                // Check if sanitized name is empty after removing invalid characters
+                if (templateName === '') {
+                    $('#saveAsValidationMessage')
+                        .text('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Validation.InvalidChars")')
+                        .show();
+                    return;
+                }
+
+                overwrite = false;
+            } else {
+                templateName = $('#existingTemplateSelect').val();
+
+                if (!templateName || templateName === '') {
+                    $('#saveAsValidationMessage')
+                        .text('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Validation.SelectTemplate")')
+                        .show();
+                    return;
+                }
+
+                overwrite = true;
+            }
+
+            // Disable button to prevent double-clicking
+            var $btn = $('#btnConfirmSaveAsTemplate');
+            $btn.prop('disabled', true);
+
+            // Get anti-forgery token
+            var antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+
+            // Prepare form data
+            var formData = {
+                id: @Model.Id,
+                templateName: templateName,
+                overwrite: overwrite
+            };
+
+            // Add anti-forgery token to data
+            if (antiForgeryToken) {
+                formData['__RequestVerificationToken'] = antiForgeryToken;
+            }
+
+            // Make AJAX call
+            $.ajax({
+                url: '@Url.Action("SaveAsTemplate", "PDFInvoiceAdmin")',
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response.success) {
+                        // Close modal
+                        $('#saveAsTemplateModal').modal('hide');
+
+                        // Show success message using nopCommerce notification (if available)
+                        if (typeof displaySuccessNotification === 'function') {
+                            displaySuccessNotification(response.message);
+                        } else {
+                            alert(response.message);
+                        }
+
+                        // Reload to update the dropdown
+                        location.reload();
+                    } else {
+                        $('#saveAsValidationMessage')
+                            .text(response.message)
+                            .show();
+                        $btn.prop('disabled', false);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = '@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Error.General")';
+
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+
+                    $('#saveAsValidationMessage')
+                        .text(errorMessage)
+                        .show();
+                    $btn.prop('disabled', false);
+                }
+            });
+        });
+
+        // Preview in HTML - opens in new tab
+        $('#btnPreviewHTML').click(function() {
+            var url = '@Url.Action("PreviewHTML", "PDFInvoiceAdmin", new { id = Model.Id })';
+            window.open(url, '_blank');
+        });
+
+        // Preview in PDF - opens PDF in new tab
+        $('#btnPreviewPDF').click(function() {
+            var url = '@Url.Action("PreviewPDF", "PDFInvoiceAdmin", new { id = Model.Id })';
+            window.open(url, '_blank');
+        });
+        </text>
+    }
+
+    // Remove Template Modal Handler
+    $('#btnShowRemoveTemplateModal').click(function() {
+        // Reset modal state
+        $('#removeValidationMessage').hide();
+
+        // Show modal
+        $('#removeTemplateModal').appendTo('body').modal('show');
+    });
+
+    // Confirm Remove Template Button Handler
+    $('#btnConfirmRemoveTemplate').click(function() {
+        var templateName = $('#removeTemplateSelect').val();
+
+        if (!templateName || templateName === '') {
+            $('#removeValidationMessage')
+                .text('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.Validation.SelectTemplate")')
+                .show();
+            return;
+        }
+
+        // Disable button to prevent double-clicking
+        var $btn = $('#btnConfirmRemoveTemplate');
+        $btn.prop('disabled', true);
+
+        // Get anti-forgery token
+        var antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+
+        // Prepare form data
+        var formData = {
+            templateName: templateName
+        };
+
+        // Add anti-forgery token to data
+        if (antiForgeryToken) {
+            formData['__RequestVerificationToken'] = antiForgeryToken;
+        }
+
+        // Make AJAX call
+        $.ajax({
+            url: '@Url.Action("DeletePreconfiguredTemplate", "PDFInvoiceAdmin")',
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                if (response.success) {
+                    // Close modal
+                    $('#removeTemplateModal').modal('hide');
+
+                    // Show success message using nopCommerce notification (if available)
+                    if (typeof displaySuccessNotification === 'function') {
+                        displaySuccessNotification(response.message);
+                    } else {
+                        alert(response.message);
+                    }
+
+                    // Reload to update the dropdown
+                    location.reload();
+                } else {
+                    $('#removeValidationMessage')
+                        .text(response.message)
+                        .show();
+                    $btn.prop('disabled', false);
+                }
+            },
+            error: function(xhr, status, error) {
+                var errorMessage = '@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.Error.General")';
+
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    errorMessage = xhr.responseJSON.message;
+                }
+
+                $('#removeValidationMessage')
+                    .text(errorMessage)
+                    .show();
+                $btn.prop('disabled', false);
+            }
+        });
+    });
+
+    @if (Model.Id > 0)
+    {
+        <text>
+        // Import Template Modal Handler
+        $('#btnImportTemplate').click(function() {
+            // Reset modal state
+            $('#importFileInput').val('');
+            $('#selectedFileName').hide();
+            $('#fileNameDisplay').text('');
+            $('#importValidationMessage').hide();
+            $('#btnConfirmImport').prop('disabled', true);
+
+            // Show modal
+            $('#importTemplateModal').appendTo('body').modal('show');
+        });
+
+        // Drop zone click handler - open file picker
+        $('#dropZone').click(function() {
+            $('#importFileInput').click();
+        });
+
+        // Prevent default drag behaviors
+        $('#dropZone').on('dragover dragenter', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).css({
+                'border-color': '#007bff',
+                'background-color': '#e7f3ff'
+            });
+        });
+
+        $('#dropZone').on('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).css({
+                'border-color': '#ccc',
+                'background-color': '#f9f9f9'
+            });
+        });
+
+        // Handle dropped files
+        $('#dropZone').on('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).css({
+                'border-color': '#ccc',
+                'background-color': '#f9f9f9'
+            });
+
+            var files = e.originalEvent.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileSelection(files[0]);
+            }
+        });
+
+        // Handle file input change
+        $('#importFileInput').change(function() {
+            var files = this.files;
+            if (files.length > 0) {
+                handleFileSelection(files[0]);
+            }
+        });
+
+        // Clear file selection
+        $('#btnClearFile').click(function() {
+            $('#importFileInput').val('');
+            $('#selectedFileName').hide();
+            $('#fileNameDisplay').text('');
+            $('#btnConfirmImport').prop('disabled', true);
+            $('#importValidationMessage').hide();
+        });
+
+        // File selection handler
+        function handleFileSelection(file) {
+            // Reset validation message
+            $('#importValidationMessage').hide();
+
+            // Validate file extension
+            var fileName = file.name;
+            var fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+
+            if (fileExtension !== '.html') {
+                $('#importValidationMessage')
+                    .text('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Error.InvalidFormat")')
+                    .show();
+                $('#btnConfirmImport').prop('disabled', true);
+                return;
+            }
+
+            // Validate file size (5MB max)
+            var maxSize = 5 * 1024 * 1024; // 5MB
+            if (file.size > maxSize) {
+                $('#importValidationMessage')
+                    .text('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Error.FileSize")')
+                    .show();
+                $('#btnConfirmImport').prop('disabled', true);
+                return;
+            }
+
+            // Show selected file name
+            $('#fileNameDisplay').text(fileName);
+            $('#selectedFileName').show();
+            $('#btnConfirmImport').prop('disabled', false);
+        }
+
+        // Confirm Import Button Handler
+        $('#btnConfirmImport').click(function() {
+            var files = $('#importFileInput')[0].files;
+            if (files.length === 0) {
+                $('#importValidationMessage')
+                    .text('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Error.NoFile")')
+                    .show();
+                return;
+            }
+
+            var file = files[0];
+
+            // Disable button to prevent double-clicking
+            var $btn = $('#btnConfirmImport');
+            $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> @T("Admin.Common.Processing")');
+
+            // Get anti-forgery token
+            var antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+
+            // Create FormData for file upload
+            var formData = new FormData();
+            formData.append('file', file);
+            formData.append('id', @Model.Id);
+            if (antiForgeryToken) {
+                formData.append('__RequestVerificationToken', antiForgeryToken);
+            }
+
+            // Make AJAX call
+            $.ajax({
+                url: '@Url.Action("ImportTemplate", "PDFInvoiceAdmin")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        // Close modal
+                        $('#importTemplateModal').modal('hide');
+
+                        // Show success message using nopCommerce notification (if available)
+                        if (typeof displaySuccessNotification === 'function') {
+                            displaySuccessNotification(response.message);
+                        } else {
+                            alert(response.message);
+                        }
+
+                        // Reload page to show updated template
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                    } else {
+                        $('#importValidationMessage')
+                            .text(response.message)
+                            .show();
+                        $btn.prop('disabled', false).html('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.ButtonUpload")');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = '@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.Error.General")';
+
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
+
+                    $('#importValidationMessage')
+                        .text(errorMessage)
+                        .show();
+                    $btn.prop('disabled', false).html('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.ButtonUpload")');
+                }
+            });
+        });
+        </text>
+    }
+});
+</script>
+
