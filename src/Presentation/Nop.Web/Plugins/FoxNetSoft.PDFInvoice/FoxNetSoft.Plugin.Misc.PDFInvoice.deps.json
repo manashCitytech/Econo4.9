@@ -1,0 +1,123 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "FoxNetSoft.Plugin.Misc.PDFInvoice/1.00": {
+        "dependencies": {
+          "AngleSharp.Css": "0.17.0.0",
+          "AngleSharp": "0.17.1.0",
+          "DinkToPdf": "1.0.8.0",
+          "FluentMigrator.Abstractions": "7.1.0.0",
+          "FluentMigrator": "7.1.0.0",
+          "HtmlSanitizer": "9.0.0.0",
+          "Microsoft.Extensions.Http": "9.0.0.0"
+        },
+        "runtime": {
+          "FoxNetSoft.Plugin.Misc.PDFInvoice.dll": {}
+        }
+      },
+      "AngleSharp.Css/0.17.0.0": {
+        "runtime": {
+          "AngleSharp.Css.dll": {
+            "assemblyVersion": "0.17.0.0",
+            "fileVersion": "0.17.0.0"
+          }
+        }
+      },
+      "AngleSharp/0.17.1.0": {
+        "runtime": {
+          "AngleSharp.dll": {
+            "assemblyVersion": "0.17.1.0",
+            "fileVersion": "0.17.1.0"
+          }
+        }
+      },
+      "DinkToPdf/1.0.8.0": {
+        "runtime": {
+          "DinkToPdf.dll": {
+            "assemblyVersion": "1.0.8.0",
+            "fileVersion": "1.0.8.0"
+          }
+        }
+      },
+      "FluentMigrator.Abstractions/7.1.0.0": {
+        "runtime": {
+          "FluentMigrator.Abstractions.dll": {
+            "assemblyVersion": "7.1.0.0",
+            "fileVersion": "7.1.0.0"
+          }
+        }
+      },
+      "FluentMigrator/7.1.0.0": {
+        "runtime": {
+          "FluentMigrator.dll": {
+            "assemblyVersion": "7.1.0.0",
+            "fileVersion": "7.1.0.0"
+          }
+        }
+      },
+      "HtmlSanitizer/9.0.0.0": {
+        "runtime": {
+          "HtmlSanitizer.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.886.0"
+          }
+        }
+      },
+      "Microsoft.Extensions.Http/9.0.0.0": {
+        "runtime": {
+          "Microsoft.Extensions.Http.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.1025.47515"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FoxNetSoft.Plugin.Misc.PDFInvoice/1.00": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AngleSharp.Css/0.17.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AngleSharp/0.17.1.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DinkToPdf/1.0.8.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FluentMigrator.Abstractions/7.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FluentMigrator/7.1.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HtmlSanitizer/9.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Extensions.Http/9.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

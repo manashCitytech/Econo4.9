@@ -1,0 +1,200 @@
+@model FoxNetSoft.Plugin.Misc.PDFInvoice.Models.FontManagementModel
+@using FoxNetSoft.Plugin.Misc.PDFInvoice
+@using Microsoft.AspNetCore.Mvc.Controllers
+@using Nop.Core
+@using Nop.Services.Plugins
+@inject IWebHelper webHelper
+@inject IPluginService pluginService
+@{
+    var plugin = pluginService.FindPluginByTypeInAssembly((this.ViewContext.ActionDescriptor as ControllerActionDescriptor).ControllerTypeInfo);
+
+    //friendly name
+    var friendlyName = plugin?.PluginDescriptor.FriendlyName;
+
+    Layout = "_AdminLayout";
+    NopHtml.SetActiveMenuItemSystemName("FoxNetSoft.PDFInvoice.FontManagement");
+    ViewBag.PageTitle = T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.FontManagement").Text + " - " + friendlyName;
+}
+
+<div class="content-header clearfix">
+    <h1 class="float-left">
+        @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.FontManagement") - @friendlyName
+        <small>
+            <i class="fa fa-arrow-circle-left"></i>
+            <a asp-action="Configure" asp-controller="PDFInvoiceSettings">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Menu.Configure")</a>
+        </small>
+    </h1>
+</div>
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="cards-group">
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.FontManagement")</h3>
+                </div>
+                <div class="card-body">
+                    <p>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.FontManagement.Description")</p>
+
+                    <!-- Upload Section -->
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <div class="font-upload-area" style="border: 2px dashed #ccc; padding: 20px; text-align: center; margin-bottom: 15px;">
+                                <input type="file" id="fontFileInput" accept="@Model.AllowedExtensions" style="display: none;" />
+                                <button type="button" class="btn btn-info" onclick="$('#fontFileInput').click();">
+                                    <i class="fas fa-upload"></i> @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Upload")
+                                </button>
+                                <p style="margin-top: 10px;">
+                                    @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.AllowedFormats"): @Model.AllowedExtensions
+                                    <br />
+                                    @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.MaxSize"): @Model.MaxFontSizeMB MB
+                                    <br />
+                                    @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.FontCount"): @Model.CurrentFontCount / @Model.MaxFontsPerStore
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Fonts -->
+                    <h4>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.SystemFonts")</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.FontName")</th>
+                                <th>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.FontFamily")</th>
+                                <th>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Status")</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var font in Model.SystemFonts)
+                            {
+                                <tr>
+                                    <td style="font-family: @font.FontFamily;">@font.FontName</td>
+                                    <td><code>@font.FontFamily</code></td>
+                                    <td><span class="badge badge-success">@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.GuaranteedAvailable")</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <!-- Custom Fonts -->
+                    @if (Model.CustomFonts.Any())
+                    {
+                        <h4>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFonts")</h4>
+                        <table class="table table-bordered" id="customFontsTable">
+                            <thead>
+                                <tr>
+                                    <th>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.FontName")</th>
+                                    <th>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.FileName")</th>
+                                    <th>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.FileSize")</th>
+                                    <th>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.UploadedOn")</th>
+                                    <th>@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.IsActive")</th>
+                                    <th>@T("Admin.Common.Edit")</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var font in Model.CustomFonts)
+                                {
+                                    <tr id="font-row-@font.Id">
+                                        <td style="font-family: @font.FontFamily;">@font.FontName</td>
+                                        <td>@font.FileName</td>
+                                        <td>@font.FileSizeFormatted</td>
+                                        <td>@font.UploadedOnUtc.ToLocalTime().ToString("g")</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm @(font.IsActive ? "btn-success" : "btn-secondary")"
+                                                    onclick="toggleFontStatus(@font.Id)">
+                                                <i class="fas @(font.IsActive ? "fa-check" : "fa-times")"></i>
+                                                @(font.IsActive ? T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Active") : T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Inactive"))
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-danger" onclick="deleteFont(@font.Id)">
+                                                <i class="fas fa-trash"></i> @T("Admin.Common.Delete")
+                                            </button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#fontFileInput').on('change', function() {
+            var fileInput = this;
+            if (fileInput.files && fileInput.files[0]) {
+                uploadFont(fileInput.files[0]);
+            }
+        });
+    });
+
+    function uploadFont(file) {
+        var formData = new FormData();
+        formData.append('fontFile', file);
+
+        $.ajax({
+            url: '@Url.Action("UploadFont", "FontManagement")',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                if (response.success) {
+                    alert(response.message);
+                    location.reload();
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function() {
+                alert('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Upload.Error")');
+            }
+        });
+    }
+
+    function deleteFont(fontId) {
+        if (confirm('@T("Admin.Common.AreYouSure")')) {
+            $.ajax({
+                url: '@Url.Action("DeleteFont", "FontManagement")',
+                type: 'POST',
+                data: { fontId: fontId },
+                success: function(response) {
+                    if (response.success) {
+                        $('#font-row-' + fontId).fadeOut(300, function() {
+                            $(this).remove();
+                        });
+                        alert(response.message);
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function() {
+                    alert('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Delete.Error")');
+                }
+            });
+        }
+    }
+
+    function toggleFontStatus(fontId) {
+        $.ajax({
+            url: '@Url.Action("ToggleFontStatus", "FontManagement")',
+            type: 'POST',
+            data: { fontId: fontId },
+            success: function(response) {
+                if (response.success) {
+                    location.reload();
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function() {
+                alert('@T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Update.Error")');
+            }
+        });
+    }
+</script>
