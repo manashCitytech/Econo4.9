@@ -1,0 +1,118 @@
+@model string
+@{
+    // Generate unique ID for this editor instance
+    var fieldName = ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty);
+    var editorId = $"{fieldName}_{Guid.NewGuid().ToString("N").Substring(0, 8)}";
+}
+
+<textarea id="@editorId" name="@fieldName" class="richeditor-pdf">@Model</textarea>
+
+<script>
+    $(document).ready(function () {
+        tinymce.init({
+            selector: '#@editorId',
+
+            // Basic configuration
+            height: 500,
+            menubar: false,
+            branding: false,
+
+            // Toolbar - only PDF-safe formatting options
+            plugins: [
+                'advlist', 'lists', 'link', 'image', 'table',
+                'code', 'help', 'wordcount'
+            ],
+
+            toolbar: 'undo redo | formatselect | bold italic underline strikethrough | ' +
+                    'forecolor backcolor | alignleft aligncenter alignright alignjustify | ' +
+                    'bullist numlist | table link image | removeformat code help',
+
+            // ========================================
+            // SECURITY SETTINGS - PDF-SAFE HTML ONLY
+            // ========================================
+
+            // Only allow these HTML elements
+            valid_elements:
+                'p,br,strong/b,em/i,u,strike,sub,sup,' +
+                'h1,h2,h3,h4,h5,h6,' +
+                'ul,ol,li,' +
+                'table,thead,tbody,tfoot,tr,th,td,' +
+                'a[href|target|title],' +
+                'img[src|alt|width|height|style],' +
+                'span[style],div[style]',
+
+            // Block dangerous tags
+            invalid_elements: 'script,style,iframe,frame,frameset,object,embed,applet,link,meta,form,input,button,select,textarea',
+
+            // Allow only safe CSS properties
+            valid_styles: {
+                '*': 'color,background-color,text-align,font-size,font-weight,font-style,text-decoration,margin,padding,border,width,height'
+            },
+
+            // Additional security settings
+            extended_valid_elements: '',
+            custom_elements: '',
+
+            // Content filtering
+            paste_as_text: false,
+            paste_word_valid_elements: 'p,br,strong,em,u,strike,sub,sup,h1,h2,h3,h4,h5,h6,ul,ol,li,table,tr,th,td',
+            paste_retain_style_properties: 'color background-color text-align font-size font-weight font-style',
+            paste_remove_styles_if_webkit: true,
+
+            // Block unsafe protocols in links
+            allow_script_urls: false,
+            allow_html_data_urls: false,
+
+            // Image settings - restrict to safe sources
+            automatic_uploads: false,
+            images_upload_url: false,
+            file_picker_types: '',
+
+            // Content style for editor preview
+            content_style: 'body { font-family: Arial, sans-serif; font-size: 14px; }',
+
+            // Format options
+            block_formats: 'Paragraph=p;Heading 1=h1;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6',
+
+            // Link settings
+            link_default_target: '_blank',
+            link_assume_external_targets: true,
+            target_list: [
+                { title: 'New window', value: '_blank' },
+                { title: 'Same window', value: '_self' }
+            ],
+
+            // Table settings
+            table_default_attributes: {
+                border: '1'
+            },
+            table_default_styles: {
+                'border-collapse': 'collapse',
+                'width': '100%'
+            },
+
+            // Additional cleanup
+            verify_html: true,
+            cleanup: true,
+            convert_urls: false,
+            relative_urls: false,
+            remove_script_host: true,
+
+            // Prevent inline script execution
+            sandbox_iframes: true,
+
+            // Help text
+            help_tabs: [
+                'shortcuts',
+                'keyboardnav'
+            ]
+        });
+    });
+</script>
+
+<style>
+    .richeditor-pdf {
+        width: 100%;
+        min-height: 300px;
+    }
+</style>

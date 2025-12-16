@@ -1,0 +1,127 @@
+@model FoxNetSoft.Plugin.Misc.PDFInvoice.Models.PDFTemplateSearchModel
+@using FoxNetSoft.Plugin.Misc.PDFInvoice.Models
+@using FoxNetSoft.Plugin.Misc.PDFInvoice.Domain
+@{
+    Layout = "_AdminLayout";
+
+    // Determine context based on template type filter
+    var isInvoiceContext = Model.SearchTemplateTypeId == (int)TemplateType.Invoice;
+
+    // Set page title based on context
+    if (isInvoiceContext)
+    {
+        ViewBag.PageTitle = @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Menu.Invoices").Text;
+        NopHtml.SetActiveMenuItemSystemName("FoxNetSoft.PDFInvoice.Invoices");
+    }
+    else
+    {
+        ViewBag.PageTitle = @T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Menu.PackageSlips").Text;
+        NopHtml.SetActiveMenuItemSystemName("FoxNetSoft.PDFInvoice.PackageSlips");
+    }
+}
+<nop-antiforgery-token />
+<input asp-for="SearchTemplateTypeId" type="hidden" />
+<div class="content-header clearfix">
+    <h1 class="float-left">
+        @ViewBag.PageTitle
+    </h1>
+    <div class="float-right">
+        <a href="@Url.Action("Create", new { templateType = Model.SearchTemplateTypeId > 0 ? Model.SearchTemplateTypeId : (int?)null })" class="btn bg-blue">
+            <i class="fa fa-plus-square"></i>
+            @T("Admin.Common.AddNew")
+        </a>
+    </div>
+</div>
+<div class="content">
+    <div class="form-horizontal">
+        <div class="cards-group">
+            <div class="card card-default card-search">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row" @(Model.HideStoresList ? Html.Raw("style=\"display:none\"") : null)>
+                                <div class="col-md-4">
+                                    <nop-label asp-for="SearchStoreId" />
+                                </div>
+                                <div class="col-md-8">
+                                    <nop-select asp-for="SearchStoreId" asp-items="Model.AvailableStores" />
+                                </div>
+                            </div>
+                            <div class="form-group row" @(Model.HideLanguagesList ? Html.Raw("style=\"display:none\"") : null)>
+                                <div class="col-md-4">
+                                    <nop-label asp-for="SearchLanguageId" />
+                                </div>
+                                <div class="col-md-8">
+                                    <nop-select asp-for="SearchLanguageId" asp-items="Model.AvailableLanguages" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center col-12">
+                            <button type="button" id="btnSearch" class="btn btn-primary btn-search">
+                                <i class="fas fa-search"></i>
+                                @T("Admin.Common.Search")
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-default">
+                <div class="card-body">
+                    @await Html.PartialAsync("Table", new DataTablesModel
+                   {
+                       Name = "pdftemplates-grid",
+                       UrlRead = new DataUrl("List", "PDFInvoiceAdmin", null),
+                       SearchButtonId = "btnSearch",
+                       Length = Model.PageSize,
+                       LengthMenu = Model.AvailablePageSizes,
+                       Filters = new List<FilterParameter>
+                                    {
+                                        new FilterParameter(nameof(Model.SearchTemplateTypeId)),
+                                        new FilterParameter(nameof(Model.SearchLanguageId)),
+                                        new FilterParameter(nameof(Model.SearchStoreId))
+                                    },
+                       ColumnCollection = new List<ColumnProperty>
+                            {
+                                new ColumnProperty(nameof(PDFTemplateModel.Published))
+                                {
+                                    Title = T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Published").Text,
+                                    Width = "70",
+                                    ClassName = NopColumnClassDefaults.CenterAll,
+                                    Render = new RenderBoolean()
+                                },
+                                new ColumnProperty(nameof(PDFTemplateModel.Name))
+                                {
+                                    Title = T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Name").Text
+                                },
+                                new ColumnProperty(nameof(PDFTemplateModel.Language))
+                                {
+                    Title = T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Language").Text,
+                                    Visible = !Model.HideLanguagesList,
+                                    Width = "150"
+                                },
+                                new ColumnProperty(nameof(PDFTemplateModel.Store))
+                                {
+                    Title = T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Store").Text,
+                                    Visible = !Model.HideStoresList,
+                                    Width = "150"
+                                },
+                                    new ColumnProperty(nameof(PDFTemplateModel.AdminComment))
+                                    {
+                    Title = T("Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.AdminComment").Text
+                                    },
+                                new ColumnProperty(nameof(PDFTemplateModel.Id))
+                                {
+                                    Title = T("Admin.Common.Edit").Text,
+                                    Width = "100",
+                                    ClassName =  NopColumnClassDefaults.Button,
+                                    Render = new RenderButtonEdit(new DataUrl("Edit"))
+                                }
+                            }
+                   })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

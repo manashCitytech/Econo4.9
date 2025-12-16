@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- Custom fonts uploaded via Plugin Settings > Font Management are automatically embedded in PDFs -->
+</head>
+<body style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #333;">
+    <div style="background-color: #2c3e50; color: white; padding: 20px; margin-bottom: 20px;">
+        <div style="text-align: center;">
+            <img src="%Store.LogoPictureUrl%" alt="Company Logo" style="max-width: 180px; max-height: 70px; margin-bottom: 10px;" />
+        </div>
+        <h1 style="margin: 0; font-size: 28px; text-align: center;">INVOICE</h1>
+        <p style="text-align: center; margin: 5px 0; font-size: 14px;">Professional Business Invoice</p>
+    </div>
+
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 50%; vertical-align: top; padding-right: 8px;">
+                <div style="border: 2px solid #3498db; padding: 15px; margin: 10px 0;">
+                    <h3 style="margin: 0 0 10px 0; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">FROM</h3>
+                    <strong style="font-size: 14px;">%Store.Name%</strong><br/>
+                    %Store.CompanyAddress%<br/>
+                    <strong>Phone:</strong> %Store.CompanyPhoneNumber%<br/>
+                    <strong>Email:</strong> %Store.Email%<br/>
+                    <strong>Website:</strong> %Store.URL%
+                </div>
+            </td>
+
+            <td style="width: 50%; vertical-align: top; padding-left: 8px;">
+                <div style="border: 2px solid #3498db; padding: 15px; margin: 10px 0; text-align: right;">
+                    <h3 style="margin: 0 0 10px 0; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">INVOICE DETAILS</h3>
+                    <strong style="font-size: 16px; color: #e74c3c;">Invoice #%Order.OrderNumber%</strong><br/>
+                    <strong>Date Issued:</strong> %Order.CreatedOn%<br/>
+                    <strong>Order ID:</strong> %Order.OrderId%<br/>
+                    <strong>Payment Method:</strong> %Order.PaymentMethod%
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table style="width: 100%; margin-top: 15px;">
+        <tr>
+            <td style="width: 50%; vertical-align: top; padding-right: 8px;">
+                <div style="border: 2px solid #3498db; padding: 15px; margin: 10px 0;">
+                    <h3 style="margin: 0 0 10px 0; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">BILL TO</h3>
+                    <strong style="font-size: 13px;">%Order.BillingFirstName% %Order.BillingLastName%</strong><br/>
+                    %Order.BillingAddress1%<br/>
+                    %Order.BillingCity%, %Order.BillingStateProvince% %Order.BillingZipPostalCode%<br/>
+                    %Order.BillingCountry%<br/>
+                    <strong>Phone:</strong> %Order.BillingPhoneNumber%<br/>
+                    <strong>Email:</strong> %Order.BillingEmail%
+                </div>
+            </td>
+
+            <td style="width: 50%; vertical-align: top; padding-left: 8px;">
+                <div style="border: 2px solid #3498db; padding: 15px; margin: 10px 0; text-align: right;">
+                    <h3 style="margin: 0 0 10px 0; color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">SHIP TO</h3>
+                    <strong style="font-size: 13px;">%Order.ShippingFirstName% %Order.ShippingLastName%</strong><br/>
+                    %Order.ShippingAddress1%<br/>
+                    %Order.ShippingCity%, %Order.ShippingStateProvince% %Order.ShippingZipPostalCode%<br/>
+                    %Order.ShippingCountry%<br/>
+                    <strong>Shipping Method:</strong> %Order.ShippingMethod%
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px; border: 1px solid #bdc3c7;">
+        <thead>
+            <tr style="background-color: #3498db; color: white;">
+                <th style="padding: 12px; text-align: left; border: 1px solid #3498db;">DESCRIPTION</th>
+                <th style="padding: 12px; text-align: center; border: 1px solid #3498db; width: 100px;">SKU</th>
+                <th style="padding: 12px; text-align: center; border: 1px solid #3498db; width: 80px;">QTY</th>
+                <th style="padding: 12px; text-align: right; border: 1px solid #3498db; width: 100px;">UNIT PRICE</th>
+                <th style="padding: 12px; text-align: right; border: 1px solid #3498db; width: 100px;">AMOUNT</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom: 1px solid #bdc3c7;">
+                <td style="padding: 10px; border: 1px solid #ecf0f1;"><strong>%OrderItem.ProductName%</strong></td>
+                <td style="padding: 10px; text-align: center; border: 1px solid #ecf0f1;">%OrderItem.ProductSku%</td>
+                <td style="padding: 10px; text-align: center; border: 1px solid #ecf0f1;">%OrderItem.Quantity%</td>
+                <td style="padding: 10px; text-align: right; border: 1px solid #ecf0f1;">%OrderItem.UnitPrice%</td>
+                <td style="padding: 10px; text-align: right; border: 1px solid #ecf0f1;"><strong>%OrderItem.Total%</strong></td>
+            </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%; margin-top: 20px;">
+        <tr>
+            <td style="width: 50%; vertical-align: top; padding-right: 8px;">
+                <div style="padding: 15px; background-color: #ecf0f1;">
+                    <h4 style="margin: 0 0 10px 0; color: #2c3e50;">PAYMENT INFORMATION</h4>
+                    <strong>Payment Method:</strong> %Order.PaymentMethod%<br/>
+                    <strong>Payment Status:</strong> <span style="color: #27ae60;">%Order.PaymentStatus%</span><br/>
+                    <strong>Shipping Status:</strong> %Order.ShippingStatus%
+                </div>
+            </td>
+
+            <td style="width: 50%; vertical-align: top; padding-left: 8px;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <tr>
+                        <td style="padding: 8px; text-align: right; border-bottom: 1px solid #ecf0f1;"><strong>Subtotal:</strong></td>
+                        <td style="padding: 8px; text-align: right; width: 120px; border-bottom: 1px solid #ecf0f1;">%Order.OrderSubtotal%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; text-align: right; border-bottom: 1px solid #ecf0f1;"><strong>Shipping & Handling:</strong></td>
+                        <td style="padding: 8px; text-align: right; border-bottom: 1px solid #ecf0f1;">%Order.OrderShipping%</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 8px; text-align: right; border-bottom: 1px solid #ecf0f1;"><strong>Tax:</strong></td>
+                        <td style="padding: 8px; text-align: right; border-bottom: 1px solid #ecf0f1;">%Order.OrderTax%</td>
+                    </tr>
+                    <tr style="background-color: #ecf0f1;">
+                        <td style="padding: 12px; text-align: right; font-size: 16px;"><strong>TOTAL:</strong></td>
+                        <td style="padding: 12px; text-align: right; font-size: 18px; color: #e74c3c;"><strong>%Order.OrderTotal%</strong></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 30px; padding: 15px; background-color: #fff3cd; border-left: 4px solid #ffc107;">
+        <h4 style="margin: 0 0 10px 0; color: #856404;">Important Notes:</h4>
+        <p style="margin: 0; color: #856404;">
+            Thank you for your business! Payment is due within 30 days of the invoice date.
+            Please include the invoice number on your payment. For any questions regarding this invoice,
+            please contact us at %Store.Email% or call %Store.CompanyPhoneNumber%.
+        </p>
+    </div>
+
+    <table style="width: 100%; margin-top: 30px; padding-top: 20px; border-top: 3px solid #3498db; font-size: 11px; color: #7f8c8d;">
+        <tr>
+            <td style="width: 50%; vertical-align: top;">
+                <strong>%Store.Name%</strong><br/>
+                %Store.CompanyAddress%<br/>
+                Tax ID: [Your Tax ID]
+            </td>
+
+            <td style="width: 50%; vertical-align: top; text-align: right;">
+                <strong>Contact Us</strong><br/>
+                Web: %Store.URL%<br/>
+                Email: %Store.Email%<br/>
+                Phone: %Store.CompanyPhoneNumber%
+            </td>
+        </tr>
+    </table>
+
+    <div style="text-align: center; margin-top: 20px; padding: 15px; background-color: #2c3e50; color: white; font-size: 10px;">
+        This is an official invoice generated by %Store.Name% | Generated on %Order.CreatedOn%
+    </div>
+
+</body>
+</html>

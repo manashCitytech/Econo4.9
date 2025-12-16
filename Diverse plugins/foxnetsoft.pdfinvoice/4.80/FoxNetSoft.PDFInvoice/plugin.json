@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Misc",
+  "FriendlyName": "PDF Invoice Generator",
+  "SystemName": "FoxNetSoft.PDFInvoice",
+  "Version": "1.06",
+  "SupportedVersions": [ "4.80" ],
+  "Author": "FoxNetSoft",
+  "DisplayOrder": 1,
+  "FileName": "FoxNetSoft.Plugin.Misc.PDFInvoice.dll",
+  "Description": "This plugin will create PDF Invoices/Slips."
+}

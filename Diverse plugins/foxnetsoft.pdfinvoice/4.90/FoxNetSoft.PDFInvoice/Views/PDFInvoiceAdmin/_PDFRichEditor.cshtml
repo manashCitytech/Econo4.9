@@ -1,0 +1,226 @@
+@model string
+@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@{
+    // Get the field ID from ViewData (required parameter)
+    var fieldId = ViewData["id"]?.ToString();
+    if (string.IsNullOrEmpty(fieldId))
+        throw new ArgumentException("ViewData['id'] is required for _PDFRichEditor partial view");
+
+    // Field name for model binding should match the property name
+    var fieldName = fieldId;
+
+    // Generate a unique ID for TinyMCE editor instance to avoid conflicts
+    var randomId = fieldId + "_" + Guid.NewGuid().ToString("N").Substring(0, 8);
+}
+
+<textarea id="@randomId" name="@fieldName" class="richeditor-pdf">@Model</textarea>
+
+<script>
+    $(document).ready(function () {
+        // Ensure TinyMCE is loaded by nopCommerce
+        function initPDFEditor() {
+            if (typeof tinymce === 'undefined') {
+                setTimeout(initPDFEditor, 100);
+                return;
+            }
+
+            tinymce.init({
+            selector: '#@randomId',
+
+            // Basic configuration
+            height: 800,
+            menubar: false,
+            branding: false,
+
+            // Toolbar - only PDF-safe formatting options
+            plugins: [
+                'advlist', 'lists', 'link', 'image', 'table',
+                'code', 'help', 'wordcount'
+            ],
+
+            toolbar: 'undo redo | formatselect fontfamily fontsize | bold italic underline strikethrough | ' +
+                    'forecolor backcolor | alignleft aligncenter alignright alignjustify | ' +
+                    'bullist numlist | table link image | removeformat code help',
+
+            // Font family options - will be populated with custom fonts
+            font_family_formats: window.pdfEditorFontFormats || 'Arial=arial,helvetica,sans-serif;' +
+                                'Times New Roman=times new roman,times,serif;' +
+                                'Courier New=courier new,courier,monospace;' +
+                                'Georgia=georgia,serif;' +
+                                'Verdana=verdana,sans-serif;' +
+                                'Tahoma=tahoma,sans-serif;' +
+                                'Trebuchet MS=trebuchet ms,sans-serif;' +
+                                'Impact=impact,sans-serif',
+
+            // Font size options
+            font_size_formats: '8pt 10pt 12pt 14pt 16pt 18pt 20pt 24pt 28pt 32pt 36pt 48pt',
+
+            // ========================================
+            // SECURITY SETTINGS - PDF-SAFE HTML ONLY
+            // ========================================
+
+            // Only allow these HTML elements
+            valid_elements:
+                'p[style|class|id],br,strong/b,em/i,u,strike,sub,sup,' +
+                'h1[style|class|id],h2[style|class|id],h3[style|class|id],h4[style|class|id],h5[style|class|id],h6[style|class|id],' +
+                'ul[style|class|id],ol[style|class|id],li[style|class|id],' +
+                'table[style|class|id],thead,tbody,tfoot,tr[style|class|id],th[style|class|id|colspan|rowspan],td[style|class|id|colspan|rowspan],' +
+                'a[href|target|title|style|class|id],' +
+                'img[src|alt|width|height|style|class|id|data-token],' +
+                'span[style|class|id],div[style|class|id]',
+
+            // Block dangerous tags
+            invalid_elements: 'script,style,iframe,frame,frameset,object,embed,applet,link,meta,form,input,button,select,textarea',
+
+            // Allow only safe CSS properties
+            valid_styles: {
+                '*': 'color,background-color,text-align,font-size,font-weight,font-style,text-decoration,font-family,margin,margin-top,margin-bottom,margin-left,margin-right,padding,padding-top,padding-bottom,padding-left,padding-right,border,border-color,border-style,border-width,border-top,border-top-color,border-top-style,border-top-width,border-bottom,border-bottom-color,border-bottom-style,border-bottom-width,border-left,border-left-color,border-left-style,border-left-width,border-right,border-right-color,border-right-style,border-right-width,border-collapse,border-spacing,width,height,max-width,max-height,min-width,min-height,vertical-align'
+            },
+
+            // Additional security settings
+            extended_valid_elements: '',
+            custom_elements: '',
+
+            // Content filtering
+            paste_as_text: false,
+            paste_word_valid_elements: 'p,br,strong,em,u,strike,sub,sup,h1,h2,h3,h4,h5,h6,ul,ol,li,table,tr,th,td',
+            paste_retain_style_properties: 'color background-color text-align font-size font-weight font-style font-family margin margin-top margin-bottom margin-left margin-right padding padding-top padding-bottom padding-left padding-right border border-color border-style border-width border-top border-top-color border-top-style border-top-width border-bottom border-bottom-color border-bottom-style border-bottom-width border-left border-left-color border-left-style border-left-width border-right border-right-color border-right-style border-right-width border-collapse border-spacing width height vertical-align',
+            paste_remove_styles_if_webkit: true,
+
+            // Block unsafe protocols in links
+            allow_script_urls: false,
+            allow_html_data_urls: false,
+
+            // Image settings - restrict to safe sources
+            automatic_uploads: false,
+            images_upload_url: false,
+            file_picker_types: '',
+
+            // Content style for editor preview
+            content_style: 'body { font-family: Arial, sans-serif; font-size: 14px; }',
+
+            // Format options
+            block_formats: 'Paragraph=p;Heading 1=h1;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6',
+
+            // Link settings
+            link_default_target: '_blank',
+            link_assume_external_targets: true,
+            target_list: [
+                { title: 'New window', value: '_blank' },
+                { title: 'Same window', value: '_self' }
+            ],
+
+            // Table settings
+            table_default_attributes: {
+                border: '1'
+            },
+            table_default_styles: {
+                'border-collapse': 'collapse',
+                'width': '100%'
+            },
+
+            // Additional cleanup
+            verify_html: true,
+            cleanup: true,
+            convert_urls: false,
+            relative_urls: false,
+            remove_script_host: true,
+
+            // Prevent inline script execution
+            sandbox_iframes: true,
+
+            // Use plugin's bundled TinyMCE
+            base_url: '/Plugins/FoxNetSoft.PDFInvoice/lib/tinymce',
+            suffix: '.min',  // Forces TinyMCE to load .min.js versions
+
+            // Help configuration
+            help_tabs: ['shortcuts'],
+
+            // ========================================
+            // TOKEN PREVIEW SUPPORT
+            // ========================================
+            setup: function (editor) {
+                // Store the actual logo URL fetched from server
+                var logoPreviewUrl = null;
+                var isLoadingLogo = false;
+
+                // Fetch the logo URL from the server
+                function fetchLogoUrl() {
+                    if (isLoadingLogo || logoPreviewUrl !== null) return;
+                    isLoadingLogo = true;
+
+                    $.ajax({
+                        url: '@Url.Action("GetTokenPreviewValue", "PDFInvoiceAdmin")',
+                        type: 'GET',
+                        data: { tokenName: 'Store.LogoPictureUrl', storeId: 0 },
+                        success: function (response) {
+                            if (response.success && response.value) {
+                                logoPreviewUrl = response.value;
+                            }
+                            isLoadingLogo = false;
+                        },
+                        error: function () {
+                            isLoadingLogo = false;
+                        }
+                    });
+                }
+
+                // Replace tokens with actual URLs when loading content into editor
+                editor.on('BeforeSetContent', function (e) {
+                    if (e.content && typeof e.content === 'string') {
+                        // Fetch logo URL if not already fetched
+                        if (logoPreviewUrl === null && !isLoadingLogo) {
+                            fetchLogoUrl();
+                        }
+
+                        // Replace %Store.LogoPictureUrl% token with actual URL if available
+                        if (logoPreviewUrl) {
+                            // Match the entire img tag and replace just the src value while preserving all other attributes
+                            e.content = e.content.replace(
+                                /(<img\s+[^>]*src=["'])%Store\.LogoPictureUrl%(["'][^>]*)(>)/gi,
+                                function(match, prefix, middle, suffix) {
+                                    // Check if data-token already exists to avoid duplication
+                                    if (middle.indexOf('data-token') === -1) {
+                                        // Insert data-token before the closing quote
+                                        return prefix + logoPreviewUrl + middle + ' data-token="Store.LogoPictureUrl"' + suffix;
+                                    }
+                                    return prefix + logoPreviewUrl + middle + suffix;
+                                }
+                            );
+                        }
+                    }
+                });
+
+                // Replace actual URLs back to tokens when saving content from editor
+                editor.on('BeforeGetContent', function (e) {
+                    if (e.format === 'html') {
+                        var content = editor.getContent({ format: 'raw' });
+
+                        // Replace images with data-token attribute back to token
+                        if (content && logoPreviewUrl) {
+                            // Create a temporary div to parse HTML
+                            var tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = content;
+
+                            // Find all images with data-token attribute
+                            var tokenImages = tempDiv.querySelectorAll('img[data-token="Store.LogoPictureUrl"]');
+                            tokenImages.forEach(function(img) {
+                                // Replace the src with the token
+                                img.setAttribute('src', '%Store.LogoPictureUrl%');
+                                img.removeAttribute('data-token');
+                            });
+
+                            e.content = tempDiv.innerHTML;
+                        }
+                    }
+                });
+
+                // Initial fetch of logo URL
+                fetchLogoUrl();
+            }
+            });
+        }
+
+        initPDFEditor();
+    });
+</script>

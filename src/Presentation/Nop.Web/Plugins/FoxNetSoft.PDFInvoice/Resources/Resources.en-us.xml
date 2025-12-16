@@ -1,0 +1,527 @@
+﻿<Language Name="English" IsRightToLeft="false">
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.IsRegisted">
+    <Value>Registered version.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.IsNoRegisted">
+    <Value>Unregistered version is fully operational. Only 50 invoices will be created.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.IsExpired">
+    <Value>Your license has expired, you should renew the license with a 50% discount.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Enabled">
+    <Value>Plugin enabled</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Enabled.Hint">
+    <Value>Create PDF invoices in the new format.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.StoreUrl">
+    <Value>Website address (for registration)</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.StoreUrl.Hint">
+    <Value>Website address (for registration).</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.showDebugInfo">
+    <Value>Enable Debugging</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.showDebugInfo.Hint">
+    <Value>Write debugging information to a file in the ~/App_Data/ folder.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.SerialNumber">
+    <Value>Serial number</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.SerialNumber.Hint">
+    <Value>Serial number.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.LogoPicture">
+    <Value>PDF Logo</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.LogoPicture.Hint">
+    <Value>Image file that will be displayed in PDF order invoices. A small image is recommended. Supported formats: PNG (with transparency), JPEG, or SVG (best for logos). If not set, the system will use the store's logo from Media Settings.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.ClearLogFile">
+    <Value>Clear the log-file</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.GetLogFile">
+    <Value>Download the log-file</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Menu.Name">
+    <Value>Invoice Generator</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Menu.List">
+    <Value>List</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Menu.Invoices">
+    <Value>PDF Invoices</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Menu.PackageSlips">
+    <Value>Package Slips</Value>
+  </LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Menu.Configure">
+    <Value>Configure</Value>
+  </LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Menu.FontManagement">
+    <Value>Font Management</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.FoxNetSoft.Plugin.Misc.PDFInvoice.Domain.TemplateType.Invoice">
+    <Value>PDF Invoice</Value>
+  </LocaleResource>
+  <LocaleResource Name="enums.FoxNetSoft.Plugin.Misc.PDFInvoice.Domain.TemplateType.PackagingSlip">
+    <Value>Packaging Slip</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.OverWrittenClass">
+    <Value>Error. The class {0} was overwritten by the new class '{1}'. Uninstall another plugin or change it.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.List.TemplateType">
+    <Value>Type</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.List.TemplateType.Hint">
+    <Value>Search by a specific PDF template type.</Value>
+  </LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.List.Languages">
+		<Value>Language</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.List.Languages.Hint">
+		<Value>Search by a language.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.List.Stores">
+    <Value>Stores</Value>
+  </LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.List.Stores.Hint">
+		<Value>Search by store</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.TemplateType">
+    <Value>Type</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.TemplateType.Hint">
+    <Value>Select PDF template type.</Value>
+  </LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Language">
+		<Value>Language</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Language.Hint">
+		<Value>Language of the PDF template.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Store">
+		<Value>Store</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Store.Hint">
+		<Value>Select the store for this PDF template. Choose "All" to use this template for all stores.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Name">
+		<Value>Name</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Name.Hint">
+		<Value>The name of the PDF template.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Name.Required">
+		<Value>Please enter a name for the PDF template.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.HtmlTemplate">
+		<Value>The Template</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.HtmlTemplate.Hint">
+		<Value>The HTML template.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Picture">
+    <Value>Logo</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Picture.Hint">
+    <Value>Provide the logo for the PDF template.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Published">
+    <Value>Published</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.Published.Hint">
+    <Value>Published PDF template. nopCommerce will use it for creating invoices and packaging slips.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.AdminComment">
+    <Value>Admin comment</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.AdminComment.Hint">
+    <Value>Admin comment.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.AclCustomerRoles">
+    <Value>Limited to customer roles</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.AclCustomerRoles.Hint">
+    <Value>Select customer roles for which the PDF template will be shown. Leave empty if you want this PDF template to be visible to all users.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.AllowedTokens">
+    <Value>Allowed tokens</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.AllowedTokens.Hint">
+    <Value>This is a list of the tokens you can use in your PDF template for all sections.</Value>
+  </LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.AllowedOrderSummaryTokens">
+		<Value>Allowed tokens (the order summary)</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.AllowedOrderSummaryTokens.Hint">
+		<Value>This is a list of the tokens you can use in your PDF template for the order summary section.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.AllowedOrderItemTokens">
+		<Value>Allowed tokens (the product table)</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.AllowedOrderItemTokens.Hint">
+		<Value>This is a list of the tokens you can use in your PDF template for the product table section.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.PreconfiguredTemplate">
+    <Value>Preconfigured templates</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Fields.PreconfiguredTemplate.Hint">
+    <Value>This is a list of the preconfigured templates and you can use them as a source for your template.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.List.Manage">
+    <Value>Manage PDF Template</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Added">
+    <Value>The new PDF template has been added successfully.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Updated">
+    <Value>The PDF template has been updated successfully.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Deleted">
+    <Value>The PDF template has been deleted successfully.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.ActivityLog.Add">
+    <Value>Added a new PDF template ('{0}')</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.ActivityLog.Edit">
+    <Value>Edited the PDF template ('{0}')</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.ActivityLog.Delete">
+    <Value>Deleted the PDF template ('{0}')</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.AddNew">
+    <Value>Add a new PDF template</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.BackToList">
+    <Value>back to PDF template list</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.EditDetails">
+    <Value>Edit PDF template details</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.LoadTemplate">
+    <Value>Load from template</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate">
+    <Value>Save to the list</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Loaded">
+    <Value>The PDF template was loaded successfully.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.LoadTemplate.Modal.Title">
+    <Value>Load Preconfigured Template</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.LoadTemplate.Modal.Message">
+    <Value>Would you like to load the preconfigured template?</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.LoadTemplate.Modal.ButtonLoad">
+    <Value>Load</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.LoadTemplate.Modal.ButtonCancel">
+    <Value>Cancel</Value>
+  </LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.PreviewInHTML">
+		<Value>Preview in HTML</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.PreviewInPDF">
+		<Value>Preview in PDF</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.Download">
+		<Value>Download the latest libwkhtmltox libraries.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Title">
+		<Value>Save as Preconfigured Template</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Message">
+		<Value>Save the current template to the list of preconfigured templates.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.CreateNew">
+		<Value>Create new template</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.OverwriteExisting">
+		<Value>Overwrite existing template</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.TemplateName">
+		<Value>Template Name</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.TemplateNamePlaceholder">
+		<Value>Enter template name</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.TemplateNameHint">
+		<Value>The name will be used as the filename (e.g., MyTemplate.html)</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.SelectTemplate">
+		<Value>Select Template to Overwrite</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.OverwriteWarning">
+		<Value>Warning: This will replace the existing template file!</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.ButtonSave">
+		<Value>Save</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.ButtonCancel">
+		<Value>Cancel</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Validation.NameRequired">
+		<Value>Template name is required.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Validation.InvalidChars">
+		<Value>Template name contains invalid characters. Please avoid using: &lt; &gt; : " / \ | ? *</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Validation.SelectTemplate">
+		<Value>Please select a template to overwrite.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Modal.Error.General">
+		<Value>An error occurred while saving the template. Please try again.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Error.NotFound">
+		<Value>Template not found.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Error.NameRequired">
+		<Value>Template name is required.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Error.InvalidName">
+		<Value>Invalid template name. Please use only valid filename characters.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Error.AlreadyExists">
+		<Value>A template with this name already exists. Please choose a different name or select 'Overwrite existing template'.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Error.Exception">
+		<Value>Error: {0}</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Success.Created">
+		<Value>Template saved successfully!</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.SaveAsTemplate.Success.Overwritten">
+		<Value>Template overwritten successfully!</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate">
+		<Value>Remove from list</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.Title">
+		<Value>Remove Preconfigured Template</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.Warning">
+		<Value>Warning!</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.Message">
+		<Value>Are you sure you want to permanently delete this template? This action cannot be undone.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.SelectTemplate">
+		<Value>Select Template to Remove</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.ButtonDelete">
+		<Value>Delete</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.ButtonCancel">
+		<Value>Cancel</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.Validation.SelectTemplate">
+		<Value>Please select a template to remove.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Modal.Error.General">
+		<Value>An error occurred while removing the template. Please try again.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Error.NameRequired">
+		<Value>Template name is required.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Error.NotFound">
+		<Value>Template file not found.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Error.Protected">
+		<Value>This is a protected template and cannot be deleted.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Error.InvalidName">
+		<Value>Invalid template name. Template name contains invalid characters.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Error.LastTemplate">
+		<Value>Cannot delete the last remaining template. At least one template must exist.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Error.Exception">
+		<Value>Error: {0}</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.RemoveTemplate.Success">
+		<Value>Template deleted successfully!</Value>
+	</LocaleResource>
+
+	<!-- Export Template -->
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Export">
+		<Value>Export</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Export.Error">
+		<Value>Error exporting template: {0}</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.NotFound">
+		<Value>Template not found.</Value>
+	</LocaleResource>
+
+	<!-- Import Template -->
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import">
+		<Value>Import</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Success">
+		<Value>The template was updated</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.ConfirmReplace">
+		<Value>Importing will replace and save your current template content. This action cannot be undone.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.Title">
+		<Value>Import Template</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.Warning">
+		<Value>Warning!</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.Message">
+		<Value>Select an HTML template file to import. The file will be validated and sanitized before importing.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.SelectFile">
+		<Value>Click to select file</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.DragDrop">
+		<Value>or drag and drop file here</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.FileHint">
+		<Value>Accepts .html files (max 5MB)</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.SelectedFile">
+		<Value>Selected file</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.ButtonUpload">
+		<Value>Upload and Replace</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.ButtonCancel">
+		<Value>Cancel</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Modal.Error.General">
+		<Value>An error occurred while importing the template. Please try again.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Error.Template">
+		<Value>Error. The template wasn't updated because {0}</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Error.NoFile">
+		<Value>no file was selected</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Error.FileSize">
+		<Value>file size exceeds 5MB limit</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.Import.Error.InvalidFormat">
+		<Value>file format is not supported (only .html files are allowed)</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.PDFTemplate.ActivityLog.Import">
+		<Value>Imported template '{0}' from file '{1}'</Value>
+	</LocaleResource>
+
+	<!-- Font Management -->
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.FontManagement">
+		<Value>Font Management</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.FontManagement.Description">
+		<Value>Upload custom fonts for use in PDF templates. Fonts are embedded in PDFs to ensure consistent rendering across all platforms.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.SystemFonts">
+		<Value>System Fonts (Guaranteed Available)</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFonts">
+		<Value>Custom Uploaded Fonts</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Upload">
+		<Value>Upload Font File</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.AllowedFormats">
+		<Value>Allowed formats</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.MaxSize">
+		<Value>Max file size</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.FontCount">
+		<Value>Fonts uploaded</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Status">
+		<Value>Status</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.GuaranteedAvailable">
+		<Value>Always Available</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Active">
+		<Value>Active</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Inactive">
+		<Value>Inactive</Value>
+	</LocaleResource>
+
+	<!-- Font Management - Fields -->
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.FontName">
+		<Value>Font Name</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.FontFamily">
+		<Value>Font Family</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.FileName">
+		<Value>File Name</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.FontWeight">
+		<Value>Weight</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.FontStyle">
+		<Value>Style</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.FileSize">
+		<Value>File Size</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.IsActive">
+		<Value>Status</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Fields.UploadedOn">
+		<Value>Uploaded On</Value>
+	</LocaleResource>
+
+	<!-- Font Management - Upload Messages -->
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Upload.NoFile">
+		<Value>No file selected. Please choose a font file to upload.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Upload.InvalidFormat">
+		<Value>Invalid file format. Only .ttf, .otf, .woff, and .woff2 files are allowed.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Upload.FileTooLarge">
+		<Value>File is too large. Maximum file size is 5MB.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Upload.LimitReached">
+		<Value>Maximum font limit reached. You can upload up to {0} fonts per store.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Upload.InvalidFontFile">
+		<Value>Invalid font file. The file does not appear to be a valid TrueType or OpenType font.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Upload.Success">
+		<Value>Font uploaded successfully!</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Upload.Error">
+		<Value>An error occurred while uploading the font. Please try again.</Value>
+	</LocaleResource>
+
+	<!-- Font Management - Delete Messages -->
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.NotFound">
+		<Value>Font not found.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Deleted">
+		<Value>Font deleted successfully!</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Delete.Error">
+		<Value>An error occurred while deleting the font. Please try again.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.CustomFont.Update.Error">
+		<Value>An error occurred while updating the font. Please try again.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.RestartRequired">
+		<Value>Libraries downloaded successfully. Application is restarting to apply changes...</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.DownloadComplete">
+		<Value>Libraries downloaded successfully. No restart required.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.PDFInvoice.LinuxWarning">
+		<Value>
+			<![CDATA[<strong>Linux Deployment Detected:</strong> This plugin requires Docker configuration with specific system libraries. Please ensure all required packages are installed. <a href="{0}" target="_blank">View Linux deployment documentation</a> for detailed installation instructions and troubleshooting.]]>
+		</Value>
+	</LocaleResource>
+</Language>
+

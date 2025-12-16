@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- Custom fonts uploaded via Plugin Settings > Font Management are automatically embedded in PDFs -->
+</head>
+<body>
+    <div style="text-align: center;">
+        <img src="%Store.LogoPictureUrl%" alt="Company Logo" style="max-width: 180px; max-height: 70px; margin-bottom: 10px;" />
+        <h2>Invoice</h2>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <strong>From:</strong><br/>
+        %Store.Name%<br/>
+        %Store.Email%
+    </div>
+
+    <div style="text-align: right; margin-bottom: 20px;">
+        Invoice: #%Order.OrderNumber%<br/>
+        Date: %Order.CreatedOn%
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <strong>To:</strong><br/>
+        %Order.BillingFirstName% %Order.BillingLastName%<br/>
+        %Order.BillingEmail%
+    </div>
+
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+        <tr style="border-bottom: 2px solid #000;">
+            <th style="text-align: left; padding: 10px;">Item</th>
+            <th style="text-align: center; padding: 10px;">Qty</th>
+            <th style="text-align: right; padding: 10px;">Price</th>
+            <th style="text-align: right; padding: 10px;">Total</th>
+        </tr>
+
+        <tr style="border-bottom: 1px solid #ccc;">
+            <td style="padding: 8px;">%OrderItem.ProductName%</td>
+            <td style="text-align: center; padding: 8px;">%OrderItem.Quantity%</td>
+            <td style="text-align: right; padding: 8px;">%OrderItem.UnitPrice%</td>
+            <td style="text-align: right; padding: 8px;">%OrderItem.Total%</td>
+        </tr>
+
+    </table>
+    <div style="text-align: right; margin-top: 20px;">
+        <p>Subtotal: %Order.OrderSubtotal%</p>
+        <p>Tax: %Order.OrderTax%</p>
+        <p><strong>Total: %Order.OrderTotal%</strong></p>
+    </div>
+
+    <div style="margin-top: 30px; font-size: 12px; color: #666;">
+        Thank you for your purchase!
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; font-size: 10px; color: #999;">
+        %Store.Name% - %Store.URL%
+    </div>
+
+</body>
+</html>

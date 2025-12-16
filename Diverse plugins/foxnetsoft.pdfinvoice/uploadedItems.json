@@ -1,0 +1,18 @@
+﻿[
+{
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "DirectoryPath": "4.90/FoxNetSoft.PDFInvoice/",
+    "SystemName": "FoxNetSoft.PDFInvoice"
+  },{
+    "Type": "Plugin",
+    "SupportedVersion": "4.80",
+    "DirectoryPath": "4.80/FoxNetSoft.PDFInvoice/",
+    "SystemName": "FoxNetSoft.PDFInvoice"
+  },{
+    "Type": "Plugin",
+    "SupportedVersion": "4.70",
+    "DirectoryPath": "4.70/FoxNetSoft.PDFInvoice/",
+    "SystemName": "FoxNetSoft.PDFInvoice"
+  }
+]
