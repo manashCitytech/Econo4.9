@@ -1,0 +1,70 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger: 
+- none
+
+
+variables:
+ IISWebsiteName: ''
+
+resources:
+ pipelines:
+  - pipeline: "buildPipeline"
+    project: "Econo4.9"
+    source: "Build Pipeline" 
+    branch: "main"
+
+stages:
+    - stage: DeployWebsite
+      displayName: 'Deploy Website'
+      pool: 
+       vmImage: windows-latest
+       
+
+      jobs:
+      - deployment: Deploywebsite
+        displayName: "Deploy Website"
+        environment: "Econo49.DotNetServer"
+
+        workspace:
+         clean: all
+
+        strategy:
+         runOnce:
+             deploy:
+                 steps:
+                     - checkout: none
+
+                     - download: 'buildPipeline'
+                       name: 'DoownloadBuildArtifact'
+                       displayName: 'Download Build Artifact'
+                       artifact: 'nopcommerce'
+
+                     - task: IISWebAppManagementOnMachineGroup@0
+                       name: 'StopIIS'
+                       displayName: 'Stop IIS'
+                       inputs:
+                         IISDeploymentType: 'IISwebsite'
+                         ActionIISWebsite: 'StopWebsite'
+                         StartStopwebsiteName: '${{variables.IISWebsiteName}}'
+
+                     - task: IISWebAppDeploymentOnMachineGroup@0
+                       name: 'DeployIIS'
+                       displayName: 'Deploy IIS'
+                       inputs:
+                         WebSiteName: '${{variables.IISWebsiteName}}'
+                         Package: '$(Pipeline.Workspace)\buildPipeline\nopcommerce\Nop.web'
+                         TakeAppOfflineFlag: true
+                    
+                     - task: IISWebAppManagementOnMachineGroup@0
+                       name: 'StartIIS'
+                       displayName: 'Start IIS'
+                       inputs:
+                         IISDeploymentType: 'IISwebsite'
+                         ActionIISWebsite: 'StartWebsite'
+                         StartStopwebsiteName: '${{variables.IISWebsiteName}}'
+        
+                    
