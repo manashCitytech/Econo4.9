@@ -14,7 +14,7 @@ resources:
  pipelines:
   - pipeline: "buildPipeline"
     project: "Econo4.9"
-    source: "Build Pipeline" 
+    source: "Econo4.9-CI-build" 
     branch: "main"
 
 stages:
