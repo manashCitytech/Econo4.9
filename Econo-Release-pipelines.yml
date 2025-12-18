@@ -66,5 +66,17 @@ stages:
                          IISDeploymentType: 'IISwebsite'
                          ActionIISWebsite: 'StartWebsite'
                          StartStopwebsiteName: '${{variables.IISWebsiteName}}'
+
+                     - task: PowerShell@2
+                       displayName: 'Clean artifact folder after deployment'
+                       inputs:
+                        targetType: 'inline'
+                        script: |
+                          $artifactPath = "$(Pipeline.Workspace)\buildPipeline\nopcommerce"
+
+                          if (Test-Path $artifactPath) {
+                            Write-Host "Cleaning artifact folder: $artifactPath"
+                            Remove-Item -Path $artifactPath -Recurse -Force
+                          }   
         
                     
