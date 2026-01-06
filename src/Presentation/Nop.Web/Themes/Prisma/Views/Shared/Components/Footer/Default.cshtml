@@ -26,49 +26,7 @@
         @await Component.InvokeAsync(typeof(NewsLetterBoxViewComponent))
     </div> *@
     <div class="footer-middle">
-        <div class="footer-block">
-            <div class="title">
-                <strong>@informationTitle</strong>
-            </div>
-            <ul class="list">
-                <li><a href="@Url.RouteUrl("Sitemap")">@T("Sitemap")</a></li>
-                <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
-                <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
-                <li><a href="@Url.RouteUrl("NewsArchive")">@T("News")</a></li>
-                <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
-                <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
-                <li><a href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a></li>
-                @* Note: In nopCommerce 4.90, topics are managed through FooterMenuViewComponent.
-                   To add custom topics/links, configure them in Configuration → Menus → Footer Menu in admin panel.
-                   You can also use widget zones to inject custom content here. *@
-                @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = "prisma_footer_information_column" })
-            </ul>
-        </div>
-        <div class="footer-block">
-            <div class="title">
-                <strong>@myAccountTitle</strong>
-            </div>
-            <ul class="list">
-                <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.CustomerInfo")</a></li>
-                <li><a href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</a></li>
-                <li><a href="@Url.RouteUrl("CustomerAddresses")">@T("Account.CustomerAddresses")</a></li>
-                <li><a href="@Url.RouteUrl("RecentlyViewedProducts")">@T("Products.RecentlyViewedProducts")</a></li>
-                <li><a href="@Url.RouteUrl("CheckGiftCardBalance")">@T("CheckGiftCardBalance")</a></li>
-                <li><a href="@Url.RouteUrl("CompareProducts")">@T("Products.Compare.List")</a></li>
-                <li><a href="@Url.RouteUrl("ShoppingCart")">@T("ShoppingCart")</a></li>
-                <li><a href="@Url.RouteUrl("Wishlist")">@T("Wishlist")</a></li>
-                @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = "prisma_footer_myaccount_column" })
-            </ul>
-        </div>
-        <div class="footer-block">
-            <div class="title">
-                <strong>@customerServiceTitle</strong>
-            </div>
-            <ul class="list">
-                <li><a href="@Url.RouteUrl("ApplyVendorAccount")">@T("Vendors.ApplyAccount")</a></li>
-                @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = "prisma_footer_customerservice_column" })
-            </ul>
-        </div>
+        @await Component.InvokeAsync(typeof(FooterMenuViewComponent))
         <div>
             <div class="title">
                 <strong>@T("SevenSpikes.Themes.Prisma.Footer.Follow")</strong>

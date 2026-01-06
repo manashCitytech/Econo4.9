@@ -71,7 +71,7 @@
                     </div>
                     <div class="product-content-wrappper">
 						@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsEssentialTop, additionalData = Model })
-                        <div class="gallery">
+                        <div class="">
                             @{
                                 var cloudZoom = await Component.InvokeAsync("Widget", new { widgetZone = "sevenspikes_cloud_zoom", additionalData = Model });
                             }

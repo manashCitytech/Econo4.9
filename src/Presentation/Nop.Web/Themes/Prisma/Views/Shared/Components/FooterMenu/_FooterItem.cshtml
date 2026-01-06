@@ -1,6 +1,6 @@
 ﻿@model MenuItemModel
 
-<div class="footer-menu__item" role="menuitem">
+<li class="footer-menu__item" role="menuitem">
     @if (!string.IsNullOrEmpty(Model.Url))
     {
         <a href="@Model.Url" class="footer-menu__link">@Model.Title</a>
@@ -9,4 +9,4 @@
     {
         @Model.Title
     }
-</div>
+</li>
