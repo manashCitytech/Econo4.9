@@ -54,9 +54,9 @@
     width: 16px;
     height: 16px;
 }
-.search-box-text .k-clear-value svg {
-    fill: #4ea35d;
-}
+  .search-box-text .k-clear-value svg {
+    fill: #000000;
+  }
 
 /* AUTOCOMPLETE */
 

@@ -75,7 +75,7 @@ DESKTOP
     }
     .header .search-box {
         display: inline-block;
-        margin: 13px auto 10px;
+        margin: 13px auto 10px 15%;
         width: 510px;
         height: 45px;
         background: #fff;

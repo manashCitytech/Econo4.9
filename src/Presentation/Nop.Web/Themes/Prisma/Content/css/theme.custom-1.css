@@ -302,9 +302,9 @@ a.k-button.k-grid-update:after,
     color: #222;
   }
 
-    .footer-block .list > li:hover {
-        color: #F7944A;
-    }
+  .footer-block .list > li:hover {
+    color: #222;
+  }
     .header-menu > ul > li:hover > a,
     .header-menu > ul > li:hover > span,
     .header-menu .sublist-wrap {

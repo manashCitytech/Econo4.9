@@ -695,6 +695,28 @@ textarea:disabled {
         opacity: 0;
     }
 
+  .cart .remove-from-cart button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 32px;
+    height: 32px;
+    margin: auto;
+    border: 1px solid #eee;
+    background: none;
+    transition: all .2s ease;
+  }
+
+    .cart .remove-from-cart button:after {
+      content: '\e901';
+      font-family: prisma;
+      font-size: 12px;
+      line-height: 30px;
+      /* color: #57b568; */
+    }
+
     .cart .remove-from-cart label,
     .cart .add-to-cart label {
         display: inline-block;
