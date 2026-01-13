@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Payment methods",
+  "FriendlyName": "Mollie Payment Methods",
+  "SystemName": "Payments.Mollie",
+  "Version": "1.32",
+  "SupportedVersions": [ "4.40" ],
+  "Author": "actOpus",
+  "DisplayOrder": 1,
+  "FileName": "Actopus.Nop.Plugin.Payments.Mollie.dll",
+  "Description": "This plugin enables the use of Mollie as a payment provider"
+}

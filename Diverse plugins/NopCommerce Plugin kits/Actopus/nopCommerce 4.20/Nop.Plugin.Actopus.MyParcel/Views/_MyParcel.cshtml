@@ -1,0 +1,253 @@
+﻿@model CheckoutShippingMethodModel.ShippingMethodModel
+@using Nop.Web.Models.Checkout;
+@using Nop.Services.Directory;
+@using System.Web;
+
+<p class="description" id="postnl_point" style="display:none">
+    <i name="name"></i>&nbsp;(<i name="id"></i>)<br />
+    <i name="street"></i><br />
+    <i name="zip"></i>&nbsp;<i name="city"></i><br />
+    <i name="country"></i><br />
+    <img name="image" src="" />
+</p>
+
+<div class="postnl-block">
+    <div class="postnl-label">@T("Nop.Plugin.Actopus.MyParcel.Labels.HomeDelivery")</div>
+    <div class="description" id="no_next_door_delivery" style="display:none;">
+        <input id="noNextDoorDelivery" type="checkbox" value="1" name="noNextDoorDelivery" />
+        <label for="noNextDoorDelivery">@T("Nop.Plugin.Actopus.MyParcel.Labels.NoNextDoorDelivery")<span id="no_next_door_delivery_price"></span></label>
+    </div>
+    <div class="delivery_options" id="special_delivery_date" style="display:block;">
+        <div class="delivery_panel">
+            <label for="delivery_date">Leveringsmoment:</label><br />
+            <select data-val="true" id="delivery_date" name="delivery_date">
+                <option selected="selected">Selecteer het leveringsmoment</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="postnl-block">
+    <div class="postnl-label">@T("Nop.Plugin.Actopus.MyParcel.Labels.PickupPoint")</div>
+    <div class="delivery_options" id="special_delivery_pickup" style="display:block;">
+        <div class="delivery_panel">
+            <label for="delivery_pickup">Afhaalpunt:</label><br />
+            <select data-val="true" id="delivery_pickup" name="delivery_pickup">
+                <option selected="selected">Selecteer een afhaalpunt</option>
+            </select>
+        </div>
+    </div>
+</div>
+<style>
+</style>
+
+<script type="text/javascript">
+        function PostNL()
+        {
+            // $(document).ready(function () {
+            var shippingOption = '@(Model.Name)___@(Model.ShippingRateComputationMethodSystemName)';
+
+            var address = null;
+
+            if ($("#shipping-new-address-form").css("display") == 'block')
+                var address = {
+                    Id: 0,
+                    ZipPostalCode: $("#ShippingNewAddress_ZipPostalCode").val(),
+                    Address1: $("#ShippingNewAddress_Address1").val(),
+                    Address2: $("#ShippingNewAddress_Address2").val(),
+                    City: $("#ShippingNewAddress_City").val(),
+                    CountryId: $("#ShippingNewAddress_CountryId").val(),
+                    ShippingOption: shippingOption
+                };
+
+            if (address == null) {
+                address = {};
+
+                address.Id = $("#shipping-address-select").val();
+                if (address.Id == null)
+                    address.Id = $("#billing-address-select").val();
+            }
+            console.log(JSON.stringify({ model: address }));
+
+            var shippingInfo = '@HttpUtility.UrlEncode("&addressId=ADDRID&shippingOption=" + Model.Name + "___" + Model.ShippingRateComputationMethodSystemName + "&")';
+            shippingInfo = shippingInfo.replace('ADDRID', address.Id);
+            console.log('shipinginfo:' + shippingInfo);
+
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: '@Url.Action("GetMyParcelSelector", "MyParcel")',
+                dataType: 'json',
+                data: address,
+                success: function (data) {
+                    console.log(data);
+                    var addrSel = data.addressSelector;
+                    address.Id = addrSel.AddressId;
+
+                    if (addrSel.AllowNoNextDoorDeliveryEnabled) {
+                        var deliveryOptions = addrSel.DeliveryOptions;
+                        console.log("deliveryOptions " + deliveryOptions);
+                        $("#no_next_door_delivery_price").text(addrSel.NoNextDoorDeliveryPriceFormatted);
+
+                        $('input[name=noNextDoorDelivery]').attr("value", deliveryOptions.noNextDoorDelivery);
+
+                        $('input[name=noNextDoorDelivery]').click(function () {
+
+                            var m = $("input[value='" + shippingOption + "']");
+                            if (m != null)
+                                m.prop("checked", true);
+
+                            console.log("noNextDoorDelivery = " + JSON.stringify($('input[name=noNextDoorDelivery]').is(':checked')));
+
+                            var dom = {};
+                            dom.addressId = addrSel.AddressId;
+                            dom.noNextDoorDelivery = $('input[name=noNextDoorDelivery]').is(':checked');
+                            dom.shippingoption = shippingOption;
+                            console.log("DeliveryOptionsModel = " + JSON.stringify(dom));
+
+                            $.ajax({
+                                cache: false,
+                                type: 'POST',
+                                url: '@Url.Action("SetShippingProperties", "MyParcel")',
+                                dataType: 'json',
+                                data: dom,
+                                success: function (data) { console.log("noNextDoorDelivery saved"); },
+                                error: function (xhr, ajaxOptions, thrownError) { console.log("noNextDoorDelivery could not be saved"); }
+                            });
+                        });
+
+                        $("#no_next_door_delivery").show();
+                    }
+                    else
+                        $("#no_next_door_delivery").hide();
+
+                    $.ajax({
+                        cache: false,
+                        type: 'GET',
+                        url: 'https://api.myparcel.nl/delivery_options?cc=' + addrSel.CountryISO + '&postal_code=' + addrSel.Zip + '&number=' + addrSel.HouseNumber + '&carrier=postnl',
+                        dataType: 'json',
+                        success: function (data) {
+                            console.log(data);
+
+                            var select = $('#delivery_date');
+                            var deliveryMomentArr = [];
+                            var j = 0;
+
+                            $(data.data.delivery).each(function (index, date) {
+                                $(date.time).each(function (index, time) {
+                                    var deliveryMoment = { 'date': date.date, 'time': time };
+                                    deliveryMomentArr.push(deliveryMoment);
+                                    select.append($("<option></option>")
+                                        .attr("value", j)
+                                        .text(deliveryMoment.date + ' tussen ' + deliveryMoment.time.start.substr(0, 5) + ' en ' + deliveryMoment.time.end.substr(0, 5) + (deliveryMoment.time.price.amount == 0 ? '' : (' +€' + (deliveryMoment.time.price.amount / 100)))));
+                                    j++;
+                                });
+                            });
+
+                            select.change(function () {
+
+                                console.log('del:' + JSON.stringify(deliveryMomentArr[this.value]));
+                                var dom = {};
+                                dom.addressId = addrSel.AddressId;
+                                dom.noNextDoorDelivery = $('input[name=noNextDoorDelivery]').is(':checked');
+                                dom.deliveryMoment = this.value != null ? deliveryMomentArr[this.value] : null;
+                                dom.shippingoption = shippingOption;
+                                console.log("DeliveryOptionsModel = " + JSON.stringify(dom));
+
+                                var m = $("input[value='" + shippingOption + "']");
+                                if (m != null)
+                                    m.prop("checked", true);
+
+                                $.ajax({
+                                    cache: false,
+                                    type: 'POST',
+                                    url: '@Url.Action("SetShippingProperties", "MyParcel")',
+                                    dataType: 'json',
+                                    data: dom,
+                                    success: function (data) { console.log("noNextDoorDelivery saved"); },
+                                    error: function (xhr, ajaxOptions, thrownError) { console.log("noNextDoorDelivery could not be saved"); }
+                                });
+                            });
+
+                            select = $('#delivery_pickup');
+                            var deliveryPickupArr = [];
+                            var i = 0;
+                            $(data.data.pickup).each(function (index, pickup) {
+                                $(pickup.time).each(function (index, time) {
+                                    var newPickup = pickup;
+                                    newPickup.time = time;
+                                    deliveryPickupArr.push({ 'pickupPoint': newPickup});
+                                    select.append($("<option></option>")
+                                            .attr("value", i)
+                                        .html('+€' + (newPickup.time.price.amount / 100) + ': ' + newPickup.date + newPickup.location + ' - ' + (newPickup.distance / 1000) + 'km ' + newPickup.street + ' ' + newPickup.number + ', ' + newPickup.postal_code + ' vanaf: ' + newPickup.time.start));
+                                    i++;
+                                });
+                            });
+                            select.change(function () {
+                                var pointSelected = !(typeof deliveryPickupArr[this.value] === 'undefined');
+                                console.log("selectval = " +(typeof deliveryPickupArr[this.value]  === 'undefined' ));
+                                console.log("select = " + JSON.stringify(deliveryPickupArr[this.value]));
+                                var dom = {};
+                                dom.addressId = addrSel.AddressId;
+                                dom.noNextDoorDelivery = $('input[name=noNextDoorDelivery]').is(':checked');
+                                dom.pickupPoint = pointSelected ? deliveryPickupArr[this.value].pickupPoint : null;
+                                dom.shippingoption = shippingOption;
+                                console.log("DeliveryOptionsModel = " +JSON.stringify( dom));
+
+                                var m = $("input[value='" + shippingOption + "']");
+                                if (m != null)
+
+                                    m.prop("checked", true);
+                                $.ajax({
+                                    cache: false,
+                                    type: 'POST',
+                                    url: '@Url.Action("SetShippingProperties", "MyParcel")',
+                                    dataType: 'json',
+                                    data: dom,
+                                    success: function (data) { console.log("noNextDoorDelivery saved"); },
+                                    error: function (xhr, ajaxOptions, thrownError) { console.log("noNextDoorDelivery could not be saved"); }
+                                });
+                            });
+
+                            $("#special_delivery_date").show();
+                            $("#special_delivery_pickup").show();
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            $("#special_delivery_date").hide();
+                            $("#special_delivery_pickup").hide();
+                        }
+                    });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("input[value='" + shippingOption + "'").attr("disabled", true).attr("checked", false).parent().parent().css("text-decoration", "line-through");
+                }
+            });
+        }
+
+        PostNL();
+</script>
+<style>
+    .postnl-block {
+        background-color: #f6f6f6;
+        cursor: pointer;
+        margin: 10px 0px 10px 0px;
+        padding: 10px;
+    }
+
+    .postnl-label {
+        background-color: #e6e6e6;
+        padding: 4px;
+    }
+
+    #no_next_door_delivery, #special_delivery_pickup, #special_delivery_date {
+        padding-bottom: 15px;
+        padding-top: 10px;
+    }
+
+    .surcharge {
+        width: 30px;
+    }
+</style>
+
+
+
+

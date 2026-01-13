@@ -1,0 +1,11 @@
+﻿{
+  "Group": "License managers",
+  "FriendlyName": "actOpus License Manager",
+  "SystemName": "Actopus.LicenseManager",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.10" ],
+  "Author": "Mercari Ventures BV / actOpus",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Actopus.LicenseManager.dll",
+  "Description": "This plugin allows you to manages your actOpus plugin licenses"
+}

@@ -1,0 +1,149 @@
+﻿<Language Name="English" IsRightToLeft="false">
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.IsRegisted">
+    <Value>Registered version.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.IsNoRegisted">
+    <Value>Unregistered version, plugin has a 15-day trial period.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.IsExpired">
+    <Value>Your license has expired, you should renew the license with a 50% discount.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.StoreUrl">
+    <Value>Website address (for registration)</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.StoreUrl.Hint">
+    <Value>Website address (for registration).</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.showDebugInfo">
+    <Value>Enable Debugging</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.showDebugInfo.Hint">
+    <Value>Write debugging information to a file in the ~/App_Data/ folder.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.Enabled">
+    <Value>Enable plugin</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.Enabled.Hint">
+    <Value>Enable plugin.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.SerialNumber">
+    <Value>Serial number</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.SerialNumber.Hint">
+    <Value>Serial number.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.ClearLogFile">
+    <Value>Clear the log-file</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.GetLogFile">
+    <Value>Download the log-file</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Menu.Brand">
+    <Value>FoxNetSoft</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Menu.Name">
+    <Value>LLMs TXT Generator</Value>
+  </LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeBlogPosts">
+		<Value>Include Blog Posts</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeBlogPosts.Hint">
+		<Value>Include blog posts in the llms.txt file.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeCategories">
+		<Value>Include Categories</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeCategories.Hint">
+		<Value>Include categories in the llms.txt file.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeManufacturers">
+		<Value>Include Manufacturers</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeManufacturers.Hint">
+		<Value>Include manufacturers in the llms.txt file.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeNews">
+		<Value>Include News</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeNews.Hint">
+		<Value>Include news items in the llms.txt file.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeProducts">
+		<Value>Include Products</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeProducts.Hint">
+		<Value>Include products in the llms.txt file.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeProductTags">
+		<Value>Include Product Tags</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeProductTags.Hint">
+		<Value>Include product tags in the llms.txt file.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeTopics">
+		<Value>Include Topics</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeTopics.Hint">
+		<Value>Include topics (pages) in the llms.txt file.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.StoreDescription">
+		<Value>Store Description</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.StoreDescription.Hint">
+		<Value>A brief description of your store that will appear in the llms.txt file header. If empty, the store name will be used.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.CustomSection">
+		<Value>Custom Section</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.CustomSection.Hint">
+		<Value>Custom content (in Markdown format) that will be appended to the end of each llms.txt file. You can add any additional information, links, or sections you want to include.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeProductShortDescription">
+		<Value>Include Product Short Description</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeProductShortDescription.Hint">
+		<Value>Include the short description after each product link in the llms.txt file.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeProductPrice">
+		<Value>Include Product Price</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.IncludeProductPrice.Hint">
+		<Value>Include the price after each product link in the llms.txt file.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.MaxItemsPerFile">
+		<Value>Max Items Per File</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.MaxItemsPerFile.Hint">
+		<Value>Maximum number of items per llms.txt file before pagination. Default is 10000.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.RegenerateLLMsFiles.Button">
+		<Value>Regenerate LLMs.txt Files</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.RegenerateLLMsFiles.Success">
+		<Value>LLMs.txt files have been successfully regenerated.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.RegenerateLLMsFiles.Error">
+		<Value>Error regenerating LLMs.txt files</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.DeleteLLMsFiles.Button">
+		<Value>Delete All LLMs.txt Files</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.DeleteLLMsFiles.Success">
+		<Value>All LLMs.txt files have been successfully deleted.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.DeleteLLMsFiles.Error">
+		<Value>Error deleting LLMs.txt files</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.GeneratedFiles.Title">
+		<Value>Generated LLMs.txt Files</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.GeneratedFiles.Description">
+		<Value>LLMs.txt files are generated every 24 hours via scheduled task. You can regenerate them manually using the button below.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.GeneratedFiles.NoFiles">
+		<Value>No files have been generated yet. Click 'Regenerate LLMs.txt Files' to create them.</Value>
+	</LocaleResource>
+	<LocaleResource Name="Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.GeneratedFiles.LastGenerated">
+		<Value>Last generated</Value>
+	</LocaleResource>
+</Language>

@@ -1,0 +1,149 @@
+﻿@model Actopus.Nop.Plugin.Misc.MyParcel.Models.ConfigurationModel
+@using Nop.Web.Framework;
+@{
+    Layout = "";
+}
+@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">@Html.NopLabelFor(model => model.IpAddress):</td>
+            <td><strong>@Model.IpAddress</strong></td>
+        </tr>
+    </table>
+    <br />
+    <hr />
+    <br />
+    <h3>@T("Actopus.Nop.Plugin.Misc.MyParcel.Headers.Post")</h3>
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.DefaultWeight_OverrideForStore, model => model.DefaultWeight, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.DefaultWeight):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.DefaultWeight)
+                @Html.ValidationMessageFor(model => model.DefaultWeight)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.MarkAsSentAfterPost_OverrideForStore, model => model.MarkAsSentAfterPost, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.MarkAsSentAfterPost):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.MarkAsSentAfterPost)
+                @Html.ValidationMessageFor(model => model.MarkAsSentAfterPost)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.AllowNoNextDoorDelivery_OverrideForStore, model => model.AllowNoNextDoorDelivery, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.AllowNoNextDoorDelivery):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.AllowNoNextDoorDelivery)
+                @Html.ValidationMessageFor(model => model.AllowNoNextDoorDelivery)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.NoNextDoorDeliveryPrice_OverrideForStore, model => model.NoNextDoorDeliveryPrice, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.NoNextDoorDeliveryPrice):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.NoNextDoorDeliveryPrice)
+                @Html.ValidationMessageFor(model => model.NoNextDoorDeliveryPrice)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                <span>@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.ShipmentType")</span>
+            </td>
+            <td class="adminData">
+                @Html.DropDownListFor(model => model.ShipmentTypeId, Model.ShipmentTypes)
+            </td>
+        </tr>
+    </table>
+    <br />
+    <hr />
+    <br />
+    <h3>@T("Actopus.Nop.Plugin.Misc.MyParcel.Headers.WebserviceSettings")</h3>
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.UserName_OverrideForStore, model => model.UserName, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.UserName):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.UserName)
+                @Html.ValidationMessageFor(model => model.UserName)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.APIKey_OverrideForStore, model => model.APIKey, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.APIKey):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.APIKey)
+                @Html.ValidationMessageFor(model => model.APIKey)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">@T("Actopus.Nop.Plugin.Misc.MyParcel.Headers.Post")</td>
+            <td class="adminData">@Model.APITestResult</td>
+        </tr>
+
+    </table>
+    <br />
+
+    <h3>@T("Actopus.Nop.Plugin.Misc.MyParcel.Headers.WebserviceWarehouseSettings")</h3>
+    <table class="adminContent">
+        @{
+            for (var i = 0; i < Model.WarehouseSetups.Count; i++)
+            {
+                <tr>
+                    <td class="adminTitle" colspan="2">
+                        @Html.HiddenFor(model => Model.WarehouseSetups[i].WarehouseId)
+                        @Model.WarehouseSetups[i].Name
+                    </td>
+                </tr>
+                <tr>
+                    <td class="adminTitle">
+                        @Html.NopLabelFor(model => Model.WarehouseSetups[i].UserName):
+                    </td>
+                    <td class="adminData">
+                        @Html.EditorFor(model => Model.WarehouseSetups[i].UserName)
+                        @Html.ValidationMessageFor(model => Model.WarehouseSetups[i].UserName)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="adminTitle">
+                        @Html.NopLabelFor(model => Model.WarehouseSetups[i].APIKey):
+                    </td>
+                    <td class="adminData">
+                        @Html.EditorFor(model => Model.WarehouseSetups[i].APIKey)
+                        @Html.ValidationMessageFor(model => Model.WarehouseSetups[i].APIKey)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="adminTitle">@T("Actopus.Nop.Plugin.Misc.MyParcel.Headers.Post")</td>
+                    <td class="adminData">@Model.WarehouseSetups[i].APITestResult</td>
+                </tr>
+
+            }
+        }
+    </table>
+
+
+    <hr />
+    <br />
+    <div>
+        <input type="submit" name="save" class="k-button" value="@T(" admin.common.save")" />
+        <span id="message"></span>
+    </div>
+
+            }

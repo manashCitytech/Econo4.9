@@ -340,6 +340,23 @@ public partial class CommonController : BasePublicController
         return Json(new { stored = true });
     }
 
+    [HttpPost]
+    //available even when a store is closed
+    [CheckAccessClosedStore(ignore: true)]
+    //available even when navigation is not allowed
+    [CheckAccessPublicStore(ignore: true)]
+    public virtual async Task<IActionResult> EuCookieLawDecline()
+    {
+        if (!_storeInformationSettings.DisplayEuCookieLawWarning)
+            //disabled
+            return Json(new { stored = false });
+
+        //save setting
+        var store = await _storeContext.GetCurrentStoreAsync();
+        await _genericAttributeService.SaveAttributeAsync(await _workContext.GetCurrentCustomerAsync(), NopCustomerDefaults.EuCookieLawAcceptedAttribute, false, store.Id);
+        return Json(new { stored = true });
+    }
+
     //robots.txt file
     //available even when a store is closed
     [CheckAccessClosedStore(ignore: true)]

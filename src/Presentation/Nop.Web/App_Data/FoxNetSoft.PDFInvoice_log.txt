@@ -1,0 +1,60 @@
+2026.01.07 14:31:06:4238*******
+Checking for shadowcopy DLL update...
+No shadowcopy DLL found. Skipping update.
+
+2026.01.07 14:31:07:4472*******
+Register native library
+F:\Nopcommerce Projects\Econo4.9\src\Presentation\Nop.Web\Plugins\FoxNetSoft.PDFInvoice\native\libwkhtmltox.dll
+try to register
+registered.
+
+2026.01.07 14:49:34:2797*******
+Checking for shadowcopy DLL update...
+No shadowcopy DLL found. Skipping update.
+
+2026.01.07 14:49:34:2957*******
+Register native library
+F:\Nopcommerce Projects\Econo4.9\src\Presentation\Nop.Web\Plugins\FoxNetSoft.PDFInvoice\native\libwkhtmltox.dll
+try to register
+registered.
+
+2026.01.07 18:47:57:1422*******
+Checking for shadowcopy DLL update...
+No shadowcopy DLL found. Skipping update.
+
+2026.01.07 18:47:57:2155*******
+Register native library
+F:\Nopcommerce Projects\Econo4.9\src\Presentation\Nop.Web\Plugins\FoxNetSoft.PDFInvoice\native\libwkhtmltox.dll
+try to register
+registered.
+
+2026.01.13 13:59:47:1158*******
+Checking for shadowcopy DLL update...
+No shadowcopy DLL found. Skipping update.
+
+2026.01.13 13:59:47:5804*******
+Register native library
+F:\Nopcommerce Projects\Econo4.9\src\Presentation\Nop.Web\Plugins\FoxNetSoft.PDFInvoice\native\libwkhtmltox.dll
+try to register
+registered.
+
+2026.01.13 14:25:16:7447*******
+Checking for shadowcopy DLL update...
+No shadowcopy DLL found. Skipping update.
+
+2026.01.13 14:25:16:7590*******
+Register native library
+F:\Nopcommerce Projects\Econo4.9\src\Presentation\Nop.Web\Plugins\FoxNetSoft.PDFInvoice\native\libwkhtmltox.dll
+try to register
+registered.
+
+2026.01.13 14:30:06:8751*******
+Checking for shadowcopy DLL update...
+No shadowcopy DLL found. Skipping update.
+
+2026.01.13 14:30:06:9178*******
+Register native library
+F:\Nopcommerce Projects\Econo4.9\src\Presentation\Nop.Web\Plugins\FoxNetSoft.PDFInvoice\native\libwkhtmltox.dll
+try to register
+registered.
+

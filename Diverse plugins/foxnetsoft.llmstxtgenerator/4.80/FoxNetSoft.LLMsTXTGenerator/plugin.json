@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Misc",
+  "FriendlyName": "LLMs TXT Generator",
+  "SystemName": "FoxNetSoft.LLMsTXTGenerator",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.80" ],
+  "Author": "FoxNetSoft",
+  "DisplayOrder": 1,
+  "FileName": "FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.dll",
+  "Description": "LLMs TXT Generator"
+}

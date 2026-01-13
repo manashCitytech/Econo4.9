@@ -1,0 +1,8 @@
+﻿Group: Misc
+FriendlyName: actOpus License Manager
+SystemName: Actopus.Misc.LicenseManager
+Version: 2.1
+SupportedVersions: 3.70
+Author: actOpus
+DisplayOrder: 1
+FileName: Actopus.Nop.Plugin.Misc.LicenseManager.dll

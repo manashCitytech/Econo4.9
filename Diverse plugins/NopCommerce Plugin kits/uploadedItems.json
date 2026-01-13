@@ -1,0 +1,177 @@
+﻿[
+ {
+    "Type": "Plugin",
+    "SupportedVersion": "3.70",
+    "DirectoryPath": "Actopus/nopCommerce 3.70/Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "3.70",
+    "DirectoryPath": "Actopus/nopCommerce 3.70/Actopus.LicenseManager/",
+    "SystemName": "Actopus.Misc.LicenseManager",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "3.70",
+    "DirectoryPath": "Actopus/nopCommerce 3.70/MyParcel/",
+    "SystemName": "Actopus.Nop.Plugin.Misc.MyParcel",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "3.80",
+    "DirectoryPath": "Actopus/nopCommerce 3.80/Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "3.80",
+    "DirectoryPath": "Actopus/nopCommerce 3.80/Actopus.LicenseManager/",
+    "SystemName": "Actopus.Misc.LicenseManager",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "3.90",
+    "DirectoryPath": "Actopus/nopCommerce 3.90/Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "3.90",
+    "DirectoryPath": "Actopus/nopCommerce 3.90/Actopus.LicenseManager/",
+    "SystemName": "Actopus.Misc.LicenseManager",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "3.90",
+    "DirectoryPath": "Actopus/nopCommerce 3.90/MyParcel/",
+    "SystemName": "Nop.Plugin.Actopus.MyParcel",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.00",
+    "DirectoryPath": "Actopus/nopCommerce 4.00/Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.00",
+    "DirectoryPath": "Actopus/nopCommerce 4.00/Actopus.LicenseManager/",
+    "SystemName": "Actopus.LicenseManager",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.10",
+    "DirectoryPath": "Actopus/nopCommerce 4.00/Actopus.Nop.Plugin.Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.10",
+    "DirectoryPath": "Actopus/nopCommerce 4.00/Actopus.Nop.Plugin.Payments.MollieKlarna/",
+    "SystemName": "Payments.MollieKlarna",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.10",
+    "DirectoryPath": "Actopus/nopCommerce 4.00/Nop.Plugin.Actopus.LicenseManager/",
+    "SystemName": "Actopus.LicenseManager",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.10",
+    "DirectoryPath": "Actopus/nopCommerce 4.00/Nop.Plugin.Actopus.MyParcel/",
+    "SystemName": "MyParcel",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.20",
+    "DirectoryPath": "Actopus/nopCommerce 4.20/Actopus.Nop.Plugin.Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.20",
+    "DirectoryPath": "Actopus/nopCommerce 4.20/Nop.Plugin.Actopus.LicenseManager/",
+    "SystemName": "Actopus.LicenseManager",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.20",
+    "DirectoryPath": "Actopus/nopCommerce 4.20/Nop.Plugin.Actopus.MyParcel/",
+    "SystemName": "MyParcel",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.30",
+    "DirectoryPath": "Actopus/nopCommerce 4.30/Actopus.Nop.Plugin.Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.30",
+    "DirectoryPath": "Actopus/nopCommerce 4.30/Actopus.Nop.Plugin.Shipments.MyParcel/",
+    "SystemName": "Shipments.MyParcel",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.40",
+    "DirectoryPath": "Actopus/nopCommerce 4.40/Actopus.Nop.Plugin.Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.50",
+    "DirectoryPath": "Actopus/nopCommerce 4.50/Actopus.Nop.Plugin.Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.60",
+    "DirectoryPath": "Actopus/nopCommerce 4.60/Actopus.Nop.Plugin.Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.70",
+    "DirectoryPath": "Actopus/nopCommerce 4.70/Actopus.Nop.Plugin.Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.80",
+    "DirectoryPath": "Actopus/nopCommerce 4.80/Actopus.Nop.Plugin.Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  },
+  {
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "DirectoryPath": "Actopus/nopCommerce 4.90/Actopus.Nop.Plugin.Payments.Mollie/",
+    "SystemName": "Payments.Mollie",
+    "SourceDirectoryPath": ""
+  }
+]

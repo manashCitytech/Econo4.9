@@ -1,0 +1,8 @@
+﻿Group: Shipping
+FriendlyName: MyParcel Select, Package and Ship
+SystemName: Actopus.Nop.Plugin.Misc.MyParcel
+Version: 1.2
+SupportedVersions:3.70
+Author: Stefan van der Horst/actOpus
+DisplayOrder: 1
+FileName: Actopus.Nop.Plugin.Misc.MyParcel.dll

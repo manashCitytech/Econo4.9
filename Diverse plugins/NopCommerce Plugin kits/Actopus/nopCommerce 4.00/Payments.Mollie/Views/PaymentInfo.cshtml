@@ -1,0 +1,103 @@
+﻿@model Actopus.Nop.Plugin.Payments.Mollie.Models.PaymentInfoModel
+@{
+    Layout = "";
+}
+
+<table width="100%" cellspacing="2" cellpadding="1" border="0">
+    <tr>
+        <td>
+            @T("Plugins.Payments.Mollie.SelectBankInfo")
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <style>
+                span.bankname {
+                    font-size: 7pt;
+                    width: 90px;
+                    clear: both;
+                }
+
+                .payment_selected {
+                    display: inline-block;
+                    margin: 5px;
+                    text-align: center;
+                    padding: 4px 4px 2px 2px;
+                    width: 100px;
+                    border: 2px solid black;
+                }
+
+                    .payment_selected img {
+                        width: 90px;
+                        padding: 2px 4px 9px 4px;
+                    }
+
+                .payment_unselected {
+                    display: inline-block;
+                    margin: 5px;
+                    text-align: center;
+                    padding: 4px 4px 2px 2px;
+                    width: 100px;
+                    border: 2px solid #fff;
+                }
+
+                    .payment_unselected img {
+                        width: 90px;
+                        padding: 2px 4px 9px 4px;
+                    }
+            </style>
+            <script>
+                function ActOpusMollieIdeal() {
+                    var self = this;
+                    self.hasBank = false;
+
+                    $(".button-1.payment-info-next-step-button").removeAttr('onclick');
+
+                    $(".button-1.payment-info-next-step-button").click(function (event) {
+                        if (!self.hasBank) {
+                            alert('@T("Plugins.Payments.Mollie.Bank.Required")');
+                            event.stopImmediatePropagation();
+                            return false;
+                        }
+                        else
+                            PaymentInfo.save();
+                    });
+
+                    self.selectBank = function (bic, div) {
+                        var inps = div.getElementsByTagName("input");
+                        for (var i = 0; i < inps.length; i++) {
+                            inps[i].checked = true;
+                            self.hasBank = true;
+                        }
+
+                        var divs = div.parentElement.getElementsByTagName("div");
+                        for (var i = 0; i < divs.length; i++)
+                            divs[i].className = 'payment_unselected';
+
+                        div.className = 'payment_selected';
+                    }
+                }
+                var actOpusMollieIdeal = null;
+                $(function () {
+                    actOpusMollieIdeal = new ActOpusMollieIdeal();
+                });
+            </script>
+            @{
+
+                foreach (var issuer in Model.Banks)
+                {
+                    <div class="payment_unselected" id="@issuer.Value">
+                        @{
+                            var url = "../../plugins/Payments.Mollie.iDeal/content/ideal/" + issuer.Value + ".png";
+                            <img src="@url" style="clear: both; display: block" onclick="actOpusMollieIdeal.selectBank('@issuer.Value', this.parentElement);" alt="@issuer.Value" title="@issuer.Value" />
+                        }
+                        <span class="bankname" onclick="actOpusMollieIdeal.selectBank('@issuer.Value', this.parentElement)">@issuer.Text</span>
+                        <input type="radio" name="Bank" value="@issuer.Value" onclick="actOpusMollieIdeal.selectBank('@issuer.Value', this.parentElement);" style="width: 100px !important;" />
+                    </div>
+                }
+
+            }
+        </td>
+    </tr>
+</table>

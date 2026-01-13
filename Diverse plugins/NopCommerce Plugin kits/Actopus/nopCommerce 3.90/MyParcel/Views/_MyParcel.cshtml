@@ -1,0 +1,109 @@
+﻿@model CheckoutShippingMethodModel.ShippingMethodModel
+@using Nop.Web.Models.Checkout;
+@using Nop.Services.Directory;
+@using System.Web;
+
+@if (Model.Name.ToLower().Contains("postnl") || (Model.Description ??"").ToLower().Contains("postnl") || Model.Name.ToLower().Contains("myparcel") || (Model.Description ?? "").ToLower().Contains("myparcel"))
+{
+    <p class="description" id="postnl_point" style="display:none">
+        <i name="name"></i>&nbsp;(<i name="id"></i>)<br />
+        <i name="street"></i><br />
+        <i name="zip"></i>&nbsp;<i name="city"></i><br />
+        <i name="country"></i><br />
+        <img name="image" src="" />
+    </p>
+
+    <div class="description" id="no_next_door_delivery" style="display:none; padding-bottom:30px">
+        <input id="noNextDoorDelivery" type="checkbox" value="1" name="noNextDoorDelivery" />
+        <label for="noNextDoorDelivery">@T("Actopus.Nop.Plugin.Misc.MyParcel.Labels.NoNextDoorDelivery")<span id="no_next_door_delivery_price"></span></label>
+    </div>
+
+    <script type="text/javascript">
+        function PostNL()
+        {
+            // $(document).ready(function () {
+            var shippingOption = '@(Model.Name)___@(Model.ShippingRateComputationMethodSystemName)';
+
+            var address = null;
+
+            if ($("#shipping-new-address-form").css("display") == 'block')
+                var address = {
+                    Id: 0,
+                    ZipPostalCode: $("#ShippingNewAddress_ZipPostalCode").val(),
+                    Address1: $("#ShippingNewAddress_Address1").val(),
+                    Address2: $("#ShippingNewAddress_Address2").val(),
+                    City: $("#ShippingNewAddress_City").val(),
+                    CountryId: $("#ShippingNewAddress_CountryId").val(),
+                    ShippingOption: shippingOption
+                };
+
+            if (address == null) {
+                address = {};
+
+                address.Id = $("#shipping-address-select").val();
+            }
+            console.log(JSON.stringify({ model: address }));
+
+            var shippingInfo = '@HttpUtility.UrlEncode("&addressId=ADDRID&shippingOption=" + Model.Name + "___" + Model.ShippingRateComputationMethodSystemName + "&")';
+            shippingInfo = shippingInfo.replace('ADDRID', address.Id);
+            console.log('shipinginfo:' + shippingInfo);
+
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: '@Url.Action("GetMyParcelSelector", "MyParcel")',
+                dataType: 'json',
+                data: address,
+                success: function (data) {
+                    console.log(data);
+                    var addrSel = data.addressSelector;
+                    console.log(data);
+                    console.log(addrSel);
+                    console.log('working on address with id: ' + addrSel.AddressId);
+
+                    address.Id = addrSel.AddressId;
+
+                    if (addrSel.AllowNoNextDoorDeliveryEnabled) {
+                        var deliveryOptions = addrSel.DeliveryOptions;
+                        console.log("deliveryOptions " + deliveryOptions);
+                        $("#no_next_door_delivery_price").text(addrSel.NoNextDoorDeliveryPriceFormatted);
+
+                        $('input[name=noNextDoorDelivery]').attr("checked", deliveryOptions.noNextDoorDelivery);
+
+                        $('input[name=noNextDoorDelivery]').click(function () {
+
+                            var m = $("input[value='" + shippingOption + "']");
+                            if (m != null)
+                                m.prop("checked", true);
+
+                            var dom = {};
+                            dom.addressId = addrSel.AddressId;
+                            dom.noNextDoorDelivery = $('input[name=noNextDoorDelivery]').attr("checked") != null;
+                            dom.shippingoption = shippingOption;
+                            console.log("DeliveryOptionsModel = " + dom);
+                            $.ajax({
+                                cache: false,
+                                type: 'POST',
+                                url: '@Url.Action("SetShippingProperties", "MyParcel")',
+                                dataType: 'json',
+                                data: dom,
+                                success: function (data) { console.log("noNextDoorDelivery saved"); },
+                                error: function (xhr, ajaxOptions, thrownError) { console.log("noNextDoorDelivery could not be saved"); }
+                            });
+                        });
+
+                        $("#no_next_door_delivery").show();
+                    }
+                    else
+                        $("#no_next_door_delivery").hide();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $("input[value='" + shippingOption + "'").attr("disabled", true).attr("checked", false).parent().parent().css("text-decoration", "line-through");
+                }
+            });
+        }
+
+        PostNL();
+    </script>
+
+}

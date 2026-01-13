@@ -1,0 +1,129 @@
+﻿@{
+    Layout = "";
+} 
+@model ConfigurationModel
+@using Actopus.Nop.Plugins.Misc.LicenseManager.Models;
+@using Nop.Web.Framework;
+<div id="actopus-license-grid"> </div>
+<script id="insertItem" type="text/x-kendo-template">
+    <a class="k-button" href="\#" onclick="return insertItem()">Add another license</a>
+</script>
+<script>
+    $(document).ready(function () {
+        $("#actopus-license-grid").kendoGrid({
+            toolbar: [
+                { template: kendo.template($("#insertItem").html()) }
+            ],
+            editable: "inline",
+            dataSource: {
+                type: "json",
+                transport: {
+                    read: {
+                        url: "@Html.Raw(Url.Action("PluginLicenseList", "LicenseManager"))",
+                        type: "POST",
+                        dataType: "json"
+                    },
+                    update: {
+                        url: "@Html.Raw(Url.Action("PluginLicenseUpdate", "LicenseManager"))",
+                        type: "POST",
+                        dataType: "json"
+                    },
+                    create: {
+                        url: "@Html.Raw(Url.Action("PluginLicenseCreate", "LicenseManager"))",
+                        type: "POST",
+                        dataType: "json"
+                    },
+                    destroy: {
+                        url: "@Html.Raw(Url.Action("PluginLicenseDelete", "LicenseManager"))",
+                    type: "POST",
+                    dataType: "json"
+                }
+                },
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors",
+                    model: {
+                        id: "Id",
+                        fields: {
+                            PartNumber: { editable: false, type: "string" },
+                            SKU: { editable: false, type: "string" },
+                            Name: { editable: false, type: "string" },
+                            PreviousKey: { editable: false, type: "string" },
+                            Key: { editable: true, type: "string" },
+                            ExpirationDate: { editable: false, type: "date" },
+                            Type: { editable: false, type: "string" },
+                            DomainOrUrl: { editable: false, type: "string" }
+                        }
+                    }
+                },
+                requestEnd: function (e) {
+                    if (e.type == "create") {
+                        this.read();
+                    }
+                },
+                error: function (e) {
+                    display_kendoui_grid_error(e);
+                    // Cancel the changes
+                    this.cancelChanges();
+                },
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            },
+            pageable: {
+                refresh: true,
+                numeric: false,
+                previousNext: false,
+                info: false
+            },
+            editable: {
+                confirmation: false,
+                mode: "inline"
+            },
+            scrollable: false,
+            columns: [
+                {
+                    field: "SKU",
+                    title: "@T("Actopus.Nop.Plugin.Misc.LicenseManager.License.Name")",
+                    width: 100,
+                    encoded: false
+                }, {
+                    field: "Key",
+                    title: "@T("Actopus.Nop.Plugin.Misc.LicenseManager.License.Key")",
+                    width: 200,
+                    attributes: {
+                        style: "max-width:200px"
+                    }
+                }, {
+                    field: "ExpirationDate",
+                    title: "@T("Actopus.Nop.Plugin.Misc.LicenseManager.License.ExpirationDate")",
+                    width: 100,
+                    template: "#= kendo.toString(kendo.parseDate(ExpirationDate, 'yyyyMMdd'), 'MM/dd/yyyy') #"
+                },
+                {
+                    field: "DomainOrUrl",
+                    title: "@T("Actopus.Nop.Plugin.Misc.LicenseManager.License.DomainOrUrl")",
+                    width: 100
+                }, {
+                    command: [     {
+                            name: "update",
+                            text: "@T("Admin.Common.Update")"
+                        },
+                         {
+                             name: "delete",
+                             text: "@T("Admin.Common.Delete")"
+                         }
+                    ],
+                    width: 200
+                }
+            ]
+        });
+    });
+
+    function insertItem(e) {
+        var grid = $("#actopus-license-grid").data("kendoGrid");
+        grid.addRow();
+        $(".k-grid-edit-row").appendTo("#grid tbody");
+    }
+</script>

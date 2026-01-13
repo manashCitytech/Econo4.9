@@ -1,0 +1,344 @@
+﻿@model Nop.Plugin.Actopus.MyParcel.Models.MyParcelLabelModel
+
+    <div class="content">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.Title")</h3>
+                </div>
+                <div class="panel-body">
+                    @if (Model.MyParcelCanPostToMyParcel)
+                    {
+                        <span hidden><nop-editor asp-for="OrderNumber" /></span>
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    @T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ProcessInfo")
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            @T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.WhatShipment")
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-select asp-for="MyParcelShipmentId" asp-items="Model.MyParcelShipments" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            @T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.WhichWarehouse")
+                                        </div>
+                                        <div class="col-md-9">
+                                            <nop-select asp-for="MyParcelWarehouseId" asp-items="Model.MyParcelWarehouses" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <a id="downloadLabelMyParcel" class="btn bg-blue">
+                                                @T("Nop.Plugin.Actopus.MyParcel.fields.downloadLabel")
+                                            </a>
+                                        </div>
+                                        <div class="col-md-9">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    @T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ConsignmentInfo")
+                                </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ShipmentType")</div>
+                                        <div class="col-md-9">
+                                            <nop-select asp-for="MyParcelShipmentTypeId" asp-items="Model.MyParcelShipmentTypes" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Labels.Weight")</div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="MyParcelWeight" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.Insured")</div>
+                                        <div class="col-md-9">
+                                            <nop-select asp-for="MyParcelInsuranceValue" asp-items="Model.MyParcelInsuranceValues" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3"></div>
+                                        <div class="col-md-9">
+
+                                            @if (Model.MyParcelAllowNoNextDoorDeliveryEnabled)
+                                            {
+                                                if (Model.DeliveryOptions.noNextDoorDelivery)
+                                                {
+                                                    <i>@T("Nop.Plugin.Actopus.MyParcel.Fields.NoNextDoorDelivery")</i>
+                                                }
+                                                else
+                                                {
+                                                    <i>@T("Nop.Plugin.Actopus.MyParcel.Fields.YesNextDoorDelivery")</i>
+                                                }
+                                                <br />
+                                            }
+                                        </div>
+                                    </div>
+                                    @if (Model.DeliveryOptions.deliveryMoment != null)
+                                    {
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Labels.HomeDeliveryTimespan")</div>
+                                            <div class="col-md-9">
+                                                @Model.DeliveryOptions.deliveryMoment.date @Model.DeliveryOptions.deliveryMoment.time.start - @Model.DeliveryOptions.deliveryMoment.time.end
+                                            </div>
+                                        </div>
+                                    }
+                                    @if (Model.DeliveryOptions.pickupPoint != null)
+                                    {
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Labels.PickupPointStartTime")</div>
+                                            <div class="col-md-9">
+                                                @Model.DeliveryOptions.pickupPoint.date @Model.DeliveryOptions.pickupPoint.time.start
+                                            </div>
+                                        </div>
+                                    }
+                                    <div class="form-group">
+                                        <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ExtraLarge")</div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="MyParcelSizeExtraLarge" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ReturnOnNoAnswer")</div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="MyParcelReturnOnNoAnswer" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.SignatureOnReceipt")</div>
+                                        <div class="col-md-9">
+                                            <nop-editor asp-for="MyParcelSignatureOnReceipt" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        if (Model.DeliveryOptions.pickupPoint == null)
+                        {
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        @T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.Validate")
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ValidStreetName")</div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="MyParcelValidStreetName" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ValidHouseNumber")</div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="MyParcelValidHouseNumber" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ValidHouseNumberExtension")</div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="MyParcelValidHouseNumberExtension" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ValidZipCode")</div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="MyParcelValidZipCode" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ValidCity")</div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="MyParcelValidCity" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="panel-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <strong>@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ValidateNotNecessary")</strong>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="col-md-3"> </div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="DeliveryOptions.pickupPoint.location" asp-disabled="true" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3"> </div>
+                                            <div class="col-md-6">
+                                                <nop-editor asp-for="DeliveryOptions.pickupPoint.street" asp-disabled="true" />
+
+                                            </div>
+                                            <div class="col-md-3">  <nop-editor asp-for="DeliveryOptions.pickupPoint.number" asp-disabled="true" /></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3"> </div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="DeliveryOptions.pickupPoint.postal_code" asp-disabled="true" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3"> </div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="DeliveryOptions.pickupPoint.city" asp-disabled="true" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3"> </div>
+                                            <div class="col-md-9">
+                                                <nop-textarea asp-for="DeliveryOptions.pickupPoint.comment" asp-disabled="true" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-heading">
+                                        <strong>@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.Validate")</strong>
+                                    </div>
+
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ValidStreetName")</div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="MyParcelValidStreetName" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ValidHouseNumber")</div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="MyParcelValidHouseNumber" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ValidHouseNumberExtension")</div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="MyParcelValidHouseNumberExtension" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ValidZipCode")</div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="MyParcelValidZipCode" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-3">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.ValidCity")</div>
+                                            <div class="col-md-9">
+                                                <nop-editor asp-for="MyParcelValidCity" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="form-group">
+                            <div class="col-md-9 col-md-offset-3">
+                                <a name="postShipmentMyParcel" id="postShipmentMyParcel" class="btn btn-primary">@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment")</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="form-group">
+                            <div class="panel-heading">
+                                <h3>@T("Nop.Plugin.Actopus.MyParcel.Fields.PostShipment.CanNotPostToMyParcel")</h3>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#downloadLabelMyParcel').click(function () {
+
+            var downloadLabelModel = {
+                'OrderId': @Model.OrderNumber,
+                'ShipmentId': $('#MyParcelShipmentId').val(),
+                'Status': '',
+                'LabelUrl': ''
+            };
+
+            console.log("MyParcelShipmentModel = " + JSON.stringify(downloadLabelModel));
+
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: '@Url.Action("DownloadLabel", "MyParcel")',
+                dataType: 'json',
+                data: downloadLabelModel,
+                success: function (data) {
+                    console.log(data);
+                    if (data.LabelUrl != '' && data.LabelUrl != null)
+                        document.location.href = data.LabelUrl;
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log("DownloadLabel error" + thrownError);
+                }
+            });
+        });
+
+        $('a[name=postShipmentMyParcel]').click(function () {
+
+            var shipmentModel = {
+                'OrderNumber': @Model.OrderNumber,
+                'ShipmentId': $('#MyParcelShipmentId').val(),
+                'WarehouseId': $('#MyParcelWarehouseId').val(),
+                'Status': '',
+                'ShipmentTypeId': $('#MyParcelShipmentTypeId').val(),
+                'SignatureOnReceipt': $('#MyParcelSignatureOnReceipt').is(":checked"),
+                'SizeExtraLarge': $('#MyParcelSizeExtraLarge').is(":checked"),
+                'ReturnOnNoAnswer': $('#MyParcelReturnOnNoAnswer').is(":checked"),
+                'InsuranceValue': $('#MyParcelInsuranceValue').val(),
+                'Weight': $('#MyParcelWeight').val(),
+                'ValidZipCode': $('#MyParcelValidZipCode').val(),
+                'ValidStreetName': $('#MyParcelValidStreetName').val(),
+                'ValidHouseNumber': $('#MyParcelValidHouseNumber').val(),
+                'ValidHouseNumberExtension': $('#MyParcelValidHouseNumberExtension').val(),
+                'ValidCity': $('#MyParcelValidCity').val()
+            };
+
+            console.log("MyParcelShipmentModel = " + JSON.stringify(shipmentModel));
+
+            $.ajax({
+                cache: false,
+                type: 'POST',
+                url: '@Url.Action("PostShipment", "MyParcel")',
+                dataType: 'json',
+                data: shipmentModel,
+                success: function (data) {
+                    alert(data.Status);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log("PostShipment error" + thrownError);
+                }
+            });
+
+        });
+    });
+            </script>
+        </div>
+</div>

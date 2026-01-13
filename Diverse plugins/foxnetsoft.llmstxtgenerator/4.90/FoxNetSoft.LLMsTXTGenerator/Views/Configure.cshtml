@@ -1,0 +1,361 @@
+﻿@model FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Models.Admin.ConfigureModel
+@using FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Logger
+@using Microsoft.AspNetCore.Mvc.Controllers
+@using Nop.Core
+@using Nop.Services.Plugins
+@inject IWebHelper webHelper
+@inject IPluginService pluginService
+@inject Nop.Services.Stores.IStoreService storeService
+@{
+    var plugin = pluginService.FindPluginByTypeInAssembly((this.ViewContext.ActionDescriptor as ControllerActionDescriptor).ControllerTypeInfo);
+
+    //friendly name
+    var friendlyName = plugin?.PluginDescriptor.FriendlyName;
+
+    //Misc plugins
+
+    var configureLocale = "Admin.Configuration.Plugins.Misc.Configure";
+    var backToLocale = "Admin.Configuration.Plugins.Misc.BackToList";
+    var listActionMethodName = "List";
+    var listControllerName = "Plugin";
+
+    //Layout = "_ConfigurePlugin";
+    Layout = "_AdminLayout";
+    NopHtml.SetActiveMenuItemSystemName("FoxNetSoft.LLMsTXTGenerator.Configure");
+    ViewBag.Title = T(configureLocale).Text + " - " + friendlyName;
+}
+<div class="content-header clearfix">
+    <h1 class="pull-left">
+        @T(configureLocale) - @friendlyName
+        <small>
+            <i class="fa fa-arrow-circle-left"></i>
+            <a asp-action="@listActionMethodName" asp-controller="@listControllerName">@T(backToLocale)</a>
+        </small>
+    </h1>
+    <div class="pull-right">
+        &nbsp;
+    </div>
+</div>
+<div class="content">
+    <div class="form-horizontal">
+        @await Component.InvokeAsync("StoreScopeConfiguration")
+        <form asp-controller="LLMsTXTGeneratorSettings" asp-action="Configure" method="post">
+            <script>
+                $(document).ready(function () {
+                    $("#showDebugInfo").click(toggleshowDebugInfo);
+                    $("#IncludeProducts").click(toggleIncludeProducts);
+
+                    toggleshowDebugInfo();
+                    toggleIncludeProducts();
+                });
+
+                function toggleIncludeProducts() {
+                    if ($('#IncludeProducts').is(':checked')) {
+                        $('#pnIncludeProductShortDescription, #pnIncludeProductPrice').showElement();
+                    }
+                    else {
+                        $('#pnIncludeProductShortDescription, #pnIncludeProductPrice').hideElement();
+                    }
+                }
+                function toggleshowDebugInfo() {
+                    if ($('#showDebugInfo').is(':checked')) {
+                        $('#pnlclearlogfile, #pnlgetlogfile').showElement();
+                    }
+                    else {
+                        $('#pnlclearlogfile, #pnlgetlogfile').hideElement();
+                    }
+                }
+            </script>
+
+            <div class="cards-group">
+                <div class="card card-default">
+                    <div class="card-body">
+                        <p>
+                            @if (Model.LicenseStatus == LicenseStatus.Registered)
+                            {
+                                @T("Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.IsRegisted")
+                            }
+                            else
+                            {
+                                @T("Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.IsNoRegisted")
+                                <br />
+                                <a href="https://www.foxnetsoft.com/nopllmstxtgenerator" target="blank">Buy It Now</a>
+                            }
+                        </p>
+                        <p>
+                            What is llms.txt? <a href="https://llmstxt.org/" target="blank">https://llmstxt.org/</a>
+                            <br />
+                            Learn more about llms.txt: <a href="https://www.bluehost.com/blog/what-is-llms-txt/" target="blank">https://www.bluehost.com/blog/what-is-llms-txt/</a>
+                            <br />
+                            llms.txt Explained: <a href="https://www.analyticsvidhya.com/blog/2025/03/llms-txt/" target="blank">https://www.analyticsvidhya.com/blog/2025/03/llms-txt/</a>
+                        </p>
+                        @{
+                            var stores = await storeService.GetAllStoresAsync();
+                            var storeUrl = stores.FirstOrDefault().Url;
+                        }
+                        <p>
+                            Your llms.txt file URLs:<br />
+                            @foreach (var store in stores)
+                            {
+                                var fileUrl = $"{store.Url}llms.txt";
+                                <a href="@fileUrl" target="blank">@fileUrl</a>
+                                <text>
+                                    (default language)<br />
+                                </text>
+                            }
+                            <br />
+                            Language-specific files will be available at:<br />
+                            Example: @(storeUrl)llms_en-us.txt, @(storeUrl)llms_fr-ca.txt, etc.
+                            <br />
+                            Paginated files: @(storeUrl)llms-2.txt, @(storeUrl)llms_en-us-2.txt, etc.
+                        </p>
+                    </div>
+                </div>
+                <div class="card card-default">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="Enabled_OverrideForStore" asp-input="Enabled" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="Enabled" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="Enabled" />
+                                <span asp-validation-for="Enabled"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="StoreDescription_OverrideForStore" asp-input="StoreDescription" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="StoreDescription" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-textarea asp-for="StoreDescription"></nop-textarea>
+                                <span asp-validation-for="StoreDescription"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="MaxItemsPerFile_OverrideForStore" asp-input="MaxItemsPerFile" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="MaxItemsPerFile" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="MaxItemsPerFile" />
+                                <span asp-validation-for="MaxItemsPerFile"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-default">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="IncludeCategories_OverrideForStore" asp-input="IncludeCategories" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="IncludeCategories" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="IncludeCategories" />
+                                <span asp-validation-for="IncludeCategories"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="IncludeManufacturers_OverrideForStore" asp-input="IncludeManufacturers" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="IncludeManufacturers" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="IncludeManufacturers" />
+                                <span asp-validation-for="IncludeManufacturers"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="IncludeProducts_OverrideForStore" asp-input="IncludeProducts" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="IncludeProducts" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="IncludeProducts" />
+                                <span asp-validation-for="IncludeProducts"></span>
+                            </div>
+                        </div>
+                        <nop-nested-setting asp-for="IncludeProducts">
+                            <div class="form-group row" id="pnIncludeProductShortDescription">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="IncludeProductShortDescription_OverrideForStore" asp-input="IncludeProductShortDescription" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="IncludeProductShortDescription" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="IncludeProductShortDescription" />
+                                    <span asp-validation-for="IncludeProductShortDescription"></span>
+                                </div>
+                            </div>
+                            <div class="form-group row" id="pnIncludeProductPrice">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="IncludeProductPrice_OverrideForStore" asp-input="IncludeProductPrice" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="IncludeProductPrice" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="IncludeProductPrice" />
+                                    <span asp-validation-for="IncludeProductPrice"></span>
+                                </div>
+                            </div>
+                        </nop-nested-setting>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="IncludeProductTags_OverrideForStore" asp-input="IncludeProductTags" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="IncludeProductTags" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="IncludeProductTags" />
+                                <span asp-validation-for="IncludeProductTags"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="IncludeTopics_OverrideForStore" asp-input="IncludeTopics" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="IncludeTopics" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="IncludeTopics" />
+                                <span asp-validation-for="IncludeTopics"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="IncludeNews_OverrideForStore" asp-input="IncludeNews" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="IncludeNews" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="IncludeNews" />
+                                <span asp-validation-for="IncludeNews"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="IncludeBlogPosts_OverrideForStore" asp-input="IncludeBlogPosts" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="IncludeBlogPosts" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="IncludeBlogPosts" />
+                                <span asp-validation-for="IncludeBlogPosts"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="CustomSection_OverrideForStore" asp-input="CustomSection" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="CustomSection" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-textarea asp-for="CustomSection"></nop-textarea>
+                                <span asp-validation-for="CustomSection"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-default">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-label asp-for="showDebugInfo" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="showDebugInfo" />
+                                <span asp-validation-for="showDebugInfo"></span>
+                                <div id="pnlclearlogfile">
+                                    <a href="@Url.Action("ClearLogFile")" class="btn btn-primary">@T("Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.ClearLogFile")</a>
+                                </div>
+                                <div id="pnlgetlogfile">
+                                    <a href="@Url.Action("GetLogFile")" class="btn btn-primary">@T("Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.Settings.GetLogFile")</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-label asp-for="StoreUrl" />
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control text-box single-line" id="StoreUrl" name="StoreUrl" value="@Model.StoreUrl" type="text" readonly="readonly">
+                                <span asp-validation-for="StoreUrl"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-3">
+                                <nop-label asp-for="SerialNumber" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="SerialNumber" />
+                                <span asp-validation-for="SerialNumber"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-9 offset-md-3">
+                                <input type="submit" name="save" class="btn bg-primary" value="@T("Admin.Common.Save")" />
+                            </div>
+                        </div>
+                        <p>
+                            Installation and configuring plug-in at Youtube <a href="https://www.youtube.com/foxnetsoft" target="blank">www.youtube.com/foxnetsoft</a>
+                            <br />
+                            Installation and configuring plug-in at our site <a href="https://www.foxnetsoft.com/documentation-nopllmstxtgenerator" target="blank">https://www.foxnetsoft.com/documentation-nopllmstxtgenerator</a>
+                            <br />
+                            <a href="https://www.foxnetsoft.com" target="blank">www.foxnetsoft.com</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card card-default">
+                    <div class="card-body">
+                        <h4>@T("Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.GeneratedFiles.Title")</h4>
+                        <p>@T("Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.GeneratedFiles.Description")</p>
+
+                        @if (Model.HasGeneratedFiles)
+                        {
+                            <p>
+                                <strong>@T("Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.GeneratedFiles.LastGenerated"):</strong>
+                                @Model.LastGenerationDate?.ToString("yyyy-MM-dd HH:mm:ss")
+                            </p>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Store</th>
+                                        <th>File Name</th>
+                                        <th>Size</th>
+                                        <th>Last Modified</th>
+                                        <th>URL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var file in Model.GeneratedFiles)
+                                    {
+                                        <tr>
+                                            <td>@file.StoreName</td>
+                                            <td>@file.FileName</td>
+                                            <td>@file.FileSizeFormatted</td>
+                                            <td>@file.LastModified.ToString("yyyy-MM-dd HH:mm")</td>
+                                            <td><a href="@file.FullUrl" target="_blank">@file.FullUrl</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <p class="alert alert-info">@T("Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.GeneratedFiles.NoFiles")</p>
+                        }
+
+                        <div class="form-group row mt-3">
+                            <div class="col-md-12">
+                                <a href="@Url.Action("RegenerateLLMsFiles")" class="btn btn-primary">
+                                    @T("Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.RegenerateLLMsFiles.Button")
+                                </a>
+                                @if (Model.HasGeneratedFiles)
+                                {
+                                    <a href="@Url.Action("DeleteLLMsFiles")" class="btn btn-danger ml-2" onclick="return confirm('Are you sure you want to delete all LLMs.txt files?');">
+                                        @T("Admin.FoxNetSoft.Plugin.Misc.LLMsTXTGenerator.DeleteLLMsFiles.Button")
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

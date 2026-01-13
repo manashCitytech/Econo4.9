@@ -1,0 +1,33 @@
+﻿[
+{
+    "Type": "Plugin",
+    "SupportedVersion": "4.40",
+    "DirectoryPath": "4.40/FoxNetSoft.LLMsTXTGenerator/",
+    "SystemName": "FoxNetSoft.LLMsTXTGenerator"
+  },{
+    "Type": "Plugin",
+    "SupportedVersion": "4.50",
+    "DirectoryPath": "4.50/FoxNetSoft.LLMsTXTGenerator/",
+    "SystemName": "FoxNetSoft.LLMsTXTGenerator"
+  },{
+    "Type": "Plugin",
+    "SupportedVersion": "4.60",
+    "DirectoryPath": "4.60/FoxNetSoft.LLMsTXTGenerator/",
+    "SystemName": "FoxNetSoft.LLMsTXTGenerator"
+  },{
+    "Type": "Plugin",
+    "SupportedVersion": "4.70",
+    "DirectoryPath": "4.70/FoxNetSoft.LLMsTXTGenerator/",
+    "SystemName": "FoxNetSoft.LLMsTXTGenerator"
+  },{
+    "Type": "Plugin",
+    "SupportedVersion": "4.80",
+    "DirectoryPath": "4.80/FoxNetSoft.LLMsTXTGenerator/",
+    "SystemName": "FoxNetSoft.LLMsTXTGenerator"
+  },{
+    "Type": "Plugin",
+    "SupportedVersion": "4.90",
+    "DirectoryPath": "4.90/FoxNetSoft.LLMsTXTGenerator/",
+    "SystemName": "FoxNetSoft.LLMsTXTGenerator"
+  }
+]

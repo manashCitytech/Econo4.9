@@ -54,6 +54,11 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <None Include="Plugins\NopTech.Core\Nop.Plugin.NopTech.Core.pdb" />
+    <None Include="Plugins\NopTech.GoogleAnalytics\Nop.Plugin.NopTech.Core.pdb" />
+    <None Include="Plugins\NopTech.GoogleAnalytics\Nop.Plugin.NopTech.GoogleAnalytics.pdb" />
+    <None Include="Plugins\Shipping.FixedByWeightByTotal\Nop.Plugin.Shipping.FixedByWeightByTotal.pdb" />
+    <None Include="Plugins\Tax.FixedOrByCountryStateZip\Nop.Plugin.Tax.FixedOrByCountryStateZip.pdb" />
 
     <None Update="Areas\Admin\sitemap.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

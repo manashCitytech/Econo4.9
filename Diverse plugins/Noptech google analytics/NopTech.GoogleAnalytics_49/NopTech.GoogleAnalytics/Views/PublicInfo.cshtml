@@ -1,0 +1,35 @@
+@model ScriptModel
+
+@Html.Raw(Model.Script)
+
+@if (Model.AddToCartEventScript is not null)
+{
+    @Html.Raw(Model.AddToCartEventScript)
+}
+@if (Model.RemoveFromCartEventScript is not null)
+{
+    @Html.Raw(Model.RemoveFromCartEventScript)
+}
+@if (Model.OrderPlacedEventScript is not null)
+{
+    @Html.Raw(Model.OrderPlacedEventScript)
+}
+
+@if (Model.AppendAjaxListener)
+{
+    <script asp-location="Footer">
+        $(document).ajaxComplete(function (event, xhr, settings) {
+            if (settings.url.includes("addproducttocart")) {
+                $.ajax({
+                    url: 'Admin/GoogleAnalytics/HandleGAEvent?eventName="addToCart"',
+                    type: 'GET',
+                    success: function (response) {
+                        if (response) {
+                            $('body').append(response);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+}

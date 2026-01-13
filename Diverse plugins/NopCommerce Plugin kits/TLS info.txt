@@ -1,0 +1,13 @@
+https://learn.microsoft.com/en-us/dotnet/framework/network-programming/tls
+
+Versions of the mollie plugin lets TLS be handled by OS
+
+Nop 4.00: Version 2.21 TLS set by OS
+Nop 4.10: Version 2.02 TLS set by OS
+Nop 4.20: Version 2.02 TLS set by OS
+Nop 4.30: Version 1.32 TLS set by OS
+Nop 4.40: Version 1.32 TLS set by OS
+Nop 4.50: Version 1.41 TLS set by OS
+Nop 4.60: Version 1.41 TLS set by OS
+Nop 4.70: Version 1.41 TLS set by OS
+Nop 4.80: Version 1.41 TLS set by OS

@@ -1,0 +1,11 @@
+﻿{
+  "Group": "noptech",
+  "FriendlyName": "noptech Core",
+  "SystemName": "NopTech.Core",
+  "Version": "2.00",
+  "SupportedVersions": [ "4.90" ],
+  "Author": "nop-tech.com",
+  "DisplayOrder": 0,
+  "FileName": "Nop.Plugin.NopTech.Core.dll",
+  "Description": "Basic functionality that is related to noptech plugins and themes"
+}

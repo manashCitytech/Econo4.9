@@ -1,0 +1,212 @@
+﻿@model Nop.Plugin.Actopus.MyParcel.Models.ConfigurationModel
+@{
+    Layout = "_ConfigurePlugin";
+}  
+@await Component.InvokeAsync("StoreScopeConfiguration")
+<form asp-controller="MyParcel" asp-action="Configure" method="post">
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-label asp-for="IpAddress" />
+                    </div>
+                    <div class="col-md-9">
+                        <div class="callout bg-gray-light no-margin">
+                            @Model.IpAddress
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-label asp-for="Host" />
+                    </div>
+                    <div class="col-md-9">
+                        <div class="callout bg-gray-light no-margin">
+                            @Model.Host
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        @if (Model.LicenseNotification)
+                        {
+                            <p>
+                                This plugin is running in Preview mode. You will be able to perform all functions except for posting consignments to MyParcel and downloading labels.
+                            </p>
+                            <p>
+                                In order to activate this MyParcel plugin please follow the next steps:
+                            </p>
+                            <ol>
+                                <li>
+                                    First purchase a valid license key for this host: @Model.Host at <a href="http://www.actopus.com/en/MyParcel" target="_blank">www.actopus.com/en/MyParcel</a>
+                                </li>
+                                <li>
+                                    Next register your license key using the <a href="../ActopusLicenseManager/Configure">actOpus plugin license manager</a>.
+                                </li>
+                                <li>
+                                    In case the MyParcel plugin  cannot be loaded: Register this plugin again and then run the config again.
+                                </li>
+                                <li>
+                                    Can't get the plugin to work: contact us at <a href="mailto:info@actopus.com">actOpus support</a>.
+                                </li>
+                            </ol>
+                            <p>
+                                Promo:<br />
+                                Interested in an accounting application that integrates with nopCommerce? Check out <a href="http://www.nopfinance.com/" target="_blank">NopFinance&reg;</a>
+                            </p>
+
+                        }
+                        else
+                        {
+                            <p>
+                                Your license is valid. <br />
+                                In order to use this MyParcel plugin please follow the next steps:
+                            </p>
+                            <ol>
+                                <li>
+                                    Create a MyParcel website profile in your MyParcel dashboard. Your MyParcel dashboard can be accessed from here: <a href="https://backoffice.myparcel.nl/dashboard" target="_blank">MyParcel dashboard profiles</a>
+                                </li>
+                                <li>
+                                    Copy the API key from your MyParcel shop profile into the fields below. Your MyParcel settings can be accessed from here: <a href="https://backoffice.myparcel.nl/settings" target="_blank">MyParcel settings</a>
+                                </li>
+                            </ol>
+                            <p>
+                                This plugin supports all payment methods that you enable in your MyParcel Dashboard.
+                            </p>
+                            <p>
+                                Promo:<br />
+                                Interested in an accounting application that integrates with nopCommerce? Check out <a href="http://www.nopfinance.com/" target="_blank">NopFinance&reg;</a>
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>@T("Nop.Plugin.Actopus.MyParcel.Headers.WebserviceSettings")</strong>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="APIKey_OverrideForStore" asp-input="APIKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="APIKey" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="APIKey" />
+                        <span asp-validation-for="APIKey"></span>
+                    </div>
+                </div>
+            </div>
+            @{
+                if (Model.WarehouseSetups.Count() > 0)
+                {
+                    <div class="panel-heading">
+                        <strong>@T("Nop.Plugin.Actopus.MyParcel.Headers.WebserviceWarehouseSettings")</strong>
+                    </div>
+                    for (var i = 0; i < Model.WarehouseSetups.Count; i++)
+                    {
+                        <div class="panel-heading">
+                            <span hidden="">
+                                <nop-editor asp-for="WarehouseSetups[i].WarehouseId" />
+                            </span>
+                            @Model.WarehouseSetups[i].Name
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <nop-label asp-for="WarehouseSetups[i].APIKey" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="WarehouseSetups[i].APIKey" />
+                                    <span asp-validation-for="WarehouseSetups[i].APIKey"></span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>@T("Nop.Plugin.Actopus.MyParcel.Headers.Post")</strong>
+            </div>
+
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="LabelTag_OverrideForStore" asp-input="LabelTag" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="LabelTag" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="LabelTag" />
+                        <span asp-validation-for="LabelTag"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="DefaultWeight_OverrideForStore" asp-input="DefaultWeight" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="DefaultWeight" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="DefaultWeight" />
+                        <span asp-validation-for="DefaultWeight"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="MarkAsSentAfterPost_OverrideForStore" asp-input="MarkAsSentAfterPost" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="MarkAsSentAfterPost" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="MarkAsSentAfterPost" />
+                        <span asp-validation-for="MarkAsSentAfterPost"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="AllowNoNextDoorDelivery_OverrideForStore" asp-input="AllowNoNextDoorDelivery" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="AllowNoNextDoorDelivery" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="AllowNoNextDoorDelivery" />
+                        <span asp-validation-for="AllowNoNextDoorDelivery"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="NoNextDoorDeliveryPrice_OverrideForStore" asp-input="NoNextDoorDeliveryPrice" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="NoNextDoorDeliveryPrice" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="NoNextDoorDeliveryPrice" />
+                        <span asp-validation-for="NoNextDoorDeliveryPrice"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-9 col-md-offset-3">
+                        <input type="submit" name="save" class="btn bg-blue" value="@T("Admin.Common.Save")" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

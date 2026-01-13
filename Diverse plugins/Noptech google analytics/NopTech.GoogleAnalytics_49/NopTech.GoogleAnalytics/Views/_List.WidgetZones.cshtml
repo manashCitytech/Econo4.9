@@ -1,0 +1,92 @@
+@model WZModel
+
+<div class="card-body">
+    @await Html.PartialAsync("Table", new DataTablesModel
+{
+    Name = "wz-grid",
+    UrlRead = new DataUrl("WidgetZonesList", "NopTechCore", null),
+    UrlUpdate = new DataUrl("WidgetZonesUpdate", "NopTechCore", null),
+    UrlDelete = new DataUrl("WidgetZonesDelete", "NopTechCore", null),
+
+    Length = Model.WidgetZonesSearchModel.PageSize,
+    LengthMenu = Model.WidgetZonesSearchModel.AvailablePageSizes,
+    ColumnCollection = new List<ColumnProperty>
+    {
+    new ColumnProperty(nameof(WZModel.WidgetZoneModel.Name))
+    {
+    Title = T("NopTech.Core.WidgetZones.Name").Text,
+    Width = "300",
+    Editable = true,
+    EditType = EditType.String
+    },
+    new ColumnProperty(nameof(WZModel.WidgetZoneModel.Id))
+    {
+    Title = T("Admin.Common.Edit").Text,
+    Width = "100",
+    ClassName =  NopColumnClassDefaults.Button,
+    Render = new RenderButtonsInlineEdit()
+    },
+    new ColumnProperty(nameof(WZModel.WidgetZoneModel.Id))
+    {
+    Title = T("Admin.Common.Delete").Text,
+    Width = "100",
+    Render = new RenderButtonRemove(T("Admin.Common.Delete").Text),
+    ClassName = NopColumnClassDefaults.Button
+    }
+    }
+})
+
+    <div class="card card-default">
+        <div class="card-header">
+            @T("Admin.Common.AddNewRecord")
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <nop-label asp-for="@Model.WidgetZoneModel.Name" />
+                </div>
+                <div class="col-md-9">
+                    <nop-editor asp-for="@Model.WidgetZoneModel.Name" />
+                    <span asp-validation-for="@Model.WidgetZoneModel.Name"></span>
+                    <div style="margin-top: 8px;">
+                        <button type="button" id="addWidgetZone" class="btn btn-primary">@T("Admin.Common.AddNewRecord")</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('#addWidgetZone').click(function () {
+                    $('#addWidgetZone').attr('disabled', true);
+                    var postData = {
+                        Name: $("#@Html.IdFor(model => model.WidgetZoneModel.Name)").val()
+                    };
+                    addAntiForgeryToken(postData);
+
+                    $.ajax({
+                        cache: false,
+                        type: "POST",
+                        url: "@Html.Raw(Url.Action("WidgetZonesAdd", "NopTechCore", null))",
+                        data: postData,
+                        success: function (data, textStatus, jqXHR) {
+                            if (data.Result) {
+                                //reload grid
+                                updateTable('#wz-grid');
+
+                                //clear input value
+                                $("#@Html.IdFor(model => model.WidgetZoneModel.Name)").val('');
+
+                            } else {
+                                //display errors if returned
+                                display_nop_error(data);
+                            }
+                        },
+                        complete: function (jqXHR, textStatus) {
+                            $('#addWidgetZone').attr('disabled', false);
+                        }
+                    });
+                });
+            });
+        </script>
+    </div>
+</div>

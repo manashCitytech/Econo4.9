@@ -1,0 +1,12 @@
+﻿{
+  "Group": "Payment methods",
+  "FriendlyName": "Mollie-Klarna Payment Methods ",
+  "SystemName": "Payments.MollieKlarna",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.10" ],
+  "Author": "actOpus / Mercari Ventures BV",
+  "DisplayOrder": 1,
+  "FileName": "Actopus.Nop.Plugin.Payments.MollieKlarna.dll",
+  "Description": "This plugin allows payments using the Mollie-Klarna payment provider"
+}
+ 

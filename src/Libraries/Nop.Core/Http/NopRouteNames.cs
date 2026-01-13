@@ -764,6 +764,11 @@ public static partial class NopRouteNames
         public const string EU_COOKIE_LAW_ACCEPT = "EuCookieLawAccept";
 
         /// <summary>
+        /// Gets the EU Cookie law accept button handler route name
+        /// </summary>
+        public const string EU_COOKIE_LAW_DECLINE = "EuCookieLawDecline";
+
+        /// <summary>
         /// Gets the authenticate topic route name
         /// </summary>
         public const string TOPIC_AUTHENTICATE = "TopicAuthenticate";

@@ -1,0 +1,8 @@
+﻿Group: Payment methods
+FriendlyName: Mollie Payment Methods 
+SystemName: Payments.Mollie
+Version: 2.2
+SupportedVersions: 3.70
+Author: actOpus / Mercari Ventures BV
+DisplayOrder: 1
+FileName: Actopus.Nop.Plugin.Payments.Mollie.dll

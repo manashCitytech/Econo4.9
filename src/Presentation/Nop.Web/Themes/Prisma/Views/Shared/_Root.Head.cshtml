@@ -92,6 +92,10 @@
     <!link rel="preload" as="font" href="@Url.Content($"~/Themes/{await themeContext.GetWorkingThemeNameAsync()}/Content/font/prisma.woff")" crossorigin />
     <!link href="https://fonts.googleapis.com/css?family=Comfortaa:400,700|Fira+Sans:400,700|Open+Sans:400,700|Playfair+Display:400,700&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext&display=swap" rel="stylesheet" />
     <!--Powered by nopCommerce - https://www.nopCommerce.com-->
+    <!-- TrustBox script -->
+    <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+    <!-- End TrustBox script -->
+
     @Html.Raw(commonSettings.HeaderCustomHtml)
 </head>
 <body class="@currentPageClass font-@fontFamilyClass @itemBoxTypeClass">

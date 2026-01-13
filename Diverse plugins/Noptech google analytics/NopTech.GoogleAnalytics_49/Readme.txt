@@ -1,0 +1,1 @@
+1. This file contains binaries. Just drop it into \Plugins directory on your server.

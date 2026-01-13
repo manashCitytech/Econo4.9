@@ -1,0 +1,195 @@
+﻿@{
+    Layout = "";
+}
+@model ConfigurationModel
+@using Actopus.Nop.Plugin.Payments.Mollie.Models;
+@using Nop.Web.Framework;
+@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<table class="adminContent">
+    <tr>
+        <td colspan="2">
+            <b>@T("Plugins.Payments.Mollie.Notes")</b>
+        </td>
+    </tr>
+
+    <tr>
+        <td class="adminTitle">
+            IP address:
+        </td>
+        <td class="adminData">
+            @Model.IpAddress
+        </td>
+    </tr>
+
+    <tr>
+        <td class="adminTitle">
+            Host:
+        </td>
+        <td class="adminData">
+            @Model.Host
+        </td>
+    </tr>
+
+    <tr>
+        <td colspan="2">
+            @if (Model.LicenseNotification)
+            {
+                <p>
+                    In order to activate this Mollie payment plugin please follow the next steps:
+                </p>
+                <ol>
+                    <li>
+                        First purchase a valid license key for this host: @Model.Host at <a href="http://www.actopus.com/en/mollie-payment-plug-in-for-nopcommerce" target="_blank">www.actopus.com/en/mollie-payment-plug-in-for-nopcommerce</a>
+                    </li>
+                    <li>
+                        Next register your license key using the <a href="../plugin/ConfigureMiscPlugin?systemName=Actopus.Misc.LicenseManager">actOpus plugin license manager</a>.
+                    </li>
+                    <li>
+                        In case the Mollie payment plugin cannot be loaded: Register this plugin again and then run the config again.
+                    </li>
+                    <li>
+                        Can't get the plugin to work: contact us at <a href="mailto:info@actopus.com">actOpus support</a>.
+                    </li>
+                </ol>
+                <br />
+                <p>
+                    This plugin supports all payment methods that you enable in your Mollie Dashboard.
+                </p>
+            }
+            else
+            {
+                <p>
+                    Your license is valid. <br />
+                    In order to use this Mollie payment plugin please follow the next steps:
+                </p>
+                <ol>
+                    <li>
+                        Create a Mollie website profile in your Mollie dashboard. Your Mollie dashboard can be accessed from here: <a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">Mollie dashboard profiles</a>
+                    </li>
+                    <li>
+                        Copy the Live and Test API keys from your Mollie website profile into the fields below. Your Mollie dashboard can be accessed from here: <a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">Mollie dashboard profiles</a>
+                    </li>
+                    <li>
+                        Enable the payment methods in your Mollie website profile. Your Mollie dashboard can be accessed from here: <a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">Mollie dashboard profiles</a>
+                    </li>
+                    <li>
+                        Optionally (but recommended) you may personalize your Mollie Payment Screen for your Mollie Website profile. Your Mollie dashboard can be accessed from here: <a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">Mollie dashboard profiles</a>
+                    </li>
+                    <li>
+                        Finally update your privacy policy to reflect the GDPR/AVG ruling.
+                    </li>
+                </ol>
+                <p>
+                    This plugin supports all payment methods that you enable in your Mollie Dashboard.
+                </p>
+                <p>
+                    Promo:<br />
+                    Interested in an accounting application that integrates with nopCommerce? Check out <a href="http://www.nopfinance.com/" target="_blank">NopFinance&reg;</a>
+                </p>
+            }
+        </td>
+    </tr>
+
+
+
+    @if (!Model.LicenseNotification)
+    {
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.LiveAPIKey_OverrideForStore, model => model.LiveAPIKey, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.LiveAPIKey):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.LiveAPIKey)
+                @Html.ValidationMessageFor(model => model.LiveAPIKey)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.TestAPIKey_OverrideForStore, model => model.TestAPIKey, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.TestAPIKey):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.TestAPIKey)
+                @Html.ValidationMessageFor(model => model.TestAPIKey)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.TestModeActive_OverrideForStore, model => model.TestModeActive, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.TestModeActive):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.TestModeActive)
+                @Html.ValidationMessageFor(model => model.TestModeActive)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.AdditionalFee_OverrideForStore, model => model.AdditionalFee, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.AdditionalFee):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.AdditionalFee)
+                @Html.ValidationMessageFor(model => model.AdditionalFee)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.AdditionalFeePercentage_OverrideForStore, model => model.AdditionalFeePercentage, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.AdditionalFeePercentage):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.AdditionalFeePercentage)
+                @Html.ValidationMessageFor(model => model.AdditionalFeePercentage)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.OverrideStoreCheckboxFor(model => model.ShowOrderDetailsUponCompletion_OverrideForStore, model => model.ShowOrderDetailsUponCompletion, Model.ActiveStoreScopeConfiguration)
+                @Html.NopLabelFor(model => model.ShowOrderDetailsUponCompletion):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.ShowOrderDetailsUponCompletion)
+                @Html.ValidationMessageFor(model => model.ShowOrderDetailsUponCompletion)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="save" class="k-button" value="@T("admin.common.save")" />
+            </td>
+        </tr>
+    }
+
+    <tr>
+        <td colspan="2">
+            <b>@T("Plugins.Payments.Mollie.Notes.MethodInfo")</b>
+        </td>
+    </tr>
+    <tr>
+        <td class="adminTitle">
+            @Html.NopLabelFor(model => model.Methods):
+        </td>
+        <td class="adminData">
+            <!--//V2 support -->
+            @if (Model.Methods != null && Model.Methods._embedded != null && Model.Methods._embedded.methods.Count() > 0)
+            {
+                foreach (var method in Model.Methods._embedded.methods)
+                {
+                    <div>@method.description</div>
+                    <img src="@method.image.size1x" />
+                }
+            }
+            else
+            {
+                @T("Plugins.Payments.Mollie.Fields.Methods.None")
+            }
+        </td>
+    </tr>
+</table>
+
+}

@@ -1,0 +1,421 @@
+﻿@{
+    Layout = "";
+}
+@using System
+@using Nop.Web.Framework.UI
+
+@model Actopus.Nop.Plugin.Misc.MyParcel.Models.MyParcelLabelModel
+@using Nop.Core.Domain.Orders
+@using Nop.Web.Framework;
+
+@using (Html.BeginForm())
+{
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.Title")</h3>
+            </div>
+            <div class="panel-body">
+                @if (Model.CanPostToMyParcel)
+                {
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                @T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.ProcessInfo")
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        @T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.WhatShipment")
+                                    </div>
+                                    <div class="col-md-9">
+                                        @Html.NopDropDownListFor(model => model.ShipmentId, Model.Shipments)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        @T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.WhichWarehouse")
+                                    </div>
+                                    <div class="col-md-9">
+                                        @Html.NopDropDownListFor(model => model.WarehouseId, Model.Warehouses)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <a id="downloadLabelMyParcel" class="btn bg-blue">
+                                            <i class="fa fa-download" aria-hidden="true"></i>
+                                            @T("actopus.nop.plugin.misc.MyParcel.fields.downloadLabel")
+                                        </a>
+                                    </div>
+                                    <div class="col-md-9">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                @T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.ConsignmentInfo")
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="col-md-3">@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.ShipmentType")</div>
+                                    <div class="col-md-9">@Html.NopDropDownListFor(model => model.ShipmentTypeId, Model.ShipmentTypes)</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3">@T("Actopus.Nop.Plugin.Misc.MyParcel.Labels.Weight")</div>
+                                    <div class="col-md-9">@Html.NopEditorFor(model => model.Weight)</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.Insured")</div>
+                                    <div class="col-md-9">
+                                        @Html.NopDropDownListFor(model => model.InsuranceValue, Model.InsuranceValues)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3"></div>
+                                    <div class="col-md-9">
+
+                                        @if (Model.AllowNoNextDoorDeliveryEnabled)
+                                        {
+                                            if (Model.DeliveryOptions.noNextDoorDelivery)
+                                            {
+                                                <i>@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.NoNextDoorDelivery")</i>
+                                            }
+                                            else
+                                            {
+                                                <i>@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.YesNextDoorDelivery")</i>
+                                            }
+                                            <br />
+                                        }
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.ExtraLarge")</div>
+                                    <div class="col-md-9">@Html.NopEditorFor(model => model.SizeExtraLarge)</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.ReturnOnNoAnswer")</div>
+                                    <div class="col-md-9">@Html.NopEditorFor(model => model.ReturnOnNoAnswer)</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.SignatureOnReceipt")</div>
+                                    <div class="col-md-9">@Html.NopEditorFor(model => model.SignatureOnReceipt)</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.Concept")</div>
+                                    <div class="col-md-9">@Html.NopEditorFor(model => model.CreateConceptConsigment)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                @T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.Validate")
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="col-md-3">@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.ValidZipCode")</div>
+                                    <div class="col-md-9">@Html.NopEditorFor(model => @Model.ValidZipCode)</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.ValidHouseNumber")</div>
+                                    <div class="col-md-4">@Html.NopEditorFor(model => @Model.ValidHouseNumber)</div>
+                                    <div class="col-md-5"><select class="form-control" id="MyParcelValidHouseNumbers" name="MyParcelValidHouseNumbers" /></div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.ValidHouseNumberExtension")</div>
+                                    <div class="col-md-9">@Html.NopEditorFor(model => @Model.ValidHouseNumberExtension)</div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.ValidStreetName")</div>
+                                    <div class="col-md-9">@Html.NopEditorFor(model => @Model.ValidStreetName)</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <a id="checkAddressMyParcel" class="btn bg-blue">
+                                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                            @T("actopus.nop.plugin.misc.MyParcel.fields.checkAddress")
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <a id="postShipmentMyParcel" class="btn bg-blue">
+                                <i class="fa fa-upload" aria-hidden="true"></i>
+                                @T("actopus.nop.plugin.misc.MyParcel.fields.postshipment")
+                            </a>
+                        </div>
+                        <div class="col-md-9">
+
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+
+                    <div class="form-group">
+                        <div class="panel-heading">
+                            <h3>@T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.PostShipment.CanNotPostToMyParcel")</h3>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Shipping information
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-3">Land</div>
+                <div class="col-md-9">@Model.ShippingAddress.Country.Name</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">Bedrijfsnaam</div>
+                <div class="col-md-9">@Model.ShippingAddress.Company</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">Naam</div>
+                <div class="col-md-9">@Model.ShippingAddress.FirstName  @Model.ShippingAddress.LastName</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">Postcode, Huisnummer en toevoeging*</div>
+                <div class="col-md-9">@Model.ShippingAddress.ZipPostalCode  @Model.ShippingAddress.Address2</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">Straat</div>
+                <div class="col-md-9">@Model.ShippingAddress.Address1</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">Plaats</div>
+                <div class="col-md-9">@Model.ShippingAddress.City</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">Email</div>
+                <div class="col-md-9">@Model.ShippingAddress.Email.ToLower()</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">Telefoonnummer</div>
+                <div class="col-md-9">@Model.ShippingAddress.PhoneNumber</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-3">Kenmerk / Order nummer</div>
+                <div class="col-md-9">@Model.OrderNumber - @Model.ShipmentId</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $("#MyParcelValidHouseNumbers").change(function() {
+                var parts = $(this).val().split('-');
+
+                $("#@Html.FieldIdFor(model => model.ValidHouseNumber)").val(parts[0]);
+                $("#@Html.FieldIdFor(model => model.ValidHouseNumberExtension)").val(parts.length > 1 ? parts[1]: '');
+            });
+
+            $('#checkAddressMyParcel').click(function(){
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "@(Url.RouteUrl("Actopus.Nop.Plugin.Misc.MyParcel.GetAddressByZipCodeAndHouseNumber", "MyParcel"))",
+                    data: {
+                        "zipCode": $("#@Html.FieldIdFor(model => model.ValidZipCode)").val(),
+                        "houseNumber": $("#@Html.FieldIdFor(model => model.ValidHouseNumber)").val(),
+                        "houseNumberAddition": $("#@Html.FieldIdFor(model => model.ValidHouseNumberExtension)").val(),
+                        "countryId": @Model.ShippingAddress.Country.Id
+                    },
+                    success: function (data) {
+                        if(data == null) return;
+                        if(data.addresses == null) return;
+                        console.log(JSON.stringify(data));
+                        if(data.addresses.length)
+                        {
+                            var address = data.addresses[0];
+                            if (address.zipCode.length)
+                                $("#@Html.FieldIdFor(model => model.ValidZipCode)").val(address.zipCode);
+
+                            if (address.publicPlace != null)
+                                    $("#@Html.FieldIdFor(model => model.ValidStreetName)").val(address.publicPlace);
+
+                            $("#MyParcelValidHouseNumbers").find('option').remove();
+                            $("#MyParcelValidHouseNumbers").append($('<option></option>').val('').html(''));
+
+                            for(var i = 0; i < data.addresses.length; i++)
+                            {
+                                var addr = data.addresses[i];
+
+                                var op = addr.houseNumber;
+
+                                if(addr.houseLetter != null)
+                                    op += '-' + addr.houseLetter;
+
+                                if(addr.houseNumberAddition != null)
+                                    op +=  addr.houseLetter ==null ? '-' + addr.houseNumberAddition: addr.houseNumberAddition;
+
+                                $("#MyParcelValidHouseNumbers").append($('<option></option>').val(op).html(op));
+                            }
+
+                            $("#@Html.FieldIdFor(model => model.ValidZipCode)").removeClass("error");
+                            $("#@Html.FieldIdFor(model => model.ValidHouseNumber)").removeClass("error");
+                            $("#@Html.FieldIdFor(model => model.ValidHouseNumberExtension)").removeClass("error");
+
+                            $("#@Html.FieldIdFor(model => model.ValidZipCode)").addClass("ok");
+                            $("#@Html.FieldIdFor(model => model.ValidHouseNumber)").addClass("ok");
+                            $("#@Html.FieldIdFor(model => model.ValidHouseNumberExtension)").addClass("ok");
+                        }
+                        else
+                        {
+                            $("#@Html.FieldIdFor(model => model.ValidZipCode)").removeClass("ok");
+                            $("#@Html.FieldIdFor(model => model.ValidHouseNumber)").removeClass("ok");
+                            $("#@Html.FieldIdFor(model => model.ValidHouseNumberExtension)").removeClass("ok");
+
+                            $("#@Html.FieldIdFor(model => model.ValidZipCode)").addClass("error");
+                            $("#@Html.FieldIdFor(model => model.ValidHouseNumber)").addClass("error");
+                            $("#@Html.FieldIdFor(model => model.ValidHouseNumberExtension)").addClass("error");
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                    }
+                });
+            });
+
+            $('#downloadLabelMyParcel').click(function(){
+                $.ajax({
+                    cache:false,
+                    type: "POST",
+                    url: "@(Url.Action("DownloadLabel", "MyParcel"))",
+                    data: {
+                        "OrderNumber": @Model.OrderNumber,
+                        "ShipmentId": $("#@Html.IdFor(model => @Model.ShipmentId)").val()
+                    },
+                success: function (data) {
+                    if(data.Status == null)
+                    {
+                        if(data.LabelUrl != null)
+                            window.open(data.LabelUrl);
+                    }
+                    else
+                        alert('Warning: The label could not be downloaded at this time. Did you post a consignment?');
+                },
+                error:function (xhr, ajaxOptions, thrownError){
+                    alert('Unable to download the label at this time!');
+
+                }
+            });
+        });
+
+
+        $('#@Html.IdFor(model => @Model.Weight)').change(function () {
+            var val =  $('#@Html.IdFor(model => @Model.Weight)').val();
+            var val2 = $("#@Html.IdFor(model => @Model.ShipmentTypeId)").val();
+
+            if(val2 == '2')
+            {
+                $("#@Html.IdFor(model => @Model.ShipmentTypeId) option[value='standard']").attr('selected','true');
+                $('#@Html.IdFor(model => @Model.ShipmentTypeId)').trigger("click");
+            }
+        });
+
+        $('#@Html.IdFor(model => @Model.ShipmentTypeId)').click(function () {
+            var val = $("#@Html.IdFor(model => @Model.ShipmentTypeId)").val();
+            if(val == '1')
+            {
+                $("#@Html.IdFor(model => @Model.InsuranceValue)").removeAttr('disabled');
+                $("#@Html.IdFor(model => @Model.SizeExtraLarge)").removeAttr('disabled');
+                $("#@Html.IdFor(model => @Model.ReturnOnNoAnswer)").removeAttr('disabled');
+                $("#@Html.IdFor(model => @Model.MarkAsSentAfterPost)").removeAttr('disabled');
+                $("#@Html.IdFor(model => @Model.SignatureOnReceipt)").removeAttr('disabled');
+            }
+            else
+            {
+                $('#@Html.IdFor(model => @Model.Weight)').attr('value','1');;
+
+                $("#@Html.IdFor(model => @Model.InsuranceValue) option[value='0']").attr("selected","true");
+                $("#@Html.IdFor(model => @Model.InsuranceValue)").attr('disabled', 'disabled');
+
+                $("#@Html.IdFor(model => @Model.SizeExtraLarge)").attr('disabled', 'disabled');
+                $("#@Html.IdFor(model => @Model.ReturnOnNoAnswer)").attr('disabled', 'disabled');
+
+                $("#@Html.IdFor(model => @Model.SignatureOnReceipt)").attr('disabled', 'disabled');
+
+                $("#@Html.IdFor(model => @Model.SizeExtraLarge)").attr('checked', false);
+                $("#@Html.IdFor(model => @Model.ReturnOnNoAnswer)").attr('checked', false);
+
+                $("#@Html.IdFor(model => @Model.SignatureOnReceipt)").attr('checked', false);
+
+            }
+        });
+
+        $('#postShipmentMyParcel').click(function (ev) {
+            $.ajax({
+                cache:false,
+                type: "POST",
+                url: "@(Url.Action("PostShipment", "MyParcel"))",
+                data: {
+                    "OrderNumber": @Model.OrderNumber,
+                    "ShipmentId": $("#@Html.IdFor(model => @Model.ShipmentId)").val(),
+                    "CreateConceptConsigment":  $("#@Html.IdFor(model => @Model.CreateConceptConsigment)").prop('checked'),
+                    "SizeExtraLarge":  $("#@Html.IdFor(model => @Model.SizeExtraLarge)").prop('checked'),
+                    "ReturnOnNoAnswer":  $("#@Html.IdFor(model => @Model.ReturnOnNoAnswer)").prop('checked'),
+                    "MarkAsSentAfterPost":  $("#@Html.IdFor(model => @Model.MarkAsSentAfterPost)").prop('checked'),
+                    "SignatureOnReceipt":  $("#@Html.IdFor(model => @Model.SignatureOnReceipt)").prop('checked'),
+                    "InsuranceValue": $("#@Html.IdFor(model => @Model.InsuranceValue)").val(),
+                    "WarehouseId": $("#@Html.IdFor(model => @Model.WarehouseId)").val(),
+                    "ShipmentTypeId": $("#@Html.IdFor(model => @Model.ShipmentTypeId)").val(),
+                    "ValidStreetName": $("#@Html.IdFor(model => @Model.ValidStreetName)").val(),
+                    "ValidZipCode": $("#@Html.IdFor(model => @Model.ValidZipCode)").val(),
+                    "ValidHouseNumber": $("#@Html.IdFor(model => @Model.ValidHouseNumber)").val(),
+                    "Weight": $("#@Html.IdFor(model => @Model.Weight)").val(),
+                    "ValidHouseNumberExtension": $("#@Html.IdFor(model => @Model.ValidHouseNumberExtension)").val()
+                },
+            success: function (data) {
+                if(data.Status != null)
+                    alert(data.Status);
+                else
+                    alert('Warning: This shipment could not be posted or has no tracking number.');
+            },
+            error:function (xhr, ajaxOptions, thrownError){
+                alert('Unable to post the shipment to MyParcel!');
+
+            }
+        });
+        });
+        });
+    </script>
+
+
+    <style>
+        .error {
+            color: red;
+        }
+
+        .ok {
+            color: green;
+        }
+    </style>

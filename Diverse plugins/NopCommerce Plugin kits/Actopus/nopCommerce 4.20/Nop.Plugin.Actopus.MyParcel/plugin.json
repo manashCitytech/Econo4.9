@@ -1,0 +1,16 @@
+﻿{
+  "Group": "Shipping",
+  "FriendlyName": "MyParcel shipping provider",
+  "SystemName": "MyParcel",
+  "Version": "1.0",
+  "SupportedVersions": [
+    "4.20"
+  ],
+  "Author": "actOpus",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Actopus.MyParcel.dll",
+  "Description": "This plugin allows for shipping using MyParcel",
+  "LimitedToStores": [],
+  "LimitedToCustomerRoles": [],
+  "DependsOnSystemNames": null
+}

@@ -1,0 +1,275 @@
+﻿@model Actopus.Nop.Plugin.Misc.MyParcel.Models.ConfigurationModel
+@using Nop.Web.Framework;
+@{
+    Layout = "";
+}
+@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="content-header clearfix">
+        <div class="pull-right">
+            <button type="submit" name="save-continue" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+                @T("Admin.Common.SaveContinue")
+            </button>
+        </div>
+    </div>
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.IpAddress)
+                    </div>
+                    <div class="col-md-9">
+                        <div class="callout bg-gray-light no-margin">
+                            @Model.IpAddress
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @T("Actopus.Nop.Plugin.Misc.MyParcel.Headers.WebserviceSettings")
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.OverrideStoreCheckboxFor(model => model.UserName_OverrideForStore, model => model.UserName, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.UserName)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.UserName)
+                        @Html.ValidationMessageFor(model => model.UserName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.OverrideStoreCheckboxFor(model => model.APIKey_OverrideForStore, model => model.APIKey, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.APIKey)
+                    </div>
+                    <div class="col-md-9">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                @Html.NopEditorFor(model => model.APIKey)
+                                @Html.ValidationMessageFor(model => model.APIKey)
+                            </div>
+                            <div class="col-md-9">
+                                <div class="callout bg-gray-light no-margin">
+                                    @Model.APITestResult
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            @{
+                if (Model.WarehouseSetups.Count() > 0)
+                {
+                    <div class="panel-heading">
+                        @T("Actopus.Nop.Plugin.Misc.MyParcel.Headers.WebserviceWarehouseSettings")
+                    </div>
+                    for (var i = 0; i < Model.WarehouseSetups.Count; i++)
+                    {
+                        <div class="panel-heading">
+                            @Html.HiddenFor(model => Model.WarehouseSetups[i].WarehouseId)
+                            @Model.WarehouseSetups[i].Name
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    @Html.NopLabelFor(model => Model.WarehouseSetups[i].UserName)
+                                </div>
+                                <div class="col-md-9">
+                                    @Html.NopEditorFor(model => Model.WarehouseSetups[i].UserName)
+                                    @Html.ValidationMessageFor(model => Model.WarehouseSetups[i].UserName)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    @Html.NopLabelFor(model => Model.WarehouseSetups[i].APIKey)
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            @Html.NopEditorFor(model => Model.WarehouseSetups[i].APIKey)
+                                            @Html.ValidationMessageFor(model => Model.WarehouseSetups[i].APIKey)
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="callout bg-gray-light no-margin">
+                                                @Model.WarehouseSetups[i].APITestResult
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                }
+
+            }
+        </div>
+    </div>
+
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @T("Actopus.Nop.Plugin.Misc.MyParcel.Headers.Post")
+            </div>
+
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.OverrideStoreCheckboxFor(model => model.LabelTag_OverrideForStore, model => model.LabelTag, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.LabelTag)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.LabelTag)
+                        @Html.ValidationMessageFor(model => model.LabelTag)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.OverrideStoreCheckboxFor(model => model.DefaultWeight_OverrideForStore, model => model.DefaultWeight, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.DefaultWeight)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.DefaultWeight)
+                        @Html.ValidationMessageFor(model => model.DefaultWeight)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.OverrideStoreCheckboxFor(model => model.ShipmentTypeId_OverrideForStore, model => model.ShipmentTypeId, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.ShipmentTypeId)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopDropDownListFor(model => model.ShipmentTypeId, Model.ShipmentTypes)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.OverrideStoreCheckboxFor(model => model.MarkAsSentAfterPost_OverrideForStore, model => model.MarkAsSentAfterPost, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.MarkAsSentAfterPost)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.MarkAsSentAfterPost)
+                        @Html.ValidationMessageFor(model => model.MarkAsSentAfterPost)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.OverrideStoreCheckboxFor(model => model.AllowNoNextDoorDelivery_OverrideForStore, model => model.AllowNoNextDoorDelivery, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.AllowNoNextDoorDelivery)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.AllowNoNextDoorDelivery)
+                        @Html.ValidationMessageFor(model => model.AllowNoNextDoorDelivery)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.OverrideStoreCheckboxFor(model => model.NoNextDoorDeliveryPrice_OverrideForStore, model => model.NoNextDoorDeliveryPrice, Model.ActiveStoreScopeConfiguration)
+                        @Html.NopLabelFor(model => model.NoNextDoorDeliveryPrice)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.EditorFor(model => model.NoNextDoorDeliveryPrice)
+                        @Html.ValidationMessageFor(model => model.NoNextDoorDeliveryPrice)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @T("Actopus.Nop.Plugin.Misc.MyParcel.Headers.InsiderTrader")
+            </div>
+            <div class="panel-body">
+                <div class="panel-heading">
+                    @T("Nop.Plugin.Misc.MyParcel.Headers.InsiderTrader.Address")
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.InsiderTraderAddressKey)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.InsiderTraderAddressKey)
+                        @Html.ValidationMessageFor(model => model.InsiderTraderAddressKey)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3">
+                        @Html.NopLabelFor(model => model.InsiderTraderAddressSecret)
+                    </div>
+                    <div class="col-md-9">
+                        @Html.NopEditorFor(model => model.InsiderTraderAddressSecret)
+                        @Html.ValidationMessageFor(model => model.InsiderTraderAddressSecret)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <div class="label-wrapper">
+                            @T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.APITestResult")
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        @Model.InsiderTraderAddressAPITestResult
+                    </div>
+                </div>
+
+                <!--                <div class="panel-heading">
+                                    @T("Nop.Plugin.Misc.MyParcel.Headers.InsiderTrader.Signals")
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        @Html.NopLabelFor(model => model.InsiderTraderSignalsKey)
+                                    </div>
+                                    <div class="col-md-9">
+                                        @Html.NopEditorFor(model => model.InsiderTraderSignalsKey)
+                                        @Html.ValidationMessageFor(model => model.InsiderTraderSignalsKey)
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        @Html.NopLabelFor(model => model.InsiderTraderSignalsSecret)
+                                    </div>
+                                    <div class="col-md-9">
+                                        @Html.NopEditorFor(model => model.InsiderTraderSignalsSecret)
+                                        @Html.ValidationMessageFor(model => model.InsiderTraderSignalsSecret)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <div class="label-wrapper">
+                                            @T("Actopus.Nop.Plugin.Misc.MyParcel.Fields.APITestResult")
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        @Model.InsiderTraderSignalsAPITestResult
+                                    </div>
+                                </div>
+                -->
+            </div>
+        </div>
+    </div>
+}
