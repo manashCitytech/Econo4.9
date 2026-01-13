@@ -1,0 +1,192 @@
+@model ConfigurationModel
+
+@{
+    Layout = "_ConfigurePlugin";
+    NopHtml.SetActiveMenuItemSystemName("GoogleAnalytics.Configure");
+}
+
+@await Component.InvokeAsync(typeof(StoreScopeConfigurationViewComponent))
+<form asp-controller="GoogleAnalytics" asp-action="Configure" method="post">
+    <div class="card card-default">
+        <div class="card-body">
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.LicenseKey_OverrideForStore" asp-input="@Model.LicenseKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.LicenseKey" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.LicenseKey" />
+                    <span asp-validation-for="@Model.LicenseKey"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.GoogleId_OverrideForStore" asp-input="@Model.GoogleId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.GoogleId" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.GoogleId" />
+                    <span asp-validation-for="@Model.GoogleId"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.TrackingScript_OverrideForStore" asp-input="@Model.TrackingScript" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.TrackingScript" />
+                </div>
+                <div class="col-md-10">
+                    <nop-textarea rows="8" asp-for="@Model.TrackingScript" />
+                    <span asp-validation-for="@Model.TrackingScript"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.EnableEcommerce_OverrideForStore" asp-input="@Model.EnableEcommerce" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.EnableEcommerce" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.EnableEcommerce" />
+                    <span asp-validation-for="@Model.EnableEcommerce"></span>
+                </div>
+            </div>
+
+            <nop-nested-setting asp-for="@Model.EnableEcommerce">
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        <nop-override-store-checkbox asp-for="@Model.IncludingTax_OverrideForStore" asp-input="@Model.IncludingTax" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="@Model.IncludingTax" />
+                    </div>
+                    <div class="col-md-10">
+                        <nop-editor asp-for="@Model.IncludingTax" />
+                        <span asp-validation-for="@Model.IncludingTax"></span>
+                    </div>
+                </div>
+            </nop-nested-setting>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.IncludeCustomerId_OverrideForStore" asp-input="@Model.IncludeCustomerId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.IncludeCustomerId" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.IncludeCustomerId" />
+                    <span asp-validation-for="@Model.IncludeCustomerId"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.EnableAddToCartEvent_OverrideForStore" asp-input="@Model.EnableAddToCartEvent" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.EnableAddToCartEvent" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.EnableAddToCartEvent" />
+                    <span asp-validation-for="@Model.EnableAddToCartEvent"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.EnableRemoveFromCartEvent_OverrideForStore" asp-input="@Model.EnableRemoveFromCartEvent" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.EnableRemoveFromCartEvent" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.EnableRemoveFromCartEvent" />
+                    <span asp-validation-for="@Model.EnableRemoveFromCartEvent"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.EnablePurchaseEvent_OverrideForStore" asp-input="@Model.EnablePurchaseEvent" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.EnablePurchaseEvent" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.EnablePurchaseEvent" />
+                    <span asp-validation-for="@Model.EnablePurchaseEvent"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.EnableViewItemEvent_OverrideForStore" asp-input="@Model.EnableViewItemEvent" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.EnableViewItemEvent" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.EnableViewItemEvent" />
+                    <span asp-validation-for="@Model.EnableViewItemEvent"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.EnableViewItemListEvent_OverrideForStore" asp-input="@Model.EnableViewItemListEvent" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.EnableViewItemListEvent" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.EnableViewItemListEvent" />
+                    <span asp-validation-for="@Model.EnableViewItemListEvent"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.EnableViewCartEvent_OverrideForStore" asp-input="@Model.EnableViewCartEvent" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.EnableViewCartEvent" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.EnableViewCartEvent" />
+                    <span asp-validation-for="@Model.EnableViewCartEvent"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.EnableBeginCheckoutEvent_OverrideForStore" asp-input="@Model.EnableBeginCheckoutEvent" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.EnableBeginCheckoutEvent" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.EnableBeginCheckoutEvent" />
+                    <span asp-validation-for="@Model.EnableBeginCheckoutEvent"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.EnableAddPaymentInfoEvent_OverrideForStore" asp-input="@Model.EnableAddPaymentInfoEvent" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.EnableAddPaymentInfoEvent" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.EnableAddPaymentInfoEvent" />
+                    <span asp-validation-for="@Model.EnableAddPaymentInfoEvent"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <nop-override-store-checkbox asp-for="@Model.EnableAddShippingIngoEvent_OverrideForStore" asp-input="@Model.EnableAddShippingInfoEvent" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                    <nop-label asp-for="@Model.EnableAddShippingInfoEvent" />
+                </div>
+                <div class="col-md-10">
+                    <nop-editor asp-for="@Model.EnableAddShippingInfoEvent" />
+                    <span asp-validation-for="@Model.EnableAddShippingInfoEvent"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                </div>
+                <div class="col-md-10">
+                    <button style="margin-top: 10px;" type="submit" class="btn btn-primary">
+                        <i class="fa fa-save"></i>
+                        @T("Admin.Common.Save")
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

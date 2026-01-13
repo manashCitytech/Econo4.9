@@ -1,0 +1,27 @@
+@model ConditionStatementModel
+
+@{
+    Layout = "_AdminPopupLayout";
+    NopHtml.AddScriptParts(ResourceLocation.Footer, "~/Plugins/NopTech.Core/Content/Conditions.js");
+}
+
+@if (ViewBag.RefreshPage == true)
+{
+    <script>
+        var tableId = '#condition-group-' + @Model.ConditionGroupId;
+        window.opener.postMessage({ action: 'updateGroupTable', tableId: tableId }, '*');
+        window.close();
+    </script>
+}
+
+<div class="container-fluid">
+    <div class="form-horizontal">
+        <form asp-controller="NopTechCondition" asp-action="UpdateRecordInConditionGroup" method="post">
+            <input type="number" asp-for="@Model.Id" hidden />
+            <input type="number" asp-for="@Model.ConditionGroupId" hidden />
+            <div class="card card-default">
+                @await Html.PartialAsync("~/Plugins/NopTech.Core/Views/Conditions/_CreateOrUpdate.ConditionStatement.cshtml", Model)
+            </div>
+        </form>
+    </div>
+</div>

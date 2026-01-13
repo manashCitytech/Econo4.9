@@ -1,0 +1,11 @@
+﻿{
+  "Group": "noptech",
+  "FriendlyName": "Google Analytics",
+  "SystemName": "NopTech.GoogleAnalytics",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.90" ],
+  "Author": "nop-tech.com",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.NopTech.GoogleAnalytics.dll",
+  "Description": "This plugin integrates with Google Analytics. It keeps track of statistics about the visitors and ecommerce conversion on your website"
+}

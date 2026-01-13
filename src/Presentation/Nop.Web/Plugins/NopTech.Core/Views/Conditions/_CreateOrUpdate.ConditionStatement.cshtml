@@ -1,0 +1,176 @@
+@model ConditionStatementModel
+
+@{
+    NopHtml.AddCssFileParts("https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css");
+    NopHtml.AddScriptParts(ResourceLocation.Footer, "https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js");
+}
+
+<div class="card-body">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="form-group row mb-2">
+        <div class="col-sm-3">
+            <nop-label asp-for="@Model.ConditionType" />
+        </div>
+        <div class="col-sm-9">
+            <nop-select asp-for="@Model.ConditionType" asp-items="@Model.ConditionTypes" id="condition-statement-type" />
+            <span asp-validation-for="@Model.ConditionType"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2">
+        <div class="col-sm-3">
+            <nop-label asp-for="@Model.ConditionProperty" />
+        </div>
+        <div class="col-sm-9">
+            @if (Model.ConditionProperty > 0)
+            {
+                <nop-select asp-for="@Model.ConditionProperty" asp-items="@Model.ConditionProperties" id="condition-statement-props" />
+            }
+            else
+            {
+                <nop-select asp-for="@Model.ConditionProperty" disabled asp-items="@Model.ConditionProperties" id="condition-statement-props" />
+            }
+            <span asp-validation-for="@Model.ConditionProperty"></span>
+        </div>
+    </div>
+
+    <div class="form-group row mb-2 operator-type" @(Model.ConditionType == 7 ? Html.Raw("style=\"display: none;\"") : "")>
+        <div class="col-sm-3">
+            <nop-label asp-for="@Model.OperatorType" />
+        </div>
+        <div class="col-sm-9">
+            @if (Model.OperatorType > 0)
+            {
+                <nop-select asp-for="@Model.OperatorType" asp-items="@Model.OperatorTypes" id="condition-statement-operator" />
+            }
+            else
+            {
+                <nop-select asp-for="@Model.OperatorType" disabled asp-items="@Model.OperatorTypes" id="condition-statement-operator" />
+            }
+            <span asp-validation-for="@Model.OperatorType"></span>
+        </div>
+    </div>
+
+    <div class="form-group mb-2 row value" @(Model.ConditionType == 7 ? Html.Raw("style=\"display: none;\"") : "")>
+        <div class="col-sm-3">
+            <nop-label asp-for="@Model.Value" />
+        </div>
+        <div class="col-sm-9">
+            <div id="condition-statement-value">
+                @if (Model.Values.Any())
+                {
+                    <nop-select asp-for="@Model.Value" asp-items="@Model.Values" />
+                }
+                else
+                {
+                    <nop-editor asp-for="@Model.Value" />
+                }
+                <span asp-validation-for="@Model.Value"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mb-2 row month-from-day" style="display: none;">
+        <div class="col-sm-3">
+            <nop-label asp-for="@Model.EveryMonthFromDay" />
+        </div>
+        <div class="col-sm-9">
+            <nop-select asp-for="@Model.EveryMonthFromDay" asp-items="@Model.MonthDays" />
+            <span asp-validation-for="@Model.EveryMonthFromDay"></span>
+        </div>
+    </div>
+
+    <div class="form-group mb-2 row month-to-day" style="display: none;">
+        <div class="col-sm-3">
+            <nop-label asp-for="@Model.EveryMonthToDay" />
+        </div>
+        <div class="col-sm-9">
+            <nop-select asp-for="@Model.EveryMonthToDay" asp-items="@Model.MonthDays" />
+            <span asp-validation-for="@Model.EveryMonthToDay"></span>
+        </div>
+    </div>
+
+    <div class="form-group mb-2 row from-date" style="display: none;">
+        <div class="col-sm-3">
+            <nop-label asp-for="@Model.FromDate" />
+        </div>
+        <div class="col-sm-9">
+            <nop-editor asp-for="@Model.FromDate" />
+            <div>
+                <span asp-validation-for="@Model.FromDate"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mb-2 row to-date" style="display: none;">
+        <div class="col-sm-3">
+            <nop-label asp-for="@Model.ToDate" />
+        </div>
+        <div class="col-sm-9">
+            <nop-editor asp-for="@Model.ToDate" />
+            <div>
+                <span asp-validation-for="@Model.ToDate"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mb-2 row from-time" style="display: none;">
+        <div class="col-sm-3">
+            <nop-label asp-for="@Model.FromTime" />
+        </div>
+        <div class="col-sm-9">
+            <input asp-for="@Model.FromTime" />
+            <span asp-validation-for="@Model.FromTime"></span>
+        </div>
+    </div>
+
+    <div class="form-group mb-2 row to-time" style="display: none;">
+        <div class="col-sm-3">
+            <nop-label asp-for="@Model.ToTime" />
+        </div>
+        <div class="col-sm-9">
+            <input asp-for="@Model.ToTime" />
+            <span asp-validation-for="@Model.ToTime"></span>
+        </div>
+    </div>
+
+    <div class="form-group mb-2 row exact-day" style="display: none;">
+        <div class="col-sm-3">
+            <nop-label asp-for="@Model.ExactDay" />
+        </div>
+        <div class="col-sm-9">
+            <nop-editor asp-for="@Model.ExactDay" />
+            <div>
+                <span asp-validation-for="@Model.ExactDay"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group mb-2 row">
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-9">
+            <button class="btn btn-success" type="submit">@T("Admin.Common.Save")</button>
+        </div>
+    </div>
+</div>
+
+<script asp-location="Footer">
+    $('#@Html.IdFor(model => model.FromTime)').timepicker({
+        timeFormat: 'HH:mm',
+        interval: 30,
+        defaultTime: '@Model.FromTime',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+
+    $('#@Html.IdFor(model => model.ToTime)').timepicker({
+        timeFormat: 'HH:mm',
+        interval: 30,
+        defaultTime: '@Model.ToTime',
+        dynamic: false,
+        dropdown: true,
+        scrollbar: true
+    });
+</script>

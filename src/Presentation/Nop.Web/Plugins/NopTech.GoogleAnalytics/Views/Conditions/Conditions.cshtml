@@ -1,0 +1,80 @@
+﻿@model ConditionModel
+
+@{
+    const string hideConditionAttributeName = "HideConditionBlock";
+    var hideConditionBlock = await genericAttributeService.GetAttributeAsync<bool>(await workContext.GetCurrentCustomerAsync(), hideConditionAttributeName, defaultValue: false);
+    NopHtml.AddScriptParts(ResourceLocation.Footer, "~/Plugins/NopTech.Core/Content/Conditions.js");
+}
+
+<input type="hidden" value="@Model.ConditionGroupIds.FirstOrDefault()" id="condition-group-id" />
+<input type="hidden" value="@Model.Id" id="condition-id" />
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <nop-card asp-name="Condition" asp-icon="fas fa-magic" asp-title="@T("Noptech.Core.Conditions.Title.Condition")" asp-hide-block-attribute-name="@hideConditionAttributeName" asp-hide="@hideConditionBlock" asp-advanced="false">
+                <div class="card-body">
+                    <div class="card pt-5 pb-5">
+                        <div class="form-group row">
+                            <div class="col-md-1">
+                                <nop-label asp-for="@Model.Name" />
+                            </div>
+                            <div class="col-md-6">
+                                <input class="form-control text-area" asp-for="@Model.Name" id="condition-name" name="condition-name" />
+                                <span asp-validation-for="@Model.Name"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-1">
+                                <nop-label asp-for="@Model.State" />
+                            </div>
+                            <div class="col-md-6">
+                                <nop-select asp-for="@Model.StateTypeId" asp-items="@Model.StateTypes" id="condition-state" />
+                            </div>
+                        </div>
+
+                        <div class="form-group row mt-2">
+                            <div class="col-md-1"></div>
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-primary" onclick="updateDefaultCondition('@Model.Id')">
+                                    <i class="far fa-save"></i>@T("Noptech.Core.Conditions.Button.Update")
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Model.ConditionGroupIds.Count > 1)
+                    {
+                        <br>
+                    }
+
+                    <div class="form-group mb-3">
+                        <button id="add-condition-group" onclick="addConditionGroup()" type="button" class="btn btn-primary">
+                            <i class="fas fa-plus-square"></i>@T("Noptech.Core.Conditions.Button.AddConditionGroup")
+                        </button>
+                    </div>
+
+                    @foreach (var groupId in Model.ConditionGroupIds.Skip(1))
+                    {
+                        @await Html.PartialAsync("~/Plugins/NopTech.Core/Views/Conditions/_ConditionGroupStatement.cshtml", new ConditionStatementSearchModel() { GroupId = groupId })
+
+                        if (Model.ConditionGroupIds.Last() != groupId)
+                        {
+                            <p class="row justify-content-center mb-2">--OR--</p>
+                        }
+                    }
+                </div>
+            </nop-card>
+        </div>
+    </div>
+</section>
+
+<script>
+    window.addEventListener('message', function (event) {
+        if (event.source === childWindow && event.data.action === 'updateGroupTable') {
+            var tableId = event.data.tableId;
+            updateTable(tableId);
+        }
+    });
+</script>

@@ -1,0 +1,252 @@
+﻿@model Actopus.Nop.Plugin.Payments.Mollie.Models.ConfigurationModel
+@{
+    
+     Layout = "_ConfigurePlugin";
+}
+@await Component.InvokeAsync("StoreScopeConfiguration")
+
+<form asp-controller="PaymentMollie" asp-action="Configure" method="post">
+    <div class="cards-group">
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <b>@T("Nop.Plugin.Actopus.Mollie.Notes")</b>
+                    </div>
+                </div>
+                <div class="cards-group">
+                    <div class="card card-default">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    IP address
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="callout bg-gray-light no-margin">
+                                        @Model.IpAddress
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card card-default">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    Host
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="callout bg-gray-light no-margin">
+                                        @Model.Host
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cards-group">
+                    <div class="card card-default">
+                        <div class="card-body">
+                            @if (Model.LicenseNotification)
+                            {
+                                <h2>Mollie plugin NOT yet activated</h2>
+                                <p>
+                                    In order to activate this Mollie payment plugin please follow the next steps:
+                                </p>
+                                <ol>
+                                    <li>
+                                        First purchase a valid license key for this host: @Model.Host at <a href="http://www.actopus.com/en/mollie-payment-plug-in-for-nopcommerce" target="_blank">www.actopus.com/en/mollie-payment-plug-in-for-nopcommerce</a>
+                                    </li>
+                                    <li>
+                                        Next enter your license key in the box named 'License Key'. You may enter multiple license keys by putting them on seperate lines.
+                                    </li>
+                                    <li>
+                                        In case the Mollie payment plugin cannot be loaded: Register this plugin again and then run the config again.
+                                    </li>
+                                    <li>
+                                        Can't get the plugin to work: contact us at <a href="mailto:info@actopus.com">actOpus support</a>.
+                                    </li>
+                                </ol>
+                                <br />
+                                <p>
+                                    This plugin supports all payment methods that you enable in your Mollie Dashboard (except for Klarna).
+                                </p>
+                            }
+                            else
+                            {
+                                <h2>Mollie plugin is active</h2>
+                                <p>
+                                    You have a valid license key for this host. <br />
+                                </p>
+
+                                <p>
+                                    In order to use this Mollie payment plugin please follow the next steps:
+                                </p>
+                                <ol>
+                                    <li>
+                                        Create a Mollie website profile in your Mollie dashboard. Your Mollie dashboard can be accessed from here: <a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">Mollie dashboard profiles</a>
+                                    </li>
+                                    <li>
+                                        Copy the Live and Test API keys from your Mollie website profile into the fields below. Your Mollie dashboard can be accessed from here: <a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">Mollie dashboard profiles</a>
+                                    </li>
+                                    <li>
+                                        Enable the payment methods in your Mollie website profile. Your Mollie dashboard can be accessed from here: <a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">Mollie dashboard profiles</a>
+                                    </li>
+                                    <li>
+                                        Optionally (but recommended) you may personalize your Mollie Payment Screen for your Mollie Website profile. Your Mollie dashboard can be accessed from here: <a href="https://www.mollie.com/dashboard/settings/profiles" target="_blank">Mollie dashboard profiles</a>
+                                    </li>
+                                    <li>
+                                        Finally update your privacy policy to reflect the GDPR/AVG ruling.
+                                    </li>
+                                </ol>
+                                <p>
+                                    This plugin supports all payment methods that you enable in your Mollie Dashboard except for Klarna.
+                                </p>
+                                <p>
+                                    Interested in an accounting application that integrates with nopCommerce? Check out <a href="http://www.nopfinance.com/" target="_blank">NopFinance&reg;</a>
+                                </p>
+                            }
+                            <h2>Actopus license keys</h2>
+                            <p>
+                                You may enter multiple license keys by putting them on seperate lines.
+                            </p>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="ActOpusLicenseKey_OverrideForStore" asp-input="ActOpusLicenseKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    License keys
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-textarea asp-for="ActOpusLicenseKey" />
+                                    <span asp-validation-for="ActOpusLicenseKey"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="submit" name="save" class="btn bg-blue" value="Save to activate" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="LiveAPIKey_OverrideForStore" asp-input="LiveAPIKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="LiveAPIKey" />
+                    </div>
+                    <div class="col-md-8">
+                        <nop-editor asp-for="LiveAPIKey" />
+                        <span asp-validation-for="LiveAPIKey"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="TestAPIKey_OverrideForStore" asp-input="TestAPIKey" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="TestAPIKey" />
+                    </div>
+                    <div class="col-md-8">
+                        <nop-editor asp-for="TestAPIKey" />
+                        <span asp-validation-for="TestAPIKey"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="PreferOrderReference_OverrideForStore" asp-input="PreferOrderReference" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="PreferOrderReference" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="PreferOrderReference" />
+                        <span asp-validation-for="PreferOrderReference"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="TestModeActive_OverrideForStore" asp-input="TestModeActive" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="TestModeActive" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="TestModeActive" />
+                        <span asp-validation-for="TestModeActive"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="AdditionalFee_OverrideForStore" asp-input="AdditionalFee" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="AdditionalFee" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="AdditionalFee" />
+                        <span asp-validation-for="AdditionalFee"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="AdditionalFeePercentage_OverrideForStore" asp-input="AdditionalFeePercentage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="AdditionalFeePercentage" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="AdditionalFeePercentage" />
+                        <span asp-validation-for="AdditionalFeePercentage"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <nop-override-store-checkbox asp-for="ShowOrderDetailsUponCompletion_OverrideForStore" asp-input="ShowOrderDetailsUponCompletion" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                        <nop-label asp-for="ShowOrderDetailsUponCompletion" />
+                    </div>
+                    <div class="col-md-9">
+                        <nop-editor asp-for="ShowOrderDetailsUponCompletion" />
+                        <span asp-validation-for="ShowOrderDetailsUponCompletion"></span>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-9 offset-md-3">
+                        <button type="submit" name="save" class="btn btn-primary">@T("Admin.Common.Save")</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="cards-group">
+        <div class="card card-default">
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <b>@T("Nop.Plugin.Actopus.Mollie.Notes.MethodInfo")</b>
+                    </div>
+                </div>
+                @if (Model.Methods != null && Model.Methods._embedded != null && Model.Methods._embedded.methods.Count() > 0)
+                {
+                    foreach (var method in Model.Methods._embedded.methods)
+                    {
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @method.description
+                            </div>
+                            <div class="col-md-9">
+                                <img src="@method.image.size1x" />
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @T("Nop.Plugin.Actopus.Mollie.Fields.Methods.None")
+                        </div>
+                        <div class="col-md-9">
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+

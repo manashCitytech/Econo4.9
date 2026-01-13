@@ -1,0 +1,27 @@
+﻿@model WZModel
+
+@{
+    //page title
+    ViewBag.PageTitle = T("NopTech.Core.WidgetZones").Text;
+    //active menu item (system name)
+    NopHtml.SetActiveMenuItemSystemName("NopTechCore");
+
+    Layout = "_AdminLayout";
+}
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="content-header clearfix">
+                    <h3 class="float-left">
+                        @T("NopTech.Core.WidgetZones")
+                    </h3>
+                </div>
+            </div>
+            <nop-cards id="wz-cards">
+                <nop-card asp-name="widgeet-zones" asp-icon="fas fa-sitemap" asp-title="@T("NopTech.Core.WidgetZones")" asp-hide-block-attribute-name="false" asp-hide="false">@await Html.PartialAsync("~/Plugins/NopTech.Core/Views/_List.WidgetZones.cshtml", Model)</nop-card>
+            </nop-cards>
+        </div>
+    </div>
+</section>
