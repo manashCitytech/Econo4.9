@@ -44,11 +44,14 @@
 
 <div class="master-wrapper-page">
     <div class="master-header-wrapper-parent">
+       
         <div class="master-header-wrapper">
             @await Component.InvokeAsync(typeof(AdminHeaderLinksViewComponent))
             <div class="header-wrapper">
+               
                 @{ await Html.RenderPartialAsync("_Header"); }
                 <div class="responsive-nav-wrapper-parent">
+                    
                     <div class="responsive-nav-wrapper">
                         <div class="menu-title">
                             <span>@T("SevenSpikes.Themes.Common.MenuTitle")</span>
@@ -56,6 +59,7 @@
                         <div class="search-wrap">
                             <span>@T("Search")</span>
                         </div>
+                    
                         <div class="personal-button" id="header-links-opener">
                             <span>@T("SevenSpikes.Themes.Common.Personal")</span>
                         </div>
@@ -76,10 +80,15 @@
                             </div>
                         }
                     </div>
+                    <div>
+                        @T("Trustpilot")
+                    </div>
                 </div>
             </div>
         </div>
+       
         <div class="overlayOffCanvas"></div>
+      
         <div class="header-menu">
             <div class="navigation-wrapper">
                 <div class="close-menu">
@@ -99,6 +108,7 @@
             }
         </div>
     </div>
+  
     @if (isHomePage)
     {
         if (sliderType == "full-width-slider")
@@ -123,10 +133,11 @@
             </div>
         }
     }
+   
     <div class="master-wrapper-content" id="main" role="main">
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ContentBefore })
         @await Component.InvokeAsync("Widget", new { widgetZone = "prisma_color_squares" })
-        @T("Trustpilot")
+       
 
         @if (IsSectionDefined("Breadcrumb"))
         {
