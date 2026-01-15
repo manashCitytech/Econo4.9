@@ -108,3 +108,30 @@ F:\Nopcommerce Projects\Econo4.9\src\Presentation\Nop.Web\Plugins\FoxNetSoft.PDF
 try to register
 registered.
 
+2026.01.15 16:36:57:3398*******
+Checking for shadowcopy DLL update...
+No shadowcopy DLL found. Skipping update.
+
+2026.01.15 16:36:57:3547*******
+Register native library
+C:\Users\subrata.ghosh\source\repos\manashCitytech\Econo4.9\src\Presentation\Nop.Web\Plugins\FoxNetSoft.PDFInvoice\native\libwkhtmltox.dll
+Error. Can't find the file.
+
+2026.01.15 16:47:19:0120*******
+Checking for shadowcopy DLL update...
+No shadowcopy DLL found. Skipping update.
+
+2026.01.15 16:47:19:0267*******
+Register native library
+C:\Users\subrata.ghosh\source\repos\manashCitytech\Econo4.9\src\Presentation\Nop.Web\Plugins\FoxNetSoft.PDFInvoice\native\libwkhtmltox.dll
+Error. Can't find the file.
+
+2026.01.15 17:51:57:3299*******
+Checking for shadowcopy DLL update...
+No shadowcopy DLL found. Skipping update.
+
+2026.01.15 17:51:57:3473*******
+Register native library
+C:\Users\subrata.ghosh\source\repos\manashCitytech\Econo4.9\src\Presentation\Nop.Web\Plugins\FoxNetSoft.PDFInvoice\native\libwkhtmltox.dll
+Error. Can't find the file.
+

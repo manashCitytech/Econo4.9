@@ -9279,3 +9279,30 @@ div#quickTabs{
         min-height: 150px;
     }
 }
+
+/*CSS form design fixing 15-01-2026
+================================================*/
+
+.responsive-nav-wrapper > div.trust_pilot {
+  max-width: 220px;
+  min-width: 220px;
+  width: 100%;
+  display: block;
+}
+
+@media screen and (max-width: 1150px){
+  .header-wrapper {
+    padding: 8px 5px 45px;
+  }
+
+  .responsive-nav-wrapper > div.trust_pilot {
+    max-width: 220px;
+    min-width: 220px;
+    width: 100%;
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+  }
+}
