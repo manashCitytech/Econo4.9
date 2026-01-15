@@ -70,8 +70,8 @@ DESKTOP
         position: relative;
         z-index: 1020;
         width:  86%;
-        width: -webkit-calc(100% - 165px);
-        width: calc(100% - 165px);
+        width: -webkit-calc(100% - 220px);
+        width: calc(100% - 220px);
     }
     .header .search-box {
         display: inline-block;
@@ -588,10 +588,13 @@ DESKTOP
         padding-top: 62px;
         min-height:156px;
     }
-    .product-grid .item-box .buttons-wrapper {
-        display: block;
-        white-space: nowrap;
-    }
+  .product-grid .item-box .buttons-wrapper {
+    /*display: block;
+        white-space: nowrap;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
     .home-page .topic-block {
         padding: 50px 0;
     }
@@ -1233,6 +1236,6 @@ DESKTOP
         display: inline-block;
         line-height: 1.2;
       }
-
+  
   
 }
