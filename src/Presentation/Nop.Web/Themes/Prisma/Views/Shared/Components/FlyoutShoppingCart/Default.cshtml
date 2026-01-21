@@ -45,7 +45,11 @@
                             <div class="quantity">@T("ShoppingCart.Mini.Quantity"): <span>@item.Quantity</span></div>
                             <div class="price">@T("ShoppingCart.Mini.UnitPrice"): <span>@item.UnitPrice</span></div>
                         </div>
-                        <a class="remove-item" href="javascript:;" title="remove">remove</a>
+                        @if (item.ProductId != 681)
+                        {
+                            <a class="remove-item" href="javascript:;" title="remove">remove</a>
+                        }
+                        
                     </div>
                 }
             </div>

@@ -107,7 +107,7 @@
                                 @if (Model.IsEditable)
                                 {
                                     <td class="remove-from-cart">
-				                        @if (item.DisableRemoval)
+				                        @if (item.DisableRemoval || item.ProductId==681)
 				                        {
 				                            <text>&nbsp;</text>
 				                        }
@@ -237,7 +237,7 @@
                                 @if (Model.IsEditable)
                                 {
                                     <td class="remove-from-cart">
-                                        @if (item.DisableRemoval)
+                                        @if (item.DisableRemoval || item.ProductId==681)
                                         {
                                             <text>&nbsp;</text>
                                         }

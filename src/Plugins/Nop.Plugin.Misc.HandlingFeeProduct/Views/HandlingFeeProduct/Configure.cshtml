@@ -1,0 +1,53 @@
+﻿@model Nop.Plugin.Misc.HandlingFeeProduct.Models.ConfigurationModel
+
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+@await Component.InvokeAsync("StoreScopeConfiguration")
+<form asp-controller="HandlingFeeProduct" asp-action="Configure" method="post">
+    <div class="cards-group">
+        <div class="form-horizontal">
+            <div class="card card-default">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-override-store-checkbox asp-for="SubTotalAmountTreshold_OverrideForStore" asp-input="SubTotalAmountTreshold" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                            <nop-label asp-for="SubTotalAmountTreshold" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="SubTotalAmountTreshold" />
+                            <span asp-validation-for="SubTotalAmountTreshold"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-override-store-checkbox asp-for="ProductIdtoAdd_OverrideForStore" asp-input="ProductIdtoAdd" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                            <nop-label asp-for="ProductIdtoAdd" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="ProductIdtoAdd" />
+                            <span asp-validation-for="ProductIdtoAdd"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <nop-override-store-checkbox asp-for="IgnoreGiftCards_OverrideForStore" asp-input="IgnoreGiftCards" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                            <nop-label asp-for="IgnoreGiftCards" />
+                        </div>
+                        <div class="col-md-9">
+                            <nop-editor asp-for="IgnoreGiftCards" />
+                            <span asp-validation-for="IgnoreGiftCards"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="text-center col-md-9 col-md-offset-3">
+                            <input type="submit" name="save" class="btn bg-blue" value="@T("Admin.Common.Save")" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</form>

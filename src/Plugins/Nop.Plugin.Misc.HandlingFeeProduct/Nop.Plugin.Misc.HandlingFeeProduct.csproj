@@ -9,6 +9,8 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="plugin.json" />
+    <None Remove="Views\HandlingFeeProduct\Configure.cshtml" />
+    <None Remove="Views\HandlingFeeProduct\_ViewImports.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(SolutionDir)\Presentation\Nop.Web.Framework\Nop.Web.Framework.csproj" />
@@ -18,9 +20,12 @@
     <Content Include="plugin.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
+    <Content Include="Views\HandlingFeeProduct\Configure.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\HandlingFeeProduct\_ViewImports.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <!-- This target executes after "Build" target -->
   <Target Name="NopTarget" AfterTargets="Build">
