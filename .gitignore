@@ -207,3 +207,8 @@ src/packages/*
 src/Tests/Nop.Tests/Connections.resx
 /New Db/Econo43_20-01_2026.bak
 /language_pack.nl-NL.xml
+/4.3 dll/Nop.Core.dll
+/.gitignore
+/src/Presentation/Nop.Web/Content/Files/Attachments/855_Instruction.txt
+/.gitignore
+/.gitignore
